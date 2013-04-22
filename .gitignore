@@ -7,6 +7,44 @@
 /swprojectfolder/helichallenge/.ProcessorExpert.g_x
 /swprojectfolder/helichallenge/.ProcessorExpert.g_c
 
+
+# Eagle files #
+###############
+# It contains a serial number and references to the file structure on your computer.
+eagle.epf
+*.s#?
+*.b#?
+*.l#?
+# CAM files
+*.$$$
+*.cmp
+*.ly2
+*.l15
+*.sol
+*.plc
+*.stc
+*.sts
+*.crc
+*.crs
+
+*.dri
+*.drl
+*.gpi
+*.pls
+
+*.drd
+*.drd.*
+
+*.info
+
+*.eps
+
+
+# Private SVN #
+###############
+.svn/
+
+
 # OS generated files #
 ######################
 .DS_Store
@@ -17,6 +55,8 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 
 # others #
 ##########
