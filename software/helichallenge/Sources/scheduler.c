@@ -47,7 +47,7 @@ static portTASK_FUNCTION(Task3, pvParameters) {
   (void)pvParameters; /* parameter not used */
   for(;;) {
     //display_FlashAll();
-    uart_SendStringLn((unsigned char*)"Task3");
+    uart_SendStringLn((unsigned char*)("Task3\n"));
     FRTOS1_vTaskDelay(1500/portTICK_RATE_MS);
   }
 } 
@@ -62,7 +62,10 @@ static portTASK_FUNCTION(Task4, pvParameters) {
   (void)pvParameters; /* parameter not used */
   for(;;) {
     LED_G_Neg();
-    uart_SendStringLn((unsigned char*)"Task4");
+    uint16 printout = js_Move();
+    uart_SendStringLn((unsigned char*)"Y microseconds:");
+    uart_SendInt16(printout);
+    uart_SendStringLn((unsigned char*)"\n");
     FRTOS1_vTaskDelay(2500/portTICK_RATE_MS);
   }
 } 
