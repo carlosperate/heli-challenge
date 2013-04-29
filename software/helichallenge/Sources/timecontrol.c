@@ -1,6 +1,6 @@
 /**
  * @file timecontrol.c
- * @date 28/04/2012
+ * @date 28/04/2013
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include "timecontrol.h"
@@ -16,14 +16,10 @@ static uint8 timeMinutesPart = 0;
 static bool isRunning = FALSE;
 
 
-/* Local functions */
-void time_ConvertSecondsToMinutesAndSeconds();
-
-
 /** 
  * Initialises all the settings of the elapsed game time.
  *************************************************************************** */
-void time_Init() {
+void time_Init(void) {
   time_Reset();
 }
 
@@ -33,7 +29,7 @@ void time_Init() {
  * When the game has stated, it adds one second to the counter and stores the
  * time in total seconds and a "minutes and seconds" format.
  *************************************************************************** */
-void time_Tick1Sec() {
+void time_Tick1Sec(void) {
   if(isRunning) {
     timeInSeconds++;
     
@@ -55,7 +51,7 @@ void time_Tick1Sec() {
  * Resets all settings and indicates the start of the game and allows the
  * time_Tick1Sec function to count time.
  *************************************************************************** */
-void time_Start() {
+void time_Start(void) {
   time_Reset();
   isRunning = TRUE;
 }
@@ -64,7 +60,7 @@ void time_Start() {
 /** 
  * Pauses the current game time counter.
  *************************************************************************** */
-void time_Pause() {
+void time_Pause(void) {
   isRunning = FALSE;
 }
 
@@ -72,7 +68,7 @@ void time_Pause() {
 /** 
  * Ends the game counter.
  *************************************************************************** */
-void time_End() {
+void time_End(void) {
   isRunning = FALSE;
 }
 
@@ -80,7 +76,7 @@ void time_End() {
 /** 
  * Resets all the timer settings.
  *************************************************************************** */
-void time_Reset() {
+void time_Reset(void) {
   timeInSeconds = 0;
   timeSecondsPart = 0;
   timeMinutesPart = 0;
@@ -92,7 +88,7 @@ void time_Reset() {
  * Returns the time in total seconds.
  * @return The seconds in an unsigned 16 bits integer
  *************************************************************************** */
-uint16 time_GetTimeInSeconds() {
+uint16 time_GetTimeInSeconds(void) {
   return timeInSeconds;
 }
 
@@ -102,7 +98,7 @@ uint16 time_GetTimeInSeconds() {
  * @return The minutes as defined in the description in an unsigned 8 bits
  *         integer
  *************************************************************************** */
-uint8 time_GetTimeInMinutes() {
+uint8 time_GetTimeInMinutes(void) {
   if(timeSecondsPart>30) {
     return (timeMinutesPart + 1);
   }
@@ -115,7 +111,7 @@ uint8 time_GetTimeInMinutes() {
  * @return The seconds as defined in the description in an unsigned 8 bits
  *         integer
  *************************************************************************** */
-uint8 time_GetSecondsPortion() {
+uint8 time_GetSecondsPortion(void) {
   return timeSecondsPart;
 }
 
@@ -125,7 +121,7 @@ uint8 time_GetSecondsPortion() {
  * @return The minutes as defined in the description in an unsigned 8 bits
  *         integer
  *************************************************************************** */
-uint8 time_GetMinutesPortion() {
+uint8 time_GetMinutesPortion(void) {
   return timeMinutesPart;
 }
 

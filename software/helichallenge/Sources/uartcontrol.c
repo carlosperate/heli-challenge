@@ -1,6 +1,6 @@
 /**
  * @file uartcontrol.c
- * @date 10/04/2012
+ * @date 29/04/2013
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include <stdio.h>
@@ -11,7 +11,7 @@
 static UART_handler deviceData;
 
 
-/** Uart_Init
+/**
  * Initialises the UART handle to be able to control the UART internal
  * peripheral.
  *************************************************************************** */
@@ -21,9 +21,9 @@ void uart_Init(void) {
 }
 
 
-/** Uart_SendChar
- * Description
- * @param ch: 
+/**
+ * Sends a single character to the UART peripheral.
+ * @param ch The character to send
  *************************************************************************** */
 void uart_SendChar(unsigned char ch) {
   deviceData.isSent = FALSE;  // reset flag
@@ -32,11 +32,11 @@ void uart_SendChar(unsigned char ch) {
 }
 
 
-/** Uart_SendString
+/** 
  * Sends a full string to the UART peripheral.
  * To do so, it sends concatenated characters in a string to the 
  * Uart_SendChar function until the end of the string is reached.
- * @param str: A Null terminated string of text
+ * @param str A Null terminated string of text
  *************************************************************************** */
 void uart_SendString(const unsigned char *str) {
   while(*str!='\0') {
@@ -44,11 +44,11 @@ void uart_SendString(const unsigned char *str) {
   }
 }
 
-/** Uart_SendStringLN
+/**
  * Sends a full string to the UART peripheral and attaches a break line.
  * To do so, it sends concatenated characters in a string to the 
  * Uart_SendChar function until the end of the string is reached.
- * @param str: A Null terminated string of text
+ * @param str A Null terminated string of text
  *************************************************************************** */
 void uart_SendStringLn(const unsigned char *str) {
   uart_SendString(str);
@@ -56,10 +56,11 @@ void uart_SendStringLn(const unsigned char *str) {
 }
 
 
-/** uart_SendByte
- * @param integer: Number to convert to text and send to the UART peripheral
+/** 
+ * Sends a byte (unsigned 8 bit integer) to the UART peripheral.
+ * @param integer Number to convert to text and send to the UART peripheral
  *************************************************************************** */
-void uart_SendByte(const byte integer) {
+void uart_SendByte(const uint8 integer) {
   char numbstr[4];
   sprintf(numbstr, "%u", integer);
   uart_SendString(numbstr);
@@ -67,7 +68,8 @@ void uart_SendByte(const byte integer) {
 
 
 /** uart_SendInt8
- * @param integer: Number to convert to text and send to the UART peripheral
+ * Sends a signed 8 bit integer to the UART peripheral.
+ * @param integer Number to convert to text and send to the UART peripheral
  *************************************************************************** */
 void uart_SendInt8(const int8 integer) {
   char numbstr[5];
@@ -76,8 +78,9 @@ void uart_SendInt8(const int8 integer) {
 }
 
 
-/** uart_SendInt16
- * @param integer: Number to convert to text and send to the UART peripheral
+/**
+ * Sends a signed 16 bit integer to the UART peripheral.
+ * @param integer Number to convert to text and send to the UART peripheral
  *************************************************************************** */
 void uart_SendInt16(const int16 integer) {
   char numbstr[7];
@@ -86,8 +89,9 @@ void uart_SendInt16(const int16 integer) {
 }
 
 
-/** uart_SendInt32
- * @param integer: Number to convert to text and send to the UART peripheral
+/**
+ * Sends a signed 32 bit integer to the UART peripheral.
+ * @param integer Number to convert to text and send to the UART peripheral
  *************************************************************************** */
 void uart_SendInt32(const int32 integer) {
   char numbstr[12];
@@ -96,8 +100,9 @@ void uart_SendInt32(const int32 integer) {
 }
 
 
-/** uart_SendFloat
- * @param floatnumber: Number to convert to text and send to the UART
+/**
+ * Sends a float to the UART peripheral.
+ * @param floatnumber Number to convert to text and send to the UART
  * peripheral
  *************************************************************************** */
 void uart_SendFloat(const float floatnumber) {

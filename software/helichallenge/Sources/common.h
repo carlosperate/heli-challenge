@@ -11,7 +11,7 @@
 #define COMMON_H_
 
 /* The following filetypes have been defined in the respective file.
- * PE_Types.h: bool, int8, int16, int32, uint8, uint16, uint32; */
+ * PE_Types.h: bool, int8, uint8, byte, int16, ,uint16, int32, uint32; */
 #include "PE_Types.h"
 
 /* The following is used to add UART(USB) messages for debugging */
