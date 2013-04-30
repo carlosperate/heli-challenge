@@ -1,146 +1,241 @@
 /**
  * @file displaycontrol.c
- * @date 12/04/2012
+ * @date 30/04/2013
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include "displaycontrol.h"
 
 
+/* Constants I2C IO extender for the display subsystem */
+const static uint8 DISPLAY_ADDRESS_WRITE  = 0x43;
+const static uint8 DISPLAY_ADDRESS_READ   = 0x42;
+const static uint8 DISPLAY_REGISTER_START = 0x00;
+const static uint8 DISPLAY_REGISTER_OPSET = 0x09;
+
+/* Constants to save the value that needs to be ANDed to obtain the I2C byte */
+const static uint8 DIGIT1_AND = 0x1F;
+const static uint8 DIGIT2_AND = 0x2F;
+const static uint8 DIGIT3_AND = 0x3F;
+const static uint8 DIGIT4_AND = 0x4F;
+
 /* Globals local to this file to store the individual digits to display */
-byte digit1 = 1;
-byte digit2 = 2;
-byte digit3 = 3;
-byte digit4 = 4;
+static uint8 digit1 = 1;
+static uint8 digit2 = 2;
+static uint8 digit3 = 3;
+static uint8 digit4 = 4;
 
 
-/** display_Init
- * Function to initialise the I2C IO extender in the display circuit.
- * @param
- * @return
+/* Local functions */
+void display_SendI2CByte(uint8 byteToSend);
+
+
+/**
+ * Initialises the I2C IO extender in the display circuit.
  *************************************************************************** */
 void display_Init(void) {
+  uint8 registerPointer = DISPLAY_REGISTER_START;
+  uint8 registerConf[6] = {
+      0x00,     /** IODIR:  All outputs. */
+      0x00,     /** IPOL: All GPIO will reflect the same logic as input pin. */
+      0x00,     /** GPINTEN: Disable all input interrupts. */
+      0x00,     /** DEFVA: Interrupt state trigger, not active. */
+      0x00,     /** INTCON: Int. compare against previous value (not used). */
+      0x2A};    /** IOCON: Disable sequential operation */
   
+//  if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
+//      1, registerConf, 6) != ERR_OK) {
+    //Do something for error checking 
+//  }
 }
 
 
-/** display_SetTime
+/**
+ * Description
+ * @param byteToSend A byte, to represent the IO expander outputs to be 
+ *                   sent by I2C.
+ *************************************************************************** */
+void display_SendI2CByte(uint8 byteToSend) {
+  uint8 registerPointer = DISPLAY_REGISTER_OPSET;
+  
+  if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
+      1, &byteToSend, 1) != ERR_OK ) {
+    //Do something for error checking 
+  }
+}
+
+
+/**
+ * Description
+ * @param value A 16 bits unsigned integer, to to be displayed in the 4 digit
+ *              seven segment.
+ *************************************************************************** */
+void display_SetUint16(uint16 value) {
+  /* Break down 'value' into digits starting with the least significant */
+  display_SetDigit1(value%10);
+  value/=10;
+  display_SetDigit2(value%10);
+  value/=10;
+  display_SetDigit3(value%10);
+  if(value>100) {
+    value/=10;
+    display_SetDigit4(value%10);
+  } else {
+    display_SetDigit4(value/10);
+  }
+}
+
+
+
+/**
  * Takes the time to display in seconds, converts it into minutes + seconds 
  * and stores it into the digit globals to be displayed.
- * @param seconds: The time to display in seconds
+ * @param value An 8 bits unsigned integer, to to be displayed in the two
+ *              leftmost digits in the 4-digit-seven-segment.
  *************************************************************************** */
-void display_SetTime(uint16 seconds) {
-  
+void display_SetByteLeft(uint8 value) {
+  /* Break down 'value' into digits starting with the least significant */
+  display_SetDigit3(value%10);
+  if(value>100) {
+    value/=10;
+    display_SetDigit4(value%10);
+  } else {
+    display_SetDigit4(value/10);
+  }
 }
 
 
-/** display_SetByte
- * Take a byte positive number and stores its individual digits into the
+/**
+ * Take a byte of value up to 99 and stores its individual digits into the
  * digit globals to be displayed.
- * @param
+ * @param value An 8 bits unsigned integer, to to be displayed in the two
+ *              rightmost digits in the 4-digit-seven-segment.
  *************************************************************************** */
-void display_SetByte(byte value) {
-  
+void display_SetByteRight(uint8 value) {
+  /* Break down 'value' into digits starting with the least significant */
+  display_SetDigit1(value%10);
+  if(value>100) {
+    value/=10;
+    display_SetDigit2(value%10);
+  } else {
+    display_SetDigit2(value/10);
+  }
 }
 
 
-/** display_SetDigit1
+/**
  * Takes a number from 0 to 9 and saves it into the global variable for digit
  * 1
- * @param digit: a unsigned char with a value 0 to 9
+ * @param digit A unsigned char with a value 0 to 9
  *************************************************************************** */
-void display_SetDigit1(byte digit) {
-  // Remember to sanitise the input, range 0 to 9
+void display_SetDigit1(uint8 digit) {
+  /* Sanitise input to only take one digit using integer multiplication */
+  while(digit>9) {
+    digit -= ((uint8)digit/(uint8)10) * (uint8)10; 
+  }
+  digit1 = digit;
 }
 
 
-/** display_SetDigit2
+/**
  * Takes a number from 0 to 9 and saves it into the global variable for digit
  * 2
- * @param digit: a unsigned char with a value 0 to 9
+ * @param digit A unsigned char with a value 0 to 9
  *************************************************************************** */
-void display_SetDigit2(byte digit) {
-  // Remember to sanitise the input, range 0 to 9
+void display_SetDigit2(uint8 digit) {
+  /* Sanitise input to only take one digit using integer multiplication */
+  while(digit>9) {
+    digit -= ((uint8)digit/(uint8)10) * (uint8)10; 
+  }
+  digit2 = digit;
 }
 
 
-/** display_SetDigit3
+/**
  * Takes a number from 0 to 9 and saves it into the global variable for digit
  * 3
- * @param digit: a unsigned char with a value 0 to 9
+ * @param digit A unsigned char with a value 0 to 9
  *************************************************************************** */
-void display_SetDigit3(byte digit) {
-  // Remember to sanitise the input, range 0 to 9
+void display_SetDigit3(uint8 digit) {
+  /* Sanitise input to only take one digit using integer multiplication */
+  while(digit>9) {
+    digit -= ((uint8)digit/(uint8)10) * (uint8)10; 
+  }
+  digit3 = digit;
 }
 
 
 /** display_SetDigit4
  * Takes a number from 0 to 9 and saves it into the global variable for digit
  * 4
- * @param digit: a unsigned char with a value 0 to 9
+ * @param digit A unsigned char with a value 0 to 9
  *************************************************************************** */
-void display_SetDigit4(byte digit) {
-  // Remember to sanitise the input, range 0 to 9
+void display_SetDigit4(uint8 digit) {
+  /* Sanitise input to only take one digit using integer multiplication */
+  while(digit>9) {
+    digit -= ((uint8)digit/(uint8)10) * (uint8)10; 
+  }
+  digit4 = digit;
 }
 
 
-/** function name
+/**
  * Description
  * @param
  *************************************************************************** */
-void display_SendI2C() {
-  
+void display_DisplayDigitl(void) {
+  display_SendI2CByte(digit1&0b00011111);
 }
 
 
-/** display_Flash
+/**
+ * Description
+ * @param
+ *************************************************************************** */
+void display_DisplayDigit2(void) {
+  display_SendI2CByte(digit2&0b00101111); 
+}
+
+
+/**
+ * Description
+ * @param
+ *************************************************************************** */
+void display_DisplayDigit3(void) {
+  display_SendI2CByte(digit3&0b01001111);
+}
+
+
+/**
+ * Description
+ * @param
+ *************************************************************************** */
+void display_DisplayDigit4(void) {
+  display_SendI2CByte(digit4&0b10001111);
+}
+
+
+/**
+ * Description
+ * @param
+ *************************************************************************** */
+void display_AllDigitsOff(void) {
+  display_SendI2CByte(0x00);
+}
+
+
+/**
  * Flashes the four digits sequentially and then turns all 7segments off.
  * @param
  *************************************************************************** */
-void display_FlashAll() {
-  display_FlashDigitl();
-  display_FlashDigit2();
-  display_FlashDigit3();
-  display_FlashDigit4();
-  //Then remember to turn off all LEDs
+void display_FlashAllDigits(void) {
+  display_DisplayDigitl();
+  display_DisplayDigit2();
+  display_DisplayDigit3();
+  display_DisplayDigit4();
+  display_AllDigitsOff();
   
   /* The following code is only used for testing purposes */
   #ifdef DEBUGFLAG
     uart_SendChar('F');
   #endif
-}
-
-
-/** display_FlashDigit1
- * Description
- * @param
- *************************************************************************** */
-void display_FlashDigitl() {
-  
-}
-
-
-/** display_FlashDigit2
- * Description
- * @param
- *************************************************************************** */
-void display_FlashDigit2() {
-  
-}
-
-
-/** display_FlashDigit3
- * Description
- * @param
- *************************************************************************** */
-void display_FlashDigit3() {
-  
-}
-
-
-/** display_FlashDigit4
- * Description
- * @param
- *************************************************************************** */
-void display_FlashDigit4() {
-  
 }

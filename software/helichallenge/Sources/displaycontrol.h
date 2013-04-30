@@ -1,7 +1,7 @@
 /**
  * @file displaycontrol.h
  * @version 0.1
- * @date 11/04/2012
+ * @date 30/04/2013
  * @author: Carlos Pereira Atencio
  * 
  * Library description comes here
@@ -16,16 +16,18 @@
 #include "common.h"
 
 void display_Init(void);
-void display_SetTime(uint16 seconds);
-void display_SetByte(byte value);
-void display_SetDigit1(byte digit);
-void display_SetDigit2(byte digit);
-void display_SetDigit3(byte digit);
-void display_SetDigit4(byte digit);
-void display_SendI2C();
-void display_FlashAll();
-void display_FlashDigitl();
-void display_FlashDigit2();
-void display_FlashDigit3();
-void display_FlashDigit4();
+void display_SetUint16(uint16 value);
+void display_SetByteLeft(uint8 value);
+void display_SetByteRight(uint8 value);
+void display_SetDigit1(uint8 digit);
+void display_SetDigit2(uint8 digit);
+void display_SetDigit3(uint8 digit);
+void display_SetDigit4(uint8 digit);
+void display_DisplayDigitl(void);
+void display_DisplayDigit2(void);
+void display_DisplayDigit3(void);
+void display_DisplayDigit4(void);
+void display_FlashAllDigits(void);
+void display_AllDigitsOff(void);
+
 #endif /* DISPLAYCONTROL_H_ */
