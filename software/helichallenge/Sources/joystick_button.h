@@ -9,9 +9,7 @@
 
 #ifndef JOYSTICK_BUTTON_H_
 #define JOYSTICK_BUTTON_H_
-bool Get_ValueA();
-bool GetValueB();
-bool GetValueC();
-bool GetValueD();
+bool Get_Value(uint16 SignalName);
+
 
 #endif /* JOYSTICK_BUTTON_H_ */

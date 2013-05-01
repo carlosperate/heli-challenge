@@ -6,7 +6,7 @@
  * This code will have very few comments as it is only used for temporary 
  * texting
  **************************************************************************** */
-#include "joystickservo.h"
+
 #include "GI2C1.h"
 #include "uartcontrol.h"
 
