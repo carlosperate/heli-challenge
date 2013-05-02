@@ -5,6 +5,15 @@
  **************************************************************************** */
 #include "joystickservo.h"
 
+/*Array containing ADC readouts (2 members)*/
+uint16 ADC_READOUT[AD1_CHANNEL_COUNT];
+
+/*AdcRead*/
+uint16 AdcRead(void){
+  uint16 err=AD1_Measure(1);
+  AD1_GetValue16(ADC_READOUT);
+  return err;
+}
 
 /** js_AdcToUs
  * Converts the 16bit ADC value from the joystick pots to a value between the
@@ -13,9 +22,11 @@
  * @return A 16bit unsigned integer to represent a duty cycle in microseconds
  * with a range from the minimum and maximum defined in the header file.
  *************************************************************************** */
-uint16 js_AdcToUs(uint16 adc) {
-  
-  return 0;
+
+uint16 js_AdcToUs(uint16 ADC) {
+uint16 us=(1000+(uint16)(ADC/65.535));
+
+  return us;
 }
 
 
@@ -25,8 +36,12 @@ uint16 js_AdcToUs(uint16 adc) {
  * with a range from the minimum and maximum defined in the header file.
  *************************************************************************** */
 void js_SetServoDutyUsX(uint16 us) {
-  // Remember to sanitise the input
-  // function call is PWM1_SetDutyUS
+  if (us<1000){
+    us=1000;}
+  if (us>2000){
+    us=2000;}
+  us=(word)us;
+   PWM1_SetDutyUS(us);
 }
 
 
@@ -36,8 +51,12 @@ void js_SetServoDutyUsX(uint16 us) {
  * with a range from the minimum and maximum defined in the header file.
  *************************************************************************** */
 void js_SetServoDutyUsY(uint16 us) {
-  // Remember to sanitise the input
-  // function call is PWM2_SetDutyUS
+  if (us<1000){
+    us=1000;}
+  if (us>2000){
+    us=2000;}
+  us=(word)us;
+  PWM2_SetDutyUS(us);
 }
 
 
@@ -46,9 +65,15 @@ void js_SetServoDutyUsY(uint16 us) {
  * @param
  * @return
  *************************************************************************** */
-void js_Move(void) {
-  // Pull ADC value for X joystick
-  // Convert ADC to microseconds
-  // Set servo X to the value above
-  // Do the same for Y
+uint16 js_Move(void) {
+AdcRead();
+uint16 us_x=js_AdcToUs(ADC_READOUT[0]);
+uint16 us_y=js_AdcToUs(ADC_READOUT[1]);
+js_SetServoDutyUsX(us_x);
+js_SetServoDutyUsX(us_y);
+return us_y;
+
+
 }
+
+

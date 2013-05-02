@@ -19,9 +19,10 @@
 #define JOYSTICKSERVO_MIN_US 1000
 #define JOYSTICKSERVO_MAX_US 2000
 
+uint16 AdcRead(void);
 uint16 js_AdcToUs(uint16 adc);
 void js_SetServoDutyUsX(uint16 us);
 void js_SetServoDutyUsY(uint16 us);
-void js_Move(void);
+uint16 js_Move(void);
 
 #endif /* JOYSTICKSERVO_H_ */

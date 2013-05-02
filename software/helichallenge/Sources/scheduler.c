@@ -76,6 +76,14 @@ static portTASK_FUNCTION(OneSecRealTime, pvParameters) {
   for(;;) {
     /* Wait for the next cycle */
     vTaskDelayUntil(&xLastWakeTime, xFrequency);
+
+    LED_G_Neg();
+    uint16 printout = js_Move();
+    uart_SendStringLn((unsigned char*)"Y microseconds:");
+    uart_SendInt16(printout);
+    uart_SendStringLn((unsigned char*)"\n");
+    FRTOS1_vTaskDelay(2500/portTICK_RATE_MS);
+
     schedule1HzAbsolute();
   }
 } 

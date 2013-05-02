@@ -18,6 +18,8 @@
 #define APPLICATION_H_
 
 #include "common.h"
+#include "joystickservo.h"
+
 
 void initialiseAll(void);
 void schedule1HzAbsolute(void);

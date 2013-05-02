@@ -44,6 +44,9 @@
 #include "TU2.h"
 #include "GI2C1.h"
 #include "I2C2.h"
+#include "AD1.h"
+#include "AdcLdd1.h"
+#include "GPIO1.h"
 #include "PE_LDD.h"
 
 void Cpu_OnNMIINT(void);
@@ -153,6 +156,38 @@ void I2C2_OnError(LDD_TUserData *UserDataPtr);
 **       * UserDataPtr     - Pointer to the user or
 **                           RTOS specific data. This pointer is passed
 **                           as the parameter of Init method.
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void AD1_OnEnd(void);
+/*
+** ===================================================================
+**     Event       :  AD1_OnEnd (module Events)
+**
+**     Component   :  AD1 [ADC]
+**     Description :
+**         This event is called after the measurement (which consists
+**         of <1 or more conversions>) is/are finished.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void AD1_OnCalibrationEnd(void);
+/*
+** ===================================================================
+**     Event       :  AD1_OnCalibrationEnd (module Events)
+**
+**     Component   :  AD1 [ADC]
+**     Description :
+**         This event is called when the calibration has been finished.
+**         User should check if the calibration pass or fail by
+**         Calibration status method./nThis event is enabled only if
+**         the <Interrupt service/event> property is enabled.
+**     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================
 */
