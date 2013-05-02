@@ -5,14 +5,18 @@
  **************************************************************************** */
 #include "scheduler.h"
 #include "portmacro.h"
+#include "application.h"
 #include "FRTOS1.h"
-#include "accelerometer.h"
+#ifdef DEBUGFLAG
+  #include "accelerometer.h"
+#endif 
 
 
-/** portTASK_FUNCTION for Task 1
+/**
+ * portTASK_FUNCTION for Task 1
  * Description
- * @param
- * @return
+ * @param Task1 Name of the task
+ *        pvParameters Parameter to pass, not used
  *************************************************************************** */
 static portTASK_FUNCTION(Task1, pvParameters) {
   (void)pvParameters; /* parameter not used */
@@ -23,56 +27,62 @@ static portTASK_FUNCTION(Task1, pvParameters) {
 }
 
 
-/** portTASK_FUNCTION for Task 2
+/**
+ * portTASK_FUNCTION for Task 2
  * Description
- * @param
- * @return
+ * @param Task2 Name of the task
+ *        pvParameters Parameter to pass, not used
  *************************************************************************** */
 static portTASK_FUNCTION(Task2, pvParameters) {
   (void)pvParameters; /* parameter not used */
   for(;;) {
-    accelerometer_readXYZ();
+    #ifdef DEBUGFLAG
+        accelerometer_readXYZ();
+    #endif 
     LED_R_Neg();
 	FRTOS1_vTaskDelay(2000/portTICK_RATE_MS);
   }
 } 
 
 
-/** portTASK_FUNCTION for Task 3
+/**
+ * portTASK_FUNCTION for RefreshDisplay
  * This one is meant to flash the 7 segment display at 50hz
- * @param
- * @return
+ * @param Task3 Name of the task
+ *        pvParameters Parameter to pass, not used
  *************************************************************************** */
-static portTASK_FUNCTION(Task3, pvParameters) {
-  (void)pvParameters; /* parameter not used */
+static portTASK_FUNCTION(RefreshDisplay, pvParameters) {
+  /* Set up the parameters for vTaskDelayUntil */
+  portTickType xLastWakeTime = xTaskGetTickCount();
+  const portTickType xFrequency = 20/portTICK_RATE_MS;
   for(;;) {
-    //display_FlashAll();
-    uart_SendStringLn((unsigned char*)"Task3");
-    FRTOS1_vTaskDelay(1500/portTICK_RATE_MS);
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    schedule50HzAbsolute();
   }
 } 
 
 
-/** portTASK_FUNCTION for Task 4
- * Description
- * @param
- * @return
+/**
+ * portTASK_FUNCTION for OneSecRealTime
+ * This function is to be called once a second in a absolute manner.
+ * @param OneSecRealTime Name of the task
+ *        pvParameters Parameter to pass, not used
  *************************************************************************** */
-static portTASK_FUNCTION(Task4, pvParameters) {
+static portTASK_FUNCTION(OneSecRealTime, pvParameters) {
   (void)pvParameters; /* parameter not used */
+  /* Set up the parameters for vTaskDelayUntil */
+  portTickType xLastWakeTime = xTaskGetTickCount();
+  const portTickType xFrequency = 1000/portTICK_RATE_MS;
   for(;;) {
-    LED_G_Neg();
-    uart_SendStringLn((unsigned char*)"Task4");
-    FRTOS1_vTaskDelay(2500/portTICK_RATE_MS);
+    /* Wait for the next cycle */
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    schedule1HzAbsolute();
   }
 } 
 
 
-
-/** createTasks
+/**
  * Description
- * @param
- * @return
  *************************************************************************** */
 void createTasks() {
   if (FRTOS1_xTaskCreate(
@@ -100,8 +110,8 @@ void createTasks() {
     /*lint +e527 */
   } 
   if (FRTOS1_xTaskCreate(
-      Task3,                      /* pointer to the task */
-      (signed portCHAR *)"Task3", /* task name for kernel awareness debugging */
+      RefreshDisplay,              /* pointer to the task */
+      (signed portCHAR *)"RefreshDisplay", /* task name */
       configMINIMAL_STACK_SIZE,   /* task stack size */
       (void*)NULL,                /* optional task startup argument */
       tskIDLE_PRIORITY,           /* initial priority */
@@ -112,8 +122,8 @@ void createTasks() {
     /*lint +e527 */
   } 
   if (FRTOS1_xTaskCreate(
-      Task4,                      /* pointer to the task */
-      (signed portCHAR *)"Task3", /* task name for kernel awareness debugging */
+      OneSecRealTime,             /* pointer to the task */
+      (signed portCHAR *)"OneSecRealTime", /* task name */
       configMINIMAL_STACK_SIZE,   /* task stack size */
       (void*)NULL,                /* optional task startup argument */
       tskIDLE_PRIORITY,           /* initial priority */

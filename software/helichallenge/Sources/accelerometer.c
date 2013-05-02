@@ -1,24 +1,29 @@
 /**
  * @file accelerometer.c
- * @date 11/04/2012
+ * @date 29/04/2013
  * @author: Carlos Pereira Atencio
  * 
  * This code will have very few comments as it is only used for temporary 
- * texting
+ * testing of the I2C.
  **************************************************************************** */
-#include "joystickservo.h"
+#include "accelerometer.h"
 #include "GI2C1.h"
-#include "uartcontrol.h"
+#ifdef DEBUGFLAG
+  #include "uartcontrol.h"
+#endif
 
-/* I2C address of MMA8451 accelerometer */
+
+/** I2C address of MMA8451 accelerometer */
 #define MMA8451_I2C_ADDRESS 0x1D
-/* External 3-axis accelerometer control register addresses */
+
+/** External 3-axis accelerometer control register addresses */
 #define MMA8451_CTRL_REG_1 0x2A
-/* MMA8451 3-axis accelerometer control register bit masks */
+
+/** MMA8451 3-axis accelerometer control register bit masks */
 #define MMA8451_ACTIVE_BIT_MASK 0x01
 #define MMA8451_F_READ_BIT_MASK 0x02
  
-/* External 3-axis accelerometer data register addresses */
+/** External 3-axis accelerometer data register addresses */
 #define MMA8451_OUT_X_MSB 0x01
 #define MMA8451_OUT_X_LSB 0x02
 #define MMA8451_OUT_Y_MSB 0x03
@@ -26,35 +31,34 @@
 #define MMA8451_OUT_Z_MSB 0x05
 #define MMA8451_OUT_Z_LSB 0x06
 
-/** readXYZ
- * Get the X, Y and Z values of the accelerometer in the KL25Z board.
- * @return A 16bit signed integer to represent the X value.
+
+/**
+ * Initialises the accelerometer settings using the I2C protocol.
  *************************************************************************** */
-int16 accelerometer_readXYZ(void) {
-  #ifdef DEBUGFLAG
-    uart_SendStringLn("Test");
-  #endif
+void accelerometer_Init(void) { 
   /* Configure the accelerometer */
-  byte one = MMA8451_CTRL_REG_1;
-  byte two = MMA8451_F_READ_BIT_MASK|MMA8451_ACTIVE_BIT_MASK;
-  byte three = MMA8451_OUT_X_MSB;
-  byte res = GI2C1_WriteAddress(MMA8451_I2C_ADDRESS, &one, 1,
-      &two, 1);
-  if (res==ERR_OK) {
-    int8 xyz[3];
-    xyz[0]=0;xyz[1]=1;xyz[2]=2;
-    res = GI2C1_ReadAddress(MMA8451_I2C_ADDRESS,
-        &three, 1, (uint8_t*)&xyz, 3);
-    #ifdef DEBUGFLAG
-      uart_SendString("X: ");
-      uart_SendByte(xyz[0]);
-      uart_SendString("; Y: ");
-      uart_SendByte(xyz[1]);
-      uart_SendString("; Z: ");
-      uart_SendByte(xyz[2]);
-      uart_SendStringLn(";");
-    #endif
-  }
-  return 0;
+  uint8 registerWrite = MMA8451_CTRL_REG_1;
+  uint8 configuration = MMA8451_F_READ_BIT_MASK|MMA8451_ACTIVE_BIT_MASK;
+  GI2C1_WriteAddress(MMA8451_I2C_ADDRESS, &registerWrite, 1, &configuration,
+      1);
 }
 
+
+/**
+ * Gets the X, Y and Z values of the accelerometer in the KL25Z board and
+ * sends the data to the UART peripheral if debug mode is active.
+ *************************************************************************** */
+void accelerometer_readXYZ(void) { 
+  uint8 registerRead = MMA8451_OUT_X_MSB;
+  int8 xyz[3] = {0, 1, 2};
+  GI2C1_ReadAddress(MMA8451_I2C_ADDRESS, &registerRead, 1, (uint8_t*)&xyz, 3);
+  #ifdef DEBUGFLAG
+    uart_SendString((unsigned char *)"X: ");
+    uart_SendByte(xyz[0]);
+    uart_SendString((unsigned char *)"; Y: ");
+    uart_SendByte(xyz[1]);
+    uart_SendString((unsigned char *)"; Z: ");
+    uart_SendByte(xyz[2]);
+    uart_SendStringLn((unsigned char *)";");
+  #endif
+}

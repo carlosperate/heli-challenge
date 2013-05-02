@@ -1,7 +1,7 @@
 /**
  * @file application.h
  * @version 0.1
- * @date 09/04/2012
+ * @date 29/04/2013
  * @author: Carlos Pereira Atencio
  * 
  * This header file contains the function calls for the general application
@@ -20,5 +20,8 @@
 #include "common.h"
 
 void initialiseAll(void);
+void schedule1HzAbsolute(void);
+void schedule50HzAbsolute(void);
+
 
 #endif /* APPLICATION_H_ */
