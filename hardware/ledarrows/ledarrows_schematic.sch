@@ -7059,6 +7059,52 @@ Added bigger pads to the TO-92 package</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="frames">
+<description>&lt;b&gt;Frames for Sheet and Layout&lt;/b&gt;</description>
+<packages>
+</packages>
+<symbols>
+<symbol name="A4L-LOC">
+<wire x1="256.54" y1="3.81" x2="256.54" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="256.54" y1="8.89" x2="256.54" y2="13.97" width="0.1016" layer="94"/>
+<wire x1="256.54" y1="13.97" x2="256.54" y2="19.05" width="0.1016" layer="94"/>
+<wire x1="256.54" y1="19.05" x2="256.54" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="161.29" y1="3.81" x2="161.29" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="161.29" y1="24.13" x2="215.265" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="215.265" y1="24.13" x2="256.54" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="246.38" y1="3.81" x2="246.38" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="246.38" y1="8.89" x2="256.54" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="246.38" y1="8.89" x2="215.265" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="215.265" y1="8.89" x2="215.265" y2="3.81" width="0.1016" layer="94"/>
+<wire x1="215.265" y1="8.89" x2="215.265" y2="13.97" width="0.1016" layer="94"/>
+<wire x1="215.265" y1="13.97" x2="256.54" y2="13.97" width="0.1016" layer="94"/>
+<wire x1="215.265" y1="13.97" x2="215.265" y2="19.05" width="0.1016" layer="94"/>
+<wire x1="215.265" y1="19.05" x2="256.54" y2="19.05" width="0.1016" layer="94"/>
+<wire x1="215.265" y1="19.05" x2="215.265" y2="24.13" width="0.1016" layer="94"/>
+<text x="217.17" y="15.24" size="2.54" layer="94" font="vector">&gt;DRAWING_NAME</text>
+<text x="217.17" y="10.16" size="2.286" layer="94" font="vector">&gt;LAST_DATE_TIME</text>
+<text x="230.505" y="5.08" size="2.54" layer="94" font="vector">&gt;SHEET</text>
+<text x="216.916" y="4.953" size="2.54" layer="94" font="vector">Sheet:</text>
+<frame x1="0" y1="0" x2="260.35" y2="179.07" columns="6" rows="4" layer="94"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="A4L-LOC" prefix="FRAME" uservalue="yes">
+<description>&lt;b&gt;FRAME&lt;/b&gt;&lt;p&gt;
+DIN A4, landscape with location and doc. field</description>
+<gates>
+<gate name="G$1" symbol="A4L-LOC" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -7070,17 +7116,12 @@ Added bigger pads to the TO-92 package</description>
 </classes>
 <parts>
 <part name="LED2" library="adafruit" deviceset="LED" device="3MM"/>
-<part name="R1" library="adafruit" deviceset="R-US_" device="0204/7"/>
 <part name="LED1" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="R2" library="adafruit" deviceset="R-US_" device="0204/7"/>
 <part name="LED3" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="LED4" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="LED5" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="LED7" library="adafruit" deviceset="LED" device="3MM"/>
-<part name="R3" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R4" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R5" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R6" library="adafruit" deviceset="R-US_" device="0204/7"/>
 <part name="LED6" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="LED8" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="LED9" library="adafruit" deviceset="LED" device="3MM"/>
@@ -7095,8 +7136,8 @@ Added bigger pads to the TO-92 package</description>
 <part name="T2" library="adafruit" deviceset="2N2222" device=""/>
 <part name="R12" library="adafruit" deviceset="R-US_" device="0204/7"/>
 <part name="IC1" library="adafruit" deviceset="78*" device="T" technology="05"/>
-<part name="C1" library="adafruit" deviceset="C-US" device="025-050X050"/>
-<part name="C2" library="adafruit" deviceset="C-US" device="025-050X050"/>
+<part name="C1" library="adafruit" deviceset="C-US" device="025-050X050" value="0.33 uF"/>
+<part name="C2" library="adafruit" deviceset="C-US" device="025-050X050" value="0.1 uF"/>
 <part name="CN1" library="adafruit" deviceset="1X4" device="-BIG"/>
 <part name="JP2" library="pinhead" deviceset="PINHD-1X2" device=""/>
 <part name="T3" library="adafruit" deviceset="2N2222" device=""/>
@@ -7104,32 +7145,31 @@ Added bigger pads to the TO-92 package</description>
 <part name="T4" library="adafruit" deviceset="2N2222" device=""/>
 <part name="R14" library="adafruit" deviceset="R-US_" device="0204/7"/>
 <part name="X1" library="adafruit" deviceset="F15" device="H"/>
+<part name="FRAME1" library="frames" deviceset="A4L-LOC" device=""/>
+<part name="LED11" library="adafruit" deviceset="LED" device="3MM"/>
+<part name="R1" library="adafruit" deviceset="R-US_" device="0204/7"/>
 </parts>
 <sheets>
 <sheet>
 <plain>
+<text x="-10.16" y="43.18" size="1.778" layer="91">Temporary DB15 pinout</text>
 </plain>
 <instances>
 <instance part="LED2" gate="G$1" x="25.4" y="78.74"/>
-<instance part="R1" gate="G$1" x="25.4" y="66.04" rot="R90"/>
-<instance part="LED1" gate="G$1" x="25.4" y="55.88"/>
-<instance part="R2" gate="G$1" x="25.4" y="43.18" rot="R90"/>
+<instance part="LED1" gate="G$1" x="25.4" y="66.04"/>
+<instance part="R2" gate="G$1" x="25.4" y="53.34" rot="R90"/>
 <instance part="LED3" gate="G$1" x="40.64" y="78.74"/>
 <instance part="LED4" gate="G$1" x="55.88" y="78.74"/>
 <instance part="LED5" gate="G$1" x="71.12" y="78.74"/>
 <instance part="LED7" gate="G$1" x="86.36" y="78.74"/>
-<instance part="R3" gate="G$1" x="40.64" y="66.04" rot="R90"/>
-<instance part="R4" gate="G$1" x="55.88" y="66.04" rot="R90"/>
-<instance part="R5" gate="G$1" x="71.12" y="66.04" rot="R90"/>
-<instance part="R6" gate="G$1" x="86.36" y="66.04" rot="R90"/>
-<instance part="LED6" gate="G$1" x="40.64" y="55.88"/>
-<instance part="LED8" gate="G$1" x="55.88" y="55.88"/>
-<instance part="LED9" gate="G$1" x="71.12" y="55.88"/>
-<instance part="LED10" gate="G$1" x="86.36" y="55.88"/>
-<instance part="R7" gate="G$1" x="40.64" y="43.18" rot="R90"/>
-<instance part="R8" gate="G$1" x="55.88" y="43.18" rot="R90"/>
-<instance part="R9" gate="G$1" x="71.12" y="43.18" rot="R90"/>
-<instance part="R10" gate="G$1" x="86.36" y="43.18" rot="R90"/>
+<instance part="LED6" gate="G$1" x="40.64" y="66.04"/>
+<instance part="LED8" gate="G$1" x="55.88" y="66.04"/>
+<instance part="LED9" gate="G$1" x="71.12" y="66.04"/>
+<instance part="LED10" gate="G$1" x="86.36" y="66.04"/>
+<instance part="R7" gate="G$1" x="40.64" y="53.34" rot="R90"/>
+<instance part="R8" gate="G$1" x="55.88" y="53.34" rot="R90"/>
+<instance part="R9" gate="G$1" x="71.12" y="53.34" rot="R90"/>
+<instance part="R10" gate="G$1" x="86.36" y="53.34" rot="R90"/>
 <instance part="T1" gate="G$1" x="-35.56" y="30.48"/>
 <instance part="R11" gate="G$1" x="-45.72" y="30.48" rot="R180"/>
 <instance part="JP1" gate="G$1" x="15.24" y="60.96"/>
@@ -7145,6 +7185,9 @@ Added bigger pads to the TO-92 package</description>
 <instance part="T4" gate="G$1" x="-25.4" y="58.42"/>
 <instance part="R14" gate="G$1" x="-35.56" y="58.42" rot="R180"/>
 <instance part="X1" gate="-1" x="-5.08" y="58.42" rot="R180"/>
+<instance part="FRAME1" gate="G$1" x="-137.16" y="-45.72"/>
+<instance part="LED11" gate="G$1" x="99.06" y="78.74"/>
+<instance part="R1" gate="G$1" x="99.06" y="53.34" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -7172,137 +7215,76 @@ Added bigger pads to the TO-92 package</description>
 <junction x="25.4" y="86.36"/>
 <junction x="40.64" y="86.36"/>
 <junction x="55.88" y="86.36"/>
+<wire x1="86.36" y1="86.36" x2="99.06" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="86.36" x2="99.06" y2="81.28" width="0.1524" layer="91"/>
+<pinref part="LED11" gate="G$1" pin="A"/>
+<junction x="86.36" y="86.36"/>
+<junction x="71.12" y="86.36"/>
 </segment>
 </net>
 <net name="N$1" class="0">
 <segment>
 <pinref part="R10" gate="G$1" pin="2"/>
 <pinref part="LED10" gate="G$1" pin="C"/>
-<wire x1="86.36" y1="48.26" x2="86.36" y2="50.8" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$2" class="0">
-<segment>
-<pinref part="LED10" gate="G$1" pin="A"/>
-<pinref part="R6" gate="G$1" pin="1"/>
 <wire x1="86.36" y1="58.42" x2="86.36" y2="60.96" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$3" class="0">
-<segment>
-<pinref part="R6" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="71.12" x2="86.36" y2="73.66" width="0.1524" layer="91"/>
-<pinref part="LED7" gate="G$1" pin="C"/>
-</segment>
-</net>
-<net name="N$6" class="0">
-<segment>
-<pinref part="LED5" gate="G$1" pin="C"/>
-<pinref part="R5" gate="G$1" pin="2"/>
-<wire x1="71.12" y1="73.66" x2="71.12" y2="71.12" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$7" class="0">
-<segment>
-<pinref part="R5" gate="G$1" pin="1"/>
-<pinref part="LED9" gate="G$1" pin="A"/>
-<wire x1="71.12" y1="60.96" x2="71.12" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$8" class="0">
 <segment>
 <pinref part="LED9" gate="G$1" pin="C"/>
 <pinref part="R9" gate="G$1" pin="2"/>
-<wire x1="71.12" y1="50.8" x2="71.12" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="60.96" x2="71.12" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$9" class="0">
 <segment>
 <pinref part="LED8" gate="G$1" pin="C"/>
 <pinref part="R8" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="50.8" x2="55.88" y2="48.26" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$10" class="0">
-<segment>
-<pinref part="R4" gate="G$1" pin="1"/>
-<pinref part="LED8" gate="G$1" pin="A"/>
 <wire x1="55.88" y1="60.96" x2="55.88" y2="58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$11" class="0">
-<segment>
-<pinref part="R3" gate="G$1" pin="1"/>
-<pinref part="LED6" gate="G$1" pin="A"/>
-<wire x1="40.64" y1="60.96" x2="40.64" y2="58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$12" class="0">
-<segment>
-<pinref part="LED3" gate="G$1" pin="C"/>
-<pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="40.64" y1="73.66" x2="40.64" y2="71.12" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$13" class="0">
-<segment>
-<pinref part="LED2" gate="G$1" pin="C"/>
-<pinref part="R1" gate="G$1" pin="2"/>
-<wire x1="25.4" y1="73.66" x2="25.4" y2="71.12" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$14" class="0">
-<segment>
-<pinref part="R1" gate="G$1" pin="1"/>
-<pinref part="LED1" gate="G$1" pin="A"/>
-<wire x1="25.4" y1="60.96" x2="25.4" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$15" class="0">
 <segment>
 <pinref part="LED1" gate="G$1" pin="C"/>
 <pinref part="R2" gate="G$1" pin="2"/>
-<wire x1="25.4" y1="50.8" x2="25.4" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="60.96" x2="25.4" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$16" class="0">
 <segment>
 <pinref part="LED6" gate="G$1" pin="C"/>
 <pinref part="R7" gate="G$1" pin="2"/>
-<wire x1="40.64" y1="50.8" x2="40.64" y2="48.26" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$17" class="0">
-<segment>
-<pinref part="LED4" gate="G$1" pin="C"/>
-<pinref part="R4" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="73.66" x2="55.88" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="60.96" x2="40.64" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$18" class="0">
 <segment>
 <pinref part="R2" gate="G$1" pin="1"/>
-<wire x1="25.4" y1="38.1" x2="25.4" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="48.26" x2="25.4" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="R10" gate="G$1" pin="1"/>
-<wire x1="55.88" y1="35.56" x2="71.12" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="35.56" x2="86.36" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="35.56" x2="86.36" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="43.18" x2="71.12" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="43.18" x2="86.36" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="43.18" x2="86.36" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="R9" gate="G$1" pin="1"/>
-<wire x1="71.12" y1="38.1" x2="71.12" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="48.26" x2="71.12" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="R8" gate="G$1" pin="1"/>
-<wire x1="55.88" y1="38.1" x2="55.88" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="25.4" y1="35.56" x2="40.64" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="48.26" x2="55.88" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="43.18" x2="40.64" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="R7" gate="G$1" pin="1"/>
-<wire x1="40.64" y1="35.56" x2="55.88" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="38.1" x2="40.64" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="43.18" x2="55.88" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="48.26" x2="40.64" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="G$1" pin="2"/>
 <wire x1="12.7" y1="60.96" x2="17.78" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="17.78" y1="60.96" x2="17.78" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="17.78" y1="35.56" x2="25.4" y2="35.56" width="0.1524" layer="91"/>
-<junction x="71.12" y="35.56"/>
-<junction x="55.88" y="35.56"/>
-<junction x="40.64" y="35.56"/>
-<junction x="25.4" y="35.56"/>
+<wire x1="17.78" y1="60.96" x2="17.78" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="17.78" y1="43.18" x2="25.4" y2="43.18" width="0.1524" layer="91"/>
+<junction x="71.12" y="43.18"/>
+<junction x="55.88" y="43.18"/>
+<junction x="40.64" y="43.18"/>
+<junction x="25.4" y="43.18"/>
+<wire x1="86.36" y1="43.18" x2="99.06" y2="43.18" width="0.1524" layer="91"/>
+<pinref part="R1" gate="G$1" pin="1"/>
+<wire x1="99.06" y1="43.18" x2="99.06" y2="48.26" width="0.1524" layer="91"/>
+<junction x="86.36" y="43.18"/>
 </segment>
 </net>
 <net name="N$5" class="0">
@@ -7485,6 +7467,47 @@ Added bigger pads to the TO-92 package</description>
 <wire x1="-27.94" y1="50.8" x2="-20.32" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="-20.32" y1="50.8" x2="-20.32" y2="63.5" width="0.1524" layer="91"/>
 <wire x1="-12.7" y1="63.5" x2="-20.32" y2="63.5" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="LED2" gate="G$1" pin="C"/>
+<pinref part="LED1" gate="G$1" pin="A"/>
+<wire x1="25.4" y1="73.66" x2="25.4" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="LED3" gate="G$1" pin="C"/>
+<pinref part="LED6" gate="G$1" pin="A"/>
+<wire x1="40.64" y1="73.66" x2="40.64" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$6" class="0">
+<segment>
+<pinref part="LED4" gate="G$1" pin="C"/>
+<pinref part="LED8" gate="G$1" pin="A"/>
+<wire x1="55.88" y1="73.66" x2="55.88" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$7" class="0">
+<segment>
+<pinref part="LED9" gate="G$1" pin="A"/>
+<wire x1="71.12" y1="76.2" x2="71.12" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$10" class="0">
+<segment>
+<pinref part="LED7" gate="G$1" pin="C"/>
+<pinref part="LED10" gate="G$1" pin="A"/>
+<wire x1="86.36" y1="73.66" x2="86.36" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$11" class="0">
+<segment>
+<pinref part="LED11" gate="G$1" pin="C"/>
+<pinref part="R1" gate="G$1" pin="2"/>
+<wire x1="99.06" y1="73.66" x2="99.06" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
