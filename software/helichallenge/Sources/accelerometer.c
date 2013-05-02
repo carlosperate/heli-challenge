@@ -53,12 +53,12 @@ void accelerometer_readXYZ(void) {
   int8 xyz[3] = {0, 1, 2};
   GI2C1_ReadAddress(MMA8451_I2C_ADDRESS, &registerRead, 1, (uint8_t*)&xyz, 3);
   #ifdef DEBUGFLAG
-    uart_SendString((unsigned char *)"X: ");
+    uart_SendString("X: ");
     uart_SendByte(xyz[0]);
-    uart_SendString((unsigned char *)"; Y: ");
+    uart_SendString("; Y: ");
     uart_SendByte(xyz[1]);
-    uart_SendString((unsigned char *)"; Z: ");
+    uart_SendString("; Z: ");
     uart_SendByte(xyz[2]);
-    uart_SendStringLn((unsigned char *)";");
+    uart_SendStringLn(";");
   #endif
 }
