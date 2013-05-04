@@ -7,6 +7,9 @@
 #include "portmacro.h"
 #include "FRTOS1.h"
 #include "accelerometer.h"
+#include "joystick_button.h"
+#include "Button_LED_Test.h"
+
 
 
 /** portTASK_FUNCTION for Task 1
@@ -19,6 +22,7 @@ static portTASK_FUNCTION(Task1, pvParameters) {
   for(;;) {
   	LED_B_Neg();
 	FRTOS1_vTaskDelay(1000/portTICK_RATE_MS);
+
   }
 }
 
@@ -32,8 +36,8 @@ static portTASK_FUNCTION(Task2, pvParameters) {
   (void)pvParameters; /* parameter not used */
   for(;;) {
     accelerometer_readXYZ();
-    LED_R_Neg();
 	FRTOS1_vTaskDelay(2000/portTICK_RATE_MS);
+
   }
 } 
 
@@ -61,12 +65,14 @@ static portTASK_FUNCTION(Task3, pvParameters) {
 static portTASK_FUNCTION(Task4, pvParameters) {
   (void)pvParameters; /* parameter not used */
   for(;;) {
-    LED_G_Neg();
+    TestLEDs();
     uint16 printout = js_Move();
     uart_SendStringLn((unsigned char*)"Y microseconds:");
     uart_SendInt16(printout);
     uart_SendStringLn((unsigned char*)"\n");
-    FRTOS1_vTaskDelay(2500/portTICK_RATE_MS);
+    bool Value0=Get_Value(0);
+    uart_SendByte((uint8)Value0);
+    FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
   }
 } 
 

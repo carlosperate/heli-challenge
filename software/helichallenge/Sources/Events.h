@@ -46,7 +46,14 @@
 #include "I2C2.h"
 #include "AD1.h"
 #include "AdcLdd1.h"
-#include "GPIO1.h"
+#include "Joystick0.h"
+#include "Joystick3.h"
+#include "Joystick4.h"
+#include "Joystick2.h"
+#include "LED_North.h"
+#include "LED_South.h"
+#include "LED_East.h"
+#include "LED_West.h"
 #include "PE_LDD.h"
 
 void Cpu_OnNMIINT(void);
