@@ -6798,46 +6798,32 @@ type 0309, grid 2.5 mm</description>
 <packages>
 </packages>
 <symbols>
-<symbol name="DINA4_L">
-<frame x1="0" y1="0" x2="264.16" y2="180.34" columns="4" rows="4" layer="94" border-left="no" border-top="no" border-right="no" border-bottom="no"/>
-</symbol>
-<symbol name="DOCFIELD">
-<wire x1="0" y1="0" x2="71.12" y2="0" width="0.1016" layer="94"/>
-<wire x1="101.6" y1="15.24" x2="87.63" y2="15.24" width="0.1016" layer="94"/>
-<wire x1="0" y1="0" x2="0" y2="5.08" width="0.1016" layer="94"/>
-<wire x1="0" y1="5.08" x2="71.12" y2="5.08" width="0.1016" layer="94"/>
-<wire x1="0" y1="5.08" x2="0" y2="15.24" width="0.1016" layer="94"/>
-<wire x1="101.6" y1="15.24" x2="101.6" y2="5.08" width="0.1016" layer="94"/>
-<wire x1="71.12" y1="5.08" x2="71.12" y2="0" width="0.1016" layer="94"/>
-<wire x1="71.12" y1="5.08" x2="87.63" y2="5.08" width="0.1016" layer="94"/>
-<wire x1="71.12" y1="0" x2="101.6" y2="0" width="0.1016" layer="94"/>
-<wire x1="87.63" y1="15.24" x2="87.63" y2="5.08" width="0.1016" layer="94"/>
-<wire x1="87.63" y1="15.24" x2="0" y2="15.24" width="0.1016" layer="94"/>
-<wire x1="87.63" y1="5.08" x2="101.6" y2="5.08" width="0.1016" layer="94"/>
-<wire x1="101.6" y1="5.08" x2="101.6" y2="0" width="0.1016" layer="94"/>
-<wire x1="0" y1="15.24" x2="0" y2="22.86" width="0.1016" layer="94"/>
-<wire x1="101.6" y1="35.56" x2="0" y2="35.56" width="0.1016" layer="94"/>
-<wire x1="101.6" y1="35.56" x2="101.6" y2="22.86" width="0.1016" layer="94"/>
-<wire x1="0" y1="22.86" x2="101.6" y2="22.86" width="0.1016" layer="94"/>
-<wire x1="0" y1="22.86" x2="0" y2="35.56" width="0.1016" layer="94"/>
-<wire x1="101.6" y1="22.86" x2="101.6" y2="15.24" width="0.1016" layer="94"/>
-<text x="1.27" y="1.27" size="2.54" layer="94" font="vector">Date:</text>
-<text x="12.7" y="1.27" size="2.54" layer="94" font="vector">&gt;LAST_DATE_TIME</text>
-<text x="72.39" y="1.27" size="2.54" layer="94" font="vector">Sheet:</text>
-<text x="86.36" y="1.27" size="2.54" layer="94" font="vector">&gt;SHEET</text>
-<text x="88.9" y="11.43" size="2.54" layer="94" font="vector">REV:</text>
-<text x="1.27" y="19.05" size="2.54" layer="94" font="vector">TITLE:</text>
-<text x="1.27" y="11.43" size="2.54" layer="94" font="vector">Document Number:</text>
-<text x="17.78" y="19.05" size="2.54" layer="94" font="vector">&gt;DRAWING_NAME</text>
+<symbol name="A5L-LOC">
+<wire x1="85.09" y1="3.81" x2="85.09" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="85.09" y1="24.13" x2="139.065" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="24.13" x2="180.34" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="170.18" y1="3.81" x2="170.18" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="170.18" y1="8.89" x2="180.34" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="170.18" y1="8.89" x2="139.065" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="8.89" x2="139.065" y2="3.81" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="8.89" x2="139.065" y2="13.97" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="13.97" x2="180.34" y2="13.97" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="13.97" x2="139.065" y2="19.05" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="19.05" x2="180.34" y2="19.05" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="19.05" x2="139.065" y2="24.13" width="0.1016" layer="94"/>
+<text x="140.97" y="15.24" size="2.54" layer="94" font="vector">&gt;DRAWING_NAME</text>
+<text x="140.97" y="10.16" size="2.286" layer="94" font="vector">&gt;LAST_DATE_TIME</text>
+<text x="154.305" y="5.08" size="2.54" layer="94" font="vector">&gt;SHEET</text>
+<text x="140.716" y="4.953" size="2.54" layer="94" font="vector">Sheet:</text>
+<frame x1="0" y1="0" x2="184.15" y2="133.35" columns="4" rows="4" layer="94"/>
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="DINA4_L" prefix="FRAME" uservalue="yes">
+<deviceset name="DINA5_L" prefix="FRAME" uservalue="yes">
 <description>&lt;b&gt;FRAME&lt;/b&gt;&lt;p&gt;
-DIN A4, landscape with extra doc field</description>
+DIN A5, landscape with doc field</description>
 <gates>
-<gate name="G$1" symbol="DINA4_L" x="0" y="0"/>
-<gate name="G$2" symbol="DOCFIELD" x="162.56" y="0" addlevel="must"/>
+<gate name="G$1" symbol="A5L-LOC" x="0" y="0"/>
 </gates>
 <devices>
 <device name="">
@@ -6868,14 +6854,14 @@ DIN A4, landscape with extra doc field</description>
 <part name="C1" library="adafruit" deviceset="C-US" device="025-050X050" value="0.33 uF"/>
 <part name="C2" library="adafruit" deviceset="C-US" device="025-050X050" value="0.1 uF"/>
 <part name="X1" library="adafruit" deviceset="F15" device="H"/>
-<part name="FRAME1" library="frames" deviceset="DINA4_L" device=""/>
 <part name="R3" library="resistor" deviceset="R-US_" device="0204/5"/>
 <part name="R4" library="resistor" deviceset="R-US_" device="0204/5"/>
+<part name="FRAME2" library="frames" deviceset="DINA5_L" device=""/>
 </parts>
 <sheets>
 <sheet>
 <plain>
-<text x="104.14" y="66.04" size="1.778" layer="91">Temporary DB15 pinout</text>
+<text x="68.58" y="45.72" size="1.778" layer="91">Temporary DB15 pinout</text>
 </plain>
 <instances>
 <instance part="OK1" gate="A" x="45.72" y="73.66"/>
@@ -6888,14 +6874,9 @@ DIN A4, landscape with extra doc field</description>
 <instance part="C1" gate="G$1" x="-17.78" y="81.28"/>
 <instance part="C2" gate="G$1" x="10.16" y="81.28"/>
 <instance part="X1" gate="-1" x="86.36" y="63.5"/>
-<instance part="FRAME1" gate="G$1" x="-91.44" y="-22.86"/>
-<instance part="FRAME1" gate="G$2" x="71.12" y="-22.86" smashed="yes">
-<attribute name="LAST_DATE_TIME" x="83.82" y="-21.59" size="2.54" layer="94" font="vector"/>
-<attribute name="SHEET" x="157.48" y="-21.59" size="2.54" layer="94" font="vector"/>
-<attribute name="DRAWING_NAME" x="88.9" y="-3.81" size="2.54" layer="94" font="vector"/>
-</instance>
 <instance part="R3" gate="G$1" x="27.94" y="76.2" rot="R180"/>
 <instance part="R4" gate="G$1" x="30.48" y="58.42" rot="R180"/>
+<instance part="FRAME2" gate="G$1" x="-58.42" y="0"/>
 </instances>
 <busses>
 </busses>
