@@ -1,28 +1,23 @@
 /**
  * @file displaycontrol.c
- * @date 02/05/2013
+ * @date 06/05/2013
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include "displaycontrol.h"
 
 
 /* Constants I2C IO extender for the display subsystem */
-const static uint8 DISPLAY_ADDRESS_WRITE  = 0x43;
-const static uint8 DISPLAY_ADDRESS_READ   = 0x42;
+const static uint8 DISPLAY_ADDRESS_WRITE  = 0x20;
+const static uint8 DISPLAY_ADDRESS_READ   = 0x20;
 const static uint8 DISPLAY_REGISTER_START = 0x00;
 const static uint8 DISPLAY_REGISTER_OPSET = 0x09;
-
-/* Constants to save the value that needs to be ANDed to obtain the I2C byte */
-const static uint8 DIGIT1_AND = 0x1F;
-const static uint8 DIGIT2_AND = 0x2F;
-const static uint8 DIGIT3_AND = 0x3F;
-const static uint8 DIGIT4_AND = 0x4F;
 
 /* Globals local to this file to store the individual digits to display */
 static uint8 digit1 = 1;
 static uint8 digit2 = 2;
 static uint8 digit3 = 3;
 static uint8 digit4 = 4;
+static uint8 turn = 0;
 
 
 /* Local functions */
@@ -44,7 +39,7 @@ void display_Init(void) {
   
 //  if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
 //      1, registerConf, 6) != ERR_OK) {
-    //Do something for error checking 
+//    //Do something for error checking 
 //  }
 }
 
@@ -57,10 +52,10 @@ void display_Init(void) {
 void display_SendI2CByte(uint8 byteToSend) {
   uint8 registerPointer = DISPLAY_REGISTER_OPSET;
   
-  if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
-      1, &byteToSend, 1) != ERR_OK ) {
-    //Do something for error checking 
-  }
+//  if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
+//      1, &byteToSend, 1) != ERR_OK ) {
+//    //Do something for error checking 
+//  }
 }
 
 
@@ -164,7 +159,7 @@ void display_SetDigit3(uint8 digit) {
 }
 
 
-/** display_SetDigit4
+/**
  * Takes a number from 0 to 9 and saves it into the global variable for digit
  * 4
  * @param digit A unsigned char with a value 0 to 9
@@ -182,7 +177,7 @@ void display_SetDigit4(uint8 digit) {
  * Description
  *************************************************************************** */
 void display_DisplayDigitl(void) {
-  display_SendI2CByte(digit1&0b00011111);
+  display_SendI2CByte((digit1&0b00001111)|0b00010000);
 }
 
 
@@ -190,7 +185,7 @@ void display_DisplayDigitl(void) {
  * Description
  *************************************************************************** */
 void display_DisplayDigit2(void) {
-  display_SendI2CByte(digit2&0b00101111); 
+  display_SendI2CByte((digit2&0b00001111)|0b00100000); 
 }
 
 
@@ -198,7 +193,7 @@ void display_DisplayDigit2(void) {
  * Description
  *************************************************************************** */
 void display_DisplayDigit3(void) {
-  display_SendI2CByte(digit3&0b01001111);
+  display_SendI2CByte((digit3&0b00001111)|0b01000000);
 }
 
 
@@ -206,7 +201,7 @@ void display_DisplayDigit3(void) {
  * Description
  *************************************************************************** */
 void display_DisplayDigit4(void) {
-  display_SendI2CByte(digit4&0b10001111);
+  display_SendI2CByte((digit4&0b00001111)|0b10000000);
 }
 
 
@@ -222,9 +217,24 @@ void display_AllDigitsOff(void) {
  * Flashes the four digits sequentially and then turns all 7segments off.
  *************************************************************************** */
 void display_FlashAllDigits(void) {
-  display_DisplayDigitl();
-  display_DisplayDigit2();
-  display_DisplayDigit3();
-  display_DisplayDigit4();
-  display_AllDigitsOff();
+  turn++;
+  switch(turn) {
+  case 1:
+    display_DisplayDigitl();
+    break;
+  case 2:
+    display_DisplayDigit2();
+    break;
+  case 3:
+    display_DisplayDigit3();
+    break;
+  case 4:
+    display_DisplayDigit4();
+    // no break to reset turn
+  default:
+    turn=0;
+    break;
+  }
+  //display_AllDigitsOff();
+  //FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
 }

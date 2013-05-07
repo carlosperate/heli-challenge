@@ -36,6 +36,7 @@ static portTASK_FUNCTION(task20HzRelative, pvParameters) {
  *        pvParameters Parameter to pass, not used
  *************************************************************************** */
 static portTASK_FUNCTION(task50HzAbsolute, pvParameters) {
+  (void)pvParameters; /* parameter not used */
   /* Set up the parameters for vTaskDelayUntil */
   portTickType xLastWakeTime = xTaskGetTickCount();
   const portTickType xFrequency = 20/portTICK_RATE_MS;

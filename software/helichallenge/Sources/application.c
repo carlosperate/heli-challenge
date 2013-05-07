@@ -1,6 +1,6 @@
 /**
  * @file application.c
- * @date 02/05/2013
+ * @date 07/05/2013
  * @author: Carlos Pereira Atencio
  * 
  * Description goes here.
@@ -26,7 +26,7 @@ inline void initialiseAll(void) {
   display_Init();
   #ifdef DEBUGFLAG
     uart_Init();
-    accelerometer_Init();
+    //accelerometer_Init();
   #endif
 }
 
@@ -39,16 +39,16 @@ inline void schedule20HzRelative(void) {
   /* Very simple machine state */
   /* TODO: Refactor into table driven approach */
   switch(state) {
-  case 0:
+  case Standby:
     state = stateStandBy();
     break;
-  case 1:
+  case Play:
     state = statePlay();   
     break;
-  case 2:
+  case Calibrate:
     state = stateCalibrate();
     break;
-  case 3:
+  case Difficulty:
     state = stateSelectDifficulty();
     break;
   default:
@@ -75,6 +75,8 @@ inline void schedule50HzAbsolute(void) {
  *************************************************************************** */
 inline void schedule1HzAbsolute(void) {
   time_Tick1Sec();
+  display_SetByteRight(time_GetSecondsPortion());
+  display_SetByteLeft(time_GetMinutesPortion());
   LED_R_Neg();
 }
 
@@ -85,12 +87,14 @@ inline void schedule1HzAbsolute(void) {
 ApplicationState_t stateStandBy(void) {
   #ifdef DEBUGFLAG
     uart_SendStringLn("Standby.");
-    accelerometer_readXYZ();
-    uart_SendString("Y microseconds: ");
-    uart_SendInt16(js_Move());
-    uart_SendStringLn("\n");  
+    //accelerometer_readXYZ();
+    //uart_SendString("Y microseconds: ");
+    //uart_SendInt16(js_Move());
+    //uart_SendStringLn("\n");  
   #endif 
   
+  // Here we check for button states and change state accordingly
+    
   return Standby;
 }
 

@@ -2,9 +2,9 @@
 <PEproject>
   <Header>
     <Name>ProcessorExpert</Name>
-    <SavedBy>Pawel</SavedBy>
-    <ModificationStamp>63</ModificationStamp>
-    <Date>2013-05-03</Date>
+    <SavedBy>Carlos</SavedBy>
+    <ModificationStamp>64</ModificationStamp>
+    <Date>2013-05-08</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
   </Header>
@@ -14287,7 +14287,7 @@
         <ItemSymbol>SDA</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>PTE25/TPM0_CH1/I2C0_SDA</Value>
+        <Value>CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -14311,7 +14311,7 @@
         <ItemSymbol>SCL</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>PTE24/TPM0_CH0/I2C0_SCL</Value>
+        <Value>CMP0_IN2/PTC8/I2C0_SCL/TPM0_CH4</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -18591,6 +18591,18 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>Pin1_0</ItemSymbol>
+        <ReadOnly>false</ReadOnly>
+        <UserReadOnly>false</UserReadOnly>
+        <Index>0</Index>
+        <EnumSymbVal>0</EnumSymbVal>
+      </ItemState>
+      <ItemState>
+        <ItemSymbol>UseRapidGpioOrEnhancedGroup</ItemSymbol>
+        <ReadOnly>false</ReadOnly>
+        <UserReadOnly>false</UserReadOnly>
+      </ItemState>
+      <ItemState>
+        <ItemSymbol>UseRGPIO</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <Index>0</Index>

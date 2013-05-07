@@ -30,20 +30,20 @@ void time_Init(void) {
  * time in total seconds and a "minutes and seconds" format.
  *************************************************************************** */
 void time_Tick1Sec(void) {
-  if(isRunning) {
-    timeInSeconds++;
+//  if(isRunning) {
+    timeSecondsPart++;
     
     /* Convert current seconds to minutes+seconds */
-    if(timeInSeconds>59) {
+    if(timeSecondsPart>59) {
       timeMinutesPart++;
-      timeInSeconds = 0;
+      timeSecondsPart = 0;
+      
+      /* Check if maximum defined time has been reached */
+      if(timeMinutesPart>(maxMinutes-1)) {
+        time_End();
+      }
     }
-    
-    /* Check if maximum defined time has been reached */
-    if(timeMinutesPart>(maxMinutes-1)) {
-      time_End();
-    }
-  }
+//  }
 }
 
 
