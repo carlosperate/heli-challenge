@@ -1,7 +1,7 @@
 /**
  * @file uartcontrol.h
  * @version 0.1
- * @date 29/04/2013
+ * @date 02/05/2013
  * @author: Carlos Pereira Atencio
  * 
  * This library interfaces with the UART internal peripheral. The TX and RX
@@ -41,9 +41,9 @@ typedef struct {
 } UART_handler;
 
 void uart_Init(void);
-void uart_SendChar(unsigned char ch);
-void uart_SendString(const unsigned char *str);
-void uart_SendStringLn(const unsigned char *str);
+void uart_SendChar(char ch);
+void uart_SendString(const char *str);
+void uart_SendStringLn(const char *str);
 void uart_SendByte(const uint8 integer);
 void uart_SendInt8(const int8 integer);
 void uart_SendInt16(const int16 integer);

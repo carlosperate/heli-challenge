@@ -1,7 +1,7 @@
 /**
  * @file scheduler.h
  * @version 0.1
- * @date 09/04/2012
+ * @date 02/05/2013
  * @author: Carlos Pereira Atencio
  * 
  * This header file contains the code that defines and assignees the functions
@@ -15,8 +15,6 @@
 
 #ifndef SCHEDULER_H_
 #define SCHEDULER_H_
-
-#include "application.h"
 
 void createTasks();
 

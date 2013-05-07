@@ -1,6 +1,6 @@
 /**
  * @file displaycontrol.c
- * @date 30/04/2013
+ * @date 02/05/2013
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include "displaycontrol.h"
@@ -180,7 +180,6 @@ void display_SetDigit4(uint8 digit) {
 
 /**
  * Description
- * @param
  *************************************************************************** */
 void display_DisplayDigitl(void) {
   display_SendI2CByte(digit1&0b00011111);
@@ -189,7 +188,6 @@ void display_DisplayDigitl(void) {
 
 /**
  * Description
- * @param
  *************************************************************************** */
 void display_DisplayDigit2(void) {
   display_SendI2CByte(digit2&0b00101111); 
@@ -198,7 +196,6 @@ void display_DisplayDigit2(void) {
 
 /**
  * Description
- * @param
  *************************************************************************** */
 void display_DisplayDigit3(void) {
   display_SendI2CByte(digit3&0b01001111);
@@ -207,7 +204,6 @@ void display_DisplayDigit3(void) {
 
 /**
  * Description
- * @param
  *************************************************************************** */
 void display_DisplayDigit4(void) {
   display_SendI2CByte(digit4&0b10001111);
@@ -216,7 +212,6 @@ void display_DisplayDigit4(void) {
 
 /**
  * Description
- * @param
  *************************************************************************** */
 void display_AllDigitsOff(void) {
   display_SendI2CByte(0x00);
@@ -225,7 +220,6 @@ void display_AllDigitsOff(void) {
 
 /**
  * Flashes the four digits sequentially and then turns all 7segments off.
- * @param
  *************************************************************************** */
 void display_FlashAllDigits(void) {
   display_DisplayDigitl();
@@ -233,9 +227,4 @@ void display_FlashAllDigits(void) {
   display_DisplayDigit3();
   display_DisplayDigit4();
   display_AllDigitsOff();
-  
-  /* The following code is only used for testing purposes */
-  #ifdef DEBUGFLAG
-    uart_SendChar('F');
-  #endif
 }

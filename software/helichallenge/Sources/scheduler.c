@@ -1,9 +1,10 @@
 /**
  * @file scheduler.c
- * @date 10/04/2012
+ * @date 02/05/2013
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include "scheduler.h"
+#include "application.h"
 #include "portmacro.h"
 #include "FRTOS1.h"
 #include "accelerometer.h"
@@ -12,93 +13,79 @@
 
 
 
-/** portTASK_FUNCTION for Task 1
- * Description
- * @param
- * @return
+/**
+ * portTASK_FUNCTION for task20HzRelative
+ * This is the main function of the application where the state machine and
+ * all operational code will be executed.
+ * @param task20HzRelative Name of the task
+ *        pvParameters Parameter to pass, not used
  *************************************************************************** */
-static portTASK_FUNCTION(Task1, pvParameters) {
+static portTASK_FUNCTION(task20HzRelative, pvParameters) {
   (void)pvParameters; /* parameter not used */
   for(;;) {
-  	LED_B_Neg();
-	FRTOS1_vTaskDelay(1000/portTICK_RATE_MS);
-
+    schedule20HzRelative();
+	FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
   }
 }
 
 
-/** portTASK_FUNCTION for Task 2
- * Description
- * @param
- * @return
- *************************************************************************** */
-static portTASK_FUNCTION(Task2, pvParameters) {
-  (void)pvParameters; /* parameter not used */
-  for(;;) {
-    accelerometer_readXYZ();
-	FRTOS1_vTaskDelay(2000/portTICK_RATE_MS);
-
-  }
-} 
-
-
-/** portTASK_FUNCTION for Task 3
+/**
+ * portTASK_FUNCTION for task50HzAbsolute
  * This one is meant to flash the 7 segment display at 50hz
- * @param
- * @return
+ * @param task50HzAbsolute Name of the task
+ *        pvParameters Parameter to pass, not used
  *************************************************************************** */
-static portTASK_FUNCTION(Task3, pvParameters) {
-  (void)pvParameters; /* parameter not used */
+static portTASK_FUNCTION(task50HzAbsolute, pvParameters) {
+  /* Set up the parameters for vTaskDelayUntil */
+  portTickType xLastWakeTime = xTaskGetTickCount();
+  const portTickType xFrequency = 20/portTICK_RATE_MS;
   for(;;) {
-    //display_FlashAll();
-    uart_SendStringLn((unsigned char*)("Task3\n"));
-    FRTOS1_vTaskDelay(1500/portTICK_RATE_MS);
+    /* Wait for the next cycle */
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    schedule50HzAbsolute();
   }
 } 
 
 
-/** portTASK_FUNCTION for Task 4
- * Description
- * @param
- * @return
+/**
+ * portTASK_FUNCTION for task1HzAbsolute
+ * This function is to be called once a second in a absolute manner.
+ * @param task1HzAbsolute Name of the task
+ *        pvParameters Parameter to pass, not used
  *************************************************************************** */
-static portTASK_FUNCTION(Task4, pvParameters) {
+static portTASK_FUNCTION(task1HzAbsolute, pvParameters) {
   (void)pvParameters; /* parameter not used */
+  /* Set up the parameters for vTaskDelayUntil */
+  portTickType xLastWakeTime = xTaskGetTickCount();
+  const portTickType xFrequency = 1000/portTICK_RATE_MS;
   for(;;) {
-    TestLEDs();
-    uint16 printout = js_Move();
-    uart_SendStringLn((unsigned char*)"Y microseconds:");
-    uart_SendInt16(printout);
-    uart_SendStringLn((unsigned char*)"\n");
-    bool Value0=Get_Value(0);
-    uart_SendByte((uint8)Value0);
-    FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
+    /* Wait for the next cycle */
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    schedule1HzAbsolute();
   }
 } 
 
 
-
-/** createTasks
- * Description
- * @param
- * @return
+/**
+ * Creates and assigns the tasks to the RTOS.
  *************************************************************************** */
 void createTasks() {
   if (FRTOS1_xTaskCreate(
-	    Task1,                      /* pointer to the task */
-	    (signed portCHAR *)"Task1", /* task name for kernel awareness debugging */
-	    configMINIMAL_STACK_SIZE,   /* task stack size */
-	    (void*)NULL,                /* optional task startup argument */
-	    tskIDLE_PRIORITY,           /* initial priority */
-	    (xTaskHandle*)NULL          /* optional task handle to create */
-	  ) != pdPASS) {
+      task20HzRelative,           /* pointer to the task */
+      (signed portCHAR *)"task20HzRelative", /* task name */
+      configMINIMAL_STACK_SIZE,   /* task stack size */
+      (void*)NULL,                /* optional task startup argument */
+      tskIDLE_PRIORITY,           /* initial priority */
+      (xTaskHandle*)NULL          /* optional task handle to create */
+    ) != pdPASS) {
     /*lint -e527 */
     for(;;){}; /* error! probably out of memory */
     /*lint +e527 */
   }
+  
   if (FRTOS1_xTaskCreate(
-      Task2,                      /* pointer to the task */
-      (signed portCHAR *)"Task2", /* task name for kernel awareness debugging */
+      task50HzAbsolute,           /* pointer to the task */
+      (signed portCHAR *)"task50HzAbsolute", /* task name */
       configMINIMAL_STACK_SIZE,   /* task stack size */
       (void*)NULL,                /* optional task startup argument */
       tskIDLE_PRIORITY,           /* initial priority */
@@ -107,22 +94,11 @@ void createTasks() {
     /*lint -e527 */
     for(;;){}; /* error! probably out of memory */
     /*lint +e527 */
-  } 
+  }
+  
   if (FRTOS1_xTaskCreate(
-      Task3,                      /* pointer to the task */
-      (signed portCHAR *)"Task3", /* task name for kernel awareness debugging */
-      configMINIMAL_STACK_SIZE,   /* task stack size */
-      (void*)NULL,                /* optional task startup argument */
-      tskIDLE_PRIORITY,           /* initial priority */
-      (xTaskHandle*)NULL          /* optional task handle to create */
-    ) != pdPASS) {
-    /*lint -e527 */
-    for(;;){}; /* error! probably out of memory */
-    /*lint +e527 */
-  } 
-  if (FRTOS1_xTaskCreate(
-      Task4,                      /* pointer to the task */
-      (signed portCHAR *)"Task3", /* task name for kernel awareness debugging */
+      task1HzAbsolute,             /* pointer to the task */
+      (signed portCHAR *)"task1HzAbsolute", /* task name */
       configMINIMAL_STACK_SIZE,   /* task stack size */
       (void*)NULL,                /* optional task startup argument */
       tskIDLE_PRIORITY,           /* initial priority */
@@ -133,4 +109,3 @@ void createTasks() {
     /*lint +e527 */
   } 
 }
-

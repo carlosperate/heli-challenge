@@ -1,7 +1,7 @@
 /**
  * @file accelerometer.h
  * @version 0.1
- * @date 11/04/2012
+ * @date 29/04/2013
  * @author: Carlos Pereira Atencio
  * 
  * This library interfaces with the accelerometer in the KL25Z board as a
@@ -13,6 +13,7 @@
 
 #include "common.h"
 
-int16 accelerometer_readXYZ(void);
+void accelerometer_Init(void);
+void accelerometer_readXYZ(void);
 
 #endif /* ACCELEROMETER_H_ */

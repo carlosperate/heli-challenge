@@ -6793,6 +6793,48 @@ type 0309, grid 2.5 mm</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="frames">
+<description>&lt;b&gt;Frames for Sheet and Layout&lt;/b&gt;</description>
+<packages>
+</packages>
+<symbols>
+<symbol name="A5L-LOC">
+<wire x1="85.09" y1="3.81" x2="85.09" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="85.09" y1="24.13" x2="139.065" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="24.13" x2="180.34" y2="24.13" width="0.1016" layer="94"/>
+<wire x1="170.18" y1="3.81" x2="170.18" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="170.18" y1="8.89" x2="180.34" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="170.18" y1="8.89" x2="139.065" y2="8.89" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="8.89" x2="139.065" y2="3.81" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="8.89" x2="139.065" y2="13.97" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="13.97" x2="180.34" y2="13.97" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="13.97" x2="139.065" y2="19.05" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="19.05" x2="180.34" y2="19.05" width="0.1016" layer="94"/>
+<wire x1="139.065" y1="19.05" x2="139.065" y2="24.13" width="0.1016" layer="94"/>
+<text x="140.97" y="15.24" size="2.54" layer="94" font="vector">&gt;DRAWING_NAME</text>
+<text x="140.97" y="10.16" size="2.286" layer="94" font="vector">&gt;LAST_DATE_TIME</text>
+<text x="154.305" y="5.08" size="2.54" layer="94" font="vector">&gt;SHEET</text>
+<text x="140.716" y="4.953" size="2.54" layer="94" font="vector">Sheet:</text>
+<frame x1="0" y1="0" x2="184.15" y2="133.35" columns="4" rows="4" layer="94"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="DINA5_L" prefix="FRAME" uservalue="yes">
+<description>&lt;b&gt;FRAME&lt;/b&gt;&lt;p&gt;
+DIN A5, landscape with doc field</description>
+<gates>
+<gate name="G$1" symbol="A5L-LOC" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -6809,18 +6851,22 @@ type 0309, grid 2.5 mm</description>
 <part name="R2" library="resistor" deviceset="R-US_" device="0204/5"/>
 <part name="JP5" library="pinhead" deviceset="PINHD-1X2" device=""/>
 <part name="IC1" library="adafruit" deviceset="78*" device="T" technology="05"/>
-<part name="C1" library="adafruit" deviceset="C-US" device="025-050X050"/>
-<part name="C2" library="adafruit" deviceset="C-US" device="025-050X050"/>
+<part name="C1" library="adafruit" deviceset="C-US" device="025-050X050" value="0.33 uF"/>
+<part name="C2" library="adafruit" deviceset="C-US" device="025-050X050" value="0.1 uF"/>
 <part name="X1" library="adafruit" deviceset="F15" device="H"/>
+<part name="R3" library="resistor" deviceset="R-US_" device="0204/5"/>
+<part name="R4" library="resistor" deviceset="R-US_" device="0204/5"/>
+<part name="FRAME2" library="frames" deviceset="DINA5_L" device=""/>
 </parts>
 <sheets>
 <sheet>
 <plain>
+<text x="68.58" y="45.72" size="1.778" layer="91">Temporary DB15 pinout</text>
 </plain>
 <instances>
 <instance part="OK1" gate="A" x="45.72" y="73.66"/>
 <instance part="OK1" gate="B" x="45.72" y="55.88"/>
-<instance part="JP1" gate="A" x="20.32" y="60.96"/>
+<instance part="JP1" gate="A" x="15.24" y="60.96"/>
 <instance part="R1" gate="G$1" x="60.96" y="81.28" rot="R90"/>
 <instance part="R2" gate="G$1" x="73.66" y="81.28" rot="R90"/>
 <instance part="JP5" gate="G$1" x="-33.02" y="86.36"/>
@@ -6828,40 +6874,35 @@ type 0309, grid 2.5 mm</description>
 <instance part="C1" gate="G$1" x="-17.78" y="81.28"/>
 <instance part="C2" gate="G$1" x="10.16" y="81.28"/>
 <instance part="X1" gate="-1" x="86.36" y="63.5"/>
+<instance part="R3" gate="G$1" x="27.94" y="76.2" rot="R180"/>
+<instance part="R4" gate="G$1" x="30.48" y="58.42" rot="R180"/>
+<instance part="FRAME2" gate="G$1" x="-58.42" y="0"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="UC_GROUND" class="0">
 <segment>
-<wire x1="17.78" y1="60.96" x2="27.94" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="60.96" x2="27.94" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="60.96" x2="22.86" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="60.96" x2="22.86" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="OK1" gate="B" pin="C"/>
-<wire x1="27.94" y1="53.34" x2="35.56" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="53.34" x2="35.56" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="OK1" gate="A" pin="C"/>
-<wire x1="35.56" y1="71.12" x2="27.94" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="71.12" x2="27.94" y2="60.96" width="0.1524" layer="91"/>
-<junction x="27.94" y="60.96"/>
+<wire x1="35.56" y1="71.12" x2="22.86" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="71.12" x2="22.86" y2="60.96" width="0.1524" layer="91"/>
+<junction x="22.86" y="60.96"/>
 <pinref part="JP1" gate="A" pin="2"/>
-<label x="2.54" y="60.96" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="PWM2" class="0">
-<segment>
-<wire x1="17.78" y1="58.42" x2="35.56" y2="58.42" width="0.1524" layer="91"/>
-<pinref part="OK1" gate="B" pin="A"/>
-<pinref part="JP1" gate="A" pin="3"/>
-<label x="17.78" y="50.8" size="1.778" layer="95"/>
+<label x="-2.54" y="60.96" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PWM1" class="0">
 <segment>
 <pinref part="JP1" gate="A" pin="1"/>
-<wire x1="17.78" y1="63.5" x2="25.4" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="25.4" y1="63.5" x2="25.4" y2="76.2" width="0.1524" layer="91"/>
-<pinref part="OK1" gate="A" pin="A"/>
-<wire x1="25.4" y1="76.2" x2="35.56" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="63.5" x2="20.32" y2="63.5" width="0.1524" layer="91"/>
 <label x="17.78" y="71.12" size="1.778" layer="95"/>
+<wire x1="20.32" y1="63.5" x2="20.32" y2="76.2" width="0.1524" layer="91"/>
+<pinref part="R3" gate="G$1" pin="2"/>
+<wire x1="22.86" y1="76.2" x2="20.32" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GROUND" class="0">
@@ -6949,6 +6990,26 @@ type 0309, grid 2.5 mm</description>
 <wire x1="-17.78" y1="88.9" x2="-17.78" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="JP5" gate="G$1" pin="1"/>
 <wire x1="-35.56" y1="88.9" x2="-17.78" y2="88.9" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="OK1" gate="A" pin="A"/>
+<pinref part="R3" gate="G$1" pin="1"/>
+<wire x1="33.02" y1="76.2" x2="35.56" y2="76.2" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="OK1" gate="B" pin="A"/>
+<pinref part="R4" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="R4" gate="G$1" pin="2"/>
+<pinref part="JP1" gate="A" pin="3"/>
+<wire x1="25.4" y1="58.42" x2="12.7" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

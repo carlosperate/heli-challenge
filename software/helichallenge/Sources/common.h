@@ -1,7 +1,7 @@
 /**
  * @file common.h
  * @version 0.1
- * @date 10/04/2012
+ * @date 02/05/2013
  * @author: Carlos Pereira Atencio
  * 
  * To contain all common library includes and global variables.
@@ -18,6 +18,7 @@
 #ifndef DEBUGFLAG
   #define DEBUGFLAG
   #include "uartcontrol.h"
+  #include "accelerometer.h"
 #endif
 
 #endif /* COMMON_H_ */

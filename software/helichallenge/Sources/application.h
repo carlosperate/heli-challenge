@@ -1,7 +1,7 @@
 /**
  * @file application.h
  * @version 0.1
- * @date 09/04/2012
+ * @date 02/05/2013
  * @author: Carlos Pereira Atencio
  * 
  * This header file contains the function calls for the general application
@@ -18,10 +18,18 @@
 #define APPLICATION_H_
 
 #include "common.h"
-#include "joystickservo.h"
-#include "Button_LED_Test.h"
 
+typedef enum {
+  Standby, Calibrate, Play, Difficulty
+} ApplicationState_t;
 
-void initialiseAll(void);
+inline void initialiseAll(void);
+inline void schedule20HzRelative(void);
+inline void schedule50HzAbsolute(void);
+inline void schedule1HzAbsolute(void);
+ApplicationState_t stateStandBy(void);
+ApplicationState_t statePlay(void);
+ApplicationState_t stateCalibrate(void);
+ApplicationState_t stateSelectDifficulty(void);
 
 #endif /* APPLICATION_H_ */

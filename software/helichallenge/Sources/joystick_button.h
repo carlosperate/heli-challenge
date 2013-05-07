@@ -9,8 +9,10 @@
 #include "common.h"
 #ifndef JOYSTICK_BUTTON_H_
 #define JOYSTICK_BUTTON_H_
-bool Get_Value(uint16 SignalName);
 
+#include "common.h"
+
+bool Get_Value(uint16 SignalName);
 
 
 #endif /* JOYSTICK_BUTTON_H_ */

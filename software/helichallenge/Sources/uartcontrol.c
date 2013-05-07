@@ -1,6 +1,6 @@
 /**
  * @file uartcontrol.c
- * @date 29/04/2013
+ * @date 02/05/2013
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include <stdio.h>
@@ -25,7 +25,7 @@ void uart_Init(void) {
  * Sends a single character to the UART peripheral.
  * @param ch The character to send
  *************************************************************************** */
-void uart_SendChar(unsigned char ch) {
+void uart_SendChar(char ch) {
   deviceData.isSent = FALSE;  // reset flag
   while(AS1_SendBlock(deviceData.handle, (LDD_TData*)&ch, 1)!= ERR_OK) {}
   while(!deviceData.isSent) {} // wait until we get the block has been sent 
@@ -38,7 +38,7 @@ void uart_SendChar(unsigned char ch) {
  * Uart_SendChar function until the end of the string is reached.
  * @param str A Null terminated string of text
  *************************************************************************** */
-void uart_SendString(const unsigned char *str) {
+void uart_SendString(const char *str) {
   while(*str!='\0') {
     uart_SendChar(*str++);
   }
@@ -50,7 +50,7 @@ void uart_SendString(const unsigned char *str) {
  * Uart_SendChar function until the end of the string is reached.
  * @param str A Null terminated string of text
  *************************************************************************** */
-void uart_SendStringLn(const unsigned char *str) {
+void uart_SendStringLn(const char *str) {
   uart_SendString(str);
   uart_SendString("\r\n");
 }
