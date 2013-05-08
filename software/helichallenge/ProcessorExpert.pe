@@ -2,15 +2,10 @@
 <PEproject>
   <Header>
     <Name>ProcessorExpert</Name>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
     <SavedBy>Pawel</SavedBy>
-=======
-    <SavedBy>Carlos</SavedBy>
->>>>>>> 5aadea95d46ccdce72aea99cc5fb015966933cce
-=======
-    <SavedBy>Carlos</SavedBy>
->>>>>>> 5aadea95d46ccdce72aea99cc5fb015966933cce
+
     <ModificationStamp>64</ModificationStamp>
     <Date>2013-05-08</Date>
     <IDE>Eclipse IDE</IDE>
@@ -9536,7 +9531,7 @@
               <ItemSymbol>DutyTmg</ItemSymbol>
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
-              <Value>init:1500 µs;prec:5.0%;RTS:none</Value>
+              <Value>init:1500 �s;prec:5.0%;RTS:none</Value>
               <RuntimeSetting>0</RuntimeSetting>
               <ReqDevPrescHigh>-1</ReqDevPrescHigh>
               <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -10072,7 +10067,7 @@
         <ItemSymbol>InitDuty</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>1500 µs</Value>
+        <Value>1500 �s</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -10961,7 +10956,7 @@
         <ItemSymbol>Tmg_ChanOffset0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>init:1500 µs;prec:5.0%;RTS:none</Value>
+        <Value>init:1500 �s;prec:5.0%;RTS:none</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -11785,7 +11780,7 @@
               <ItemSymbol>DutyTmg</ItemSymbol>
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
-              <Value>init:2000 µs;prec:5.0%;RTS:none</Value>
+              <Value>init:2000 �s;prec:5.0%;RTS:none</Value>
               <RuntimeSetting>0</RuntimeSetting>
               <ReqDevPrescHigh>-1</ReqDevPrescHigh>
               <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -12321,7 +12316,7 @@
         <ItemSymbol>InitDuty</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>2000 µs</Value>
+        <Value>2000 �s</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -13210,7 +13205,7 @@
         <ItemSymbol>Tmg_ChanOffset0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>init:2000 µs;prec:5.0%;RTS:none</Value>
+        <Value>init:2000 �s;prec:5.0%;RTS:none</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -15670,7 +15665,7 @@
               <ItemSymbol>_CnvTmg</ItemSymbol>
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
-              <Value>init:19.073486 µs;prec:5.0%;RTS:none;extcomp_presc[SpeedMode0]25</Value>
+              <Value>init:19.073486 �s;prec:5.0%;RTS:none;extcomp_presc[SpeedMode0]25</Value>
               <RuntimeSetting>0</RuntimeSetting>
               <ReqDevPrescHigh>-1</ReqDevPrescHigh>
               <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -16934,7 +16929,7 @@
         <ItemSymbol>_CnvTmg</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>19.073486 µs</Value>
+        <Value>19.073486 �s</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
