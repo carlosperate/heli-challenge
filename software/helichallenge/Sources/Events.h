@@ -54,6 +54,7 @@
 #include "LED_South.h"
 #include "LED_East.h"
 #include "LED_West.h"
+#include "TSS1.h"
 #include "PE_LDD.h"
 
 void Cpu_OnNMIINT(void);
@@ -195,6 +196,77 @@ void AD1_OnCalibrationEnd(void);
 **         Calibration status method./nThis event is enabled only if
 **         the <Interrupt service/event> property is enabled.
 **     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void TSS1_fOnFault(byte u8FaultElecNum);
+/*
+** ===================================================================
+**     Event       :  TSS1_fOnFault (module Events)
+**
+**     Component   :  TSS1 [TSS_Library]
+**     Description :
+**         This callback function is called by TSS after Fault
+**         occurence. This event is enabled always and depends on
+**         selection 'generate code' if the callback is used.
+**         The default CallBack Name is automatically generated with
+**         automatic prefix update by current Component Name. User can
+**         define own name, but then the automatic name update is not
+**         functional.
+**         Option is available from TSS3.0 version.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         u8FaultElecNum  - The value defines
+**                           electrode number on which measurement fault
+**                           occured.
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void TSS1_fOnInit(void);
+/*
+** ===================================================================
+**     Event       :  TSS1_fOnInit (module Events)
+**
+**     Component   :  TSS1 [TSS_Library]
+**     Description :
+**         This callback function is automatically called during the
+**         TSS Init function execution. The function is intended for
+**         implementation of peripherals initialization. TSS Component
+**         automatically enables clock for all used TSS peripherals in
+**         the internal function TSS_InitDevices which is called by
+**         this callback.
+**         This event is enabled always and depends on selection
+**         'generate code' if the callback is used.
+**         The default CallBack Name is automatically generated with
+**         automatic prefix update by current Component Name. User can
+**         define own name, but then the automatic name update is not
+**         functional.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void TSS1_fCallBack0(TSS_CONTROL_ID u8ControlId);
+/*
+** ===================================================================
+**     Event       :  TSS1_fCallBack0 (module Events)
+**
+**     Component   :  TSS1 [TSS_Library]
+**     Description :
+**         Callback definition for Control 0. This event is enabled
+**         only if Control 0 is enabled.
+**         The default CallBack Name is automatically generated with
+**         automatic prefix update by current Component Name. User can
+**         define own name, but then the automatic name update is not
+**         functional.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         u8ControlId     - Valid unique Identifier of
+**                           the Control which generated the CallBack
+**                           function. This Id can be used for finding
+**                           of Callback's source Control.
 **     Returns     : Nothing
 ** ===================================================================
 */
