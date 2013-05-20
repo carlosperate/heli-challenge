@@ -87,6 +87,11 @@ void uart_SendInt16(const int16 integer) {
   sprintf(numbstr, "%d", integer);
   uart_SendString(numbstr);
 }
+void uart_SendUInt16(const uint16 integer) {
+  char numbstr[7];
+  sprintf(numbstr, "%u", integer);
+  uart_SendString(numbstr);
+}
 
 
 /**

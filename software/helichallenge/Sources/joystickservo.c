@@ -4,9 +4,10 @@
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include "joystickservo.h"
+#include "calibrate.h"
 
 /*Array containing ADC readouts (2 members)*/
-uint16 ADC_READOUT[AD1_CHANNEL_COUNT];
+
 
 /*AdcRead*/
 uint16 AdcRead(void){
@@ -14,7 +15,29 @@ uint16 AdcRead(void){
   AD1_GetValue16(ADC_READOUT);
   return err;
 }
+//uint16 ConditionADCx(uint16 ADC_X){
+//  if ((ADC_X>CalibrationDeadLeft)&&(ADC_X<CalibrationDeadRight)){
+//    ADC_X=CalibrationCentreX;
+//  }
+//  if (ADC>CalibrationDeadRight){
+//    ADC=(uint16)(CalibrationCentreX+(CalibrationRight-CalibrationCentreX)*(ADC/65535));
+//  }
+//  if (ADC<CalibrationDeadLeft){
+//    ADC=CalibrationLeft+
+//  }
+//  return ADC_X;
+//}
+uint16 ConditionADCx(uint16 ADC_Y){
+  if ((ADC_Y>CalibrationDeadLeft)&&(ADC_Y<CalibrationDeadRight)){
+    ADC_Y=CalibrationCentreY;
+  }
 
+  return ADC_Y;
+}
+uint16 ConditionADCy(uint16 ADC){
+  
+return ADC;
+}
 /** js_AdcToUs
  * Converts the 16bit ADC value from the joystick pots to a value between the
  * minimum and maximum PWM duty cycle.

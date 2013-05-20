@@ -49,5 +49,6 @@ void uart_SendInt8(const int8 integer);
 void uart_SendInt16(const int16 integer);
 void uart_SendInt32(const int32 integer);
 void uart_SendFloat(const float floatnumber);
+void uart_SendUInt16(const uint16 integer);
 
 #endif /* UARTUSB_H_ */
