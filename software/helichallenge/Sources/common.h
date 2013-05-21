@@ -21,4 +21,10 @@
   #include "accelerometer.h"
 #endif
 
+/* For some reason the I2C functions block all tasks, so until we have time
+ * to investigate this is done to bypassit */
+#ifndef DISPLAY_CONNECTED
+  //#define DISPLAY_CONNECTED
+#endif
+
 #endif /* COMMON_H_ */

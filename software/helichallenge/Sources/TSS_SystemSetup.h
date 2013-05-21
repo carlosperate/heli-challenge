@@ -90,7 +90,7 @@
 
 /* Configuration of Electrode Measurement Method */
 
-#define TSS_E0_TYPE                 TSI0_CH2          /* Electrode measurement method specification */
+#define TSS_E0_TYPE                 TSI0_CH15         /* Electrode measurement method specification */
 
 /************************** Controls Configuration ***************************/
 

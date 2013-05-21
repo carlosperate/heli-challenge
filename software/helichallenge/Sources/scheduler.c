@@ -35,15 +35,15 @@ static portTASK_FUNCTION(task20HzRelative, pvParameters) {
  * @param task50HzAbsolute Name of the task
  *        pvParameters Parameter to pass, not used
  *************************************************************************** */
-static portTASK_FUNCTION(task50HzAbsolute, pvParameters) {
+static portTASK_FUNCTION(task250HzAbsolute, pvParameters) {
   (void)pvParameters; /* parameter not used */
   /* Set up the parameters for vTaskDelayUntil */
   portTickType xLastWakeTime = xTaskGetTickCount();
-  const portTickType xFrequency = 20/portTICK_RATE_MS;
+  const portTickType xFrequency = 4/portTICK_RATE_MS;
   for(;;) {
     /* Wait for the next cycle */
     vTaskDelayUntil(&xLastWakeTime, xFrequency);
-    schedule50HzAbsolute();
+    schedule250HzAbsolute(); 
   }
 } 
 
@@ -85,8 +85,8 @@ void createTasks() {
   }
   
   if (FRTOS1_xTaskCreate(
-      task50HzAbsolute,           /* pointer to the task */
-      (signed portCHAR *)"task50HzAbsolute", /* task name */
+      task250HzAbsolute,           /* pointer to the task */
+      (signed portCHAR *)"task250HzAbsolute", /* task name */
       configMINIMAL_STACK_SIZE,   /* task stack size */
       (void*)NULL,                /* optional task startup argument */
       tskIDLE_PRIORITY,           /* initial priority */

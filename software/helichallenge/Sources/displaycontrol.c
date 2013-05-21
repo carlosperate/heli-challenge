@@ -37,10 +37,12 @@ void display_Init(void) {
       0x00,     /** INTCON: Int. compare against previous value (not used). */
       0x2A};    /** IOCON: Disable sequential operation */
   
-//  if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
-//      1, registerConf, 6) != ERR_OK) {
-//    //Do something for error checking 
-//  }
+  #ifdef DISPLAY_CONNECTED
+    if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
+        1, registerConf, 6) != ERR_OK) {
+      //Do something for error checking 
+    }
+  #endif
 }
 
 
@@ -52,10 +54,12 @@ void display_Init(void) {
 void display_SendI2CByte(uint8 byteToSend) {
   uint8 registerPointer = DISPLAY_REGISTER_OPSET;
   
-//  if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
-//      1, &byteToSend, 1) != ERR_OK ) {
-//    //Do something for error checking 
-//  }
+  #ifdef DISPLAY_CONNECTED
+    if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
+        1, &byteToSend, 1) != ERR_OK ) {
+      //Do something for error checking 
+    }
+  #endif
 }
 
 
@@ -219,22 +223,21 @@ void display_AllDigitsOff(void) {
 void display_FlashAllDigits(void) {
   turn++;
   switch(turn) {
-  case 1:
-    display_DisplayDigitl();
-    break;
-  case 2:
-    display_DisplayDigit2();
-    break;
-  case 3:
-    display_DisplayDigit3();
-    break;
-  case 4:
-    display_DisplayDigit4();
-    // no break to reset turn
-  default:
-    turn=0;
-    break;
+    case 1:
+      display_DisplayDigitl();
+      break;
+    case 2:
+      display_DisplayDigit2();
+      break;
+    case 3:
+      display_DisplayDigit3();
+      break;
+    case 4:
+      display_DisplayDigit4();
+      // no break to reset turn
+    default:
+      turn=0;
+      break;
   }
   //display_AllDigitsOff();
-  //FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
 }
