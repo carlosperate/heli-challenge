@@ -4,7 +4,7 @@
  * @author: Carlos Pereira Atencio
  **************************************************************************** */
 #include "joystickservo.h"
-//#include "calibrate.h"
+#include "calibrate.h"
 
 /*Array containing ADC readouts (2 members)*/
 
