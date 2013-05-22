@@ -12,7 +12,7 @@ bool Get_Value(uint16 SignalName){
     Value=Joystick0_GetVal(NULL);
   };
   if (SignalName==1){
-    Value=Joystick4_GetVal(NULL);
+    Value=Joystick1_GetVal(NULL);
   };
   if (SignalName==2){
     Value=Joystick2_GetVal(NULL);

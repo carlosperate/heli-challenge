@@ -89,8 +89,7 @@ inline void schedule1HzAbsolute(void) {
 //  uart_SendInt16(js_Move());
 //  uart_SendStringLn("\n"); 
   
-  DebugJoystickADC();
-  DebugJoystickButtons();
+
 
   LED_R_Neg();
 }
@@ -101,12 +100,12 @@ inline void schedule1HzAbsolute(void) {
  *************************************************************************** */
 ApplicationState_t stateStandBy(void) {
   #ifdef DEBUGFLAG
-  uart_SendStringLn("Standby.");
-  //  accelerometer_readXYZ();
+    //uart_SendStringLn("Standby.");
   #endif 
   
   // Here we check for button states and change state accordingly
-    
+  DebugJoystickADC();
+  DebugJoystickButtons();
   return Standby;
 }
 
