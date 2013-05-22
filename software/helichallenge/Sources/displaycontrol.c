@@ -28,16 +28,16 @@ void display_SendI2CByte(uint8 byteToSend);
  * Initialises the I2C IO extender in the display circuit.
  *************************************************************************** */
 void display_Init(void) {
-  uint8 registerPointer = DISPLAY_REGISTER_START;
-  uint8 registerConf[6] = {
-      0x00,     /** IODIR:  All outputs. */
-      0x00,     /** IPOL: All GPIO will reflect the same logic as input pin. */
-      0x00,     /** GPINTEN: Disable all input interrupts. */
-      0x00,     /** DEFVA: Interrupt state trigger, not active. */
-      0x00,     /** INTCON: Int. compare against previous value (not used). */
-      0x2A};    /** IOCON: Disable sequential operation */
-  
   #ifdef DISPLAY_CONNECTED
+    uint8 registerPointer = DISPLAY_REGISTER_START;
+    uint8 registerConf[6] = {
+        0x00,     /** IODIR:  All outputs. */
+        0x00,     /** IPOL: All GPIO will reflect the same logic as input pin. */
+        0x00,     /** GPINTEN: Disable all input interrupts. */
+        0x00,     /** DEFVA: Interrupt state trigger, not active. */
+        0x00,     /** INTCON: Int. compare against previous value (not used). */
+        0x2A};    /** IOCON: Disable sequential operation */
+    
     if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
         1, registerConf, 6) != ERR_OK) {
       //Do something for error checking 
@@ -52,9 +52,8 @@ void display_Init(void) {
  *                   sent by I2C.
  *************************************************************************** */
 void display_SendI2CByte(uint8 byteToSend) {
-  uint8 registerPointer = DISPLAY_REGISTER_OPSET;
-  
   #ifdef DISPLAY_CONNECTED
+    uint8 registerPointer = DISPLAY_REGISTER_OPSET;
     if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
         1, &byteToSend, 1) != ERR_OK ) {
       //Do something for error checking 

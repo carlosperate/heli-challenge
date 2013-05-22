@@ -3,6 +3,7 @@
  * @version 0.1
  * @date 10/04/2012
  * @author: Carlos Pereira Atencio
+ *          Pawel
  * 
  * This library interfaces with the PWM internal peripheral and the data
  * coming from the ADC internal peripheral. 
@@ -19,7 +20,10 @@
 #define JOYSTICKSERVO_MIN_US 1000
 #define JOYSTICKSERVO_MAX_US 2000
 
+/* Global array containing ADC readouts (2 members)*/
 uint16 ADC_READOUT[AD1_CHANNEL_COUNT];
+
+/* Function definitions */
 uint16 AdcRead(void);
 uint16 js_AdcToUs(uint16 adc);
 void js_SetServoDutyUsX(uint16 us);

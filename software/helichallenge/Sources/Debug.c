@@ -8,8 +8,11 @@
 #include "Debug.h"
 void DebugJoystickADC(){
   AdcRead();
-  uart_SendString("X:"); uart_SendUInt16(ADC_READOUT[0]);
-  uart_SendString("; Y:");uart_SendUInt16(ADC_READOUT[1]);uart_SendStringLn("\n"); 
+  uart_SendString("X-> ADC: "); uart_SendUInt16(ADC_READOUT[0]);
+  uart_SendString("; Srv: ");uart_SendUInt16(js_AdcToUs(ADC_READOUT[0]));
+  uart_SendString("\r\nY-> ADC: ");uart_SendUInt16(ADC_READOUT[1]);
+  uart_SendString("; Srv: ");uart_SendUInt16(js_AdcToUs(ADC_READOUT[1]));
+  uart_SendStringLn("\n"); 
 }
 void DebugJoystickButtons(){
   bool Value0=Get_Value(0);

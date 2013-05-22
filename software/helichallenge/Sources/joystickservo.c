@@ -2,19 +2,35 @@
  * @file joystickservo.c
  * @date 10/04/2012
  * @author: Carlos Pereira Atencio
+ *          Pawel
  **************************************************************************** */
 #include "joystickservo.h"
 #include "calibrate.h"
 
-/*Array containing ADC readouts (2 members)*/
+
+/* A few local global to define limitis and calibration */
+static uint16 xMin = 32768;
+static uint16 xCentre = 49152;
+static uint16 xMax = 65535;
+static uint16 yMin = 32768;
+static uint16 yCentre = 49152;
+static uint16 yMax = 65535;
 
 
+/**
+ * Description
+ *************************************************************************** */
 /*AdcRead*/
 uint16 AdcRead(void){
   uint16 err=AD1_Measure(1);
   AD1_GetValue16(ADC_READOUT);
   return err;
 }
+
+
+/**
+ * Description
+ *************************************************************************** */
 //uint16 ConditionADCx(uint16 ADC_X){
 //  if ((ADC_X>CalibrationDeadLeft)&&(ADC_X<CalibrationDeadRight)){
 //    ADC_X=CalibrationCentreX;
@@ -27,6 +43,11 @@ uint16 AdcRead(void){
 //  }
 //  return ADC_X;
 //}
+
+
+/**
+ * Description
+ *************************************************************************** */
 uint16 ConditionADCx(uint16 ADC_Y){
   if ((ADC_Y>CalibrationDeadLeft)&&(ADC_Y<CalibrationDeadRight)){
     ADC_Y=CalibrationCentreY;
@@ -34,10 +55,17 @@ uint16 ConditionADCx(uint16 ADC_Y){
 
   return ADC_Y;
 }
+
+
+/**
+ * Description
+ *************************************************************************** */
 uint16 ConditionADCy(uint16 ADC){
   
 return ADC;
 }
+
+
 /** js_AdcToUs
  * Converts the 16bit ADC value from the joystick pots to a value between the
  * minimum and maximum PWM duty cycle.
@@ -45,10 +73,11 @@ return ADC;
  * @return A 16bit unsigned integer to represent a duty cycle in microseconds
  * with a range from the minimum and maximum defined in the header file.
  *************************************************************************** */
-
 uint16 js_AdcToUs(uint16 ADC) {
-uint16 us=(1000+(uint16)(ADC/65.535));
-
+  //uint16 us=(1000+(uint16)(ADC/65.535));
+  float percentageAdcRange = (float)(ADC-xMin) / (float)(xMax-xMin);
+  float usFloat = (float)(JOYSTICKSERVO_MAX_US - JOYSTICKSERVO_MIN_US) * percentageAdcRange;
+  uint16 us = (uint16)JOYSTICKSERVO_MIN_US + (uint16)usFloat;
   return us;
 }
 
@@ -59,12 +88,14 @@ uint16 us=(1000+(uint16)(ADC/65.535));
  * with a range from the minimum and maximum defined in the header file.
  *************************************************************************** */
 void js_SetServoDutyUsX(uint16 us) {
-  if (us<1000){
-    us=1000;}
-  if (us>2000){
-    us=2000;}
-  us=(word)us;
-   PWM1_SetDutyUS(us);
+  if(us<JOYSTICKSERVO_MIN_US) {
+    us=JOYSTICKSERVO_MIN_US;
+  }
+  else if(us>JOYSTICKSERVO_MAX_US) {
+    us=JOYSTICKSERVO_MAX_US;
+  }
+  //us=(word)us;
+  PWM1_SetDutyUS(us);
 }
 
 
@@ -74,11 +105,13 @@ void js_SetServoDutyUsX(uint16 us) {
  * with a range from the minimum and maximum defined in the header file.
  *************************************************************************** */
 void js_SetServoDutyUsY(uint16 us) {
-  if (us<1000){
-    us=1000;}
-  if (us>2000){
-    us=2000;}
-  us=(word)us;
+  if(us<JOYSTICKSERVO_MIN_US) {
+    us=JOYSTICKSERVO_MIN_US;
+  }
+  else if(us>JOYSTICKSERVO_MAX_US) {
+    us=JOYSTICKSERVO_MAX_US;
+  }
+  //us=(word)us;
   PWM2_SetDutyUS(us);
 }
 
@@ -89,14 +122,12 @@ void js_SetServoDutyUsY(uint16 us) {
  * @return
  *************************************************************************** */
 uint16 js_Move(void) {
-AdcRead();
-uint16 us_x=js_AdcToUs(ADC_READOUT[0]);
-uint16 us_y=js_AdcToUs(ADC_READOUT[1]);
-js_SetServoDutyUsX(us_x);
-js_SetServoDutyUsX(us_y);
-return us_y;
-
-
+  AdcRead();
+  uint16 us_x=js_AdcToUs(ADC_READOUT[0]);
+  uint16 us_y=js_AdcToUs(ADC_READOUT[1]);
+  js_SetServoDutyUsX(us_x);
+  js_SetServoDutyUsY(us_y);
+  return us_y;
 }
 
 

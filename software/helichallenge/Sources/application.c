@@ -73,7 +73,7 @@ inline void schedule20HzRelative(void) {
 inline void schedule250HzAbsolute(void) {
 //  ContinuousRead();
   display_FlashAllDigits();
-  TestLEDs;
+  TestLEDs();
   LED_R_Neg();
 }
 
@@ -145,4 +145,22 @@ ApplicationState_t stateSelectDifficulty(void) {
   #endif
     
   return Difficulty;
+}
+
+
+
+/**
+ * Test mode to check the hardware and software is working correctly.
+ *************************************************************************** */
+ApplicationState_t stateTestMode(void) {
+  #ifdef DEBUGFLAG
+    uart_SendStringLn("Test Mode.");
+  #endif
+    
+  // Test the LEDs
+  TestLEDs();
+  // Test the servos
+  // Test the joystick
+    
+  return Test;
 }

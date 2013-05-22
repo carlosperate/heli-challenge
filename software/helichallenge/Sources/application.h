@@ -20,7 +20,7 @@
 #include "common.h"
 
 typedef enum {
-  Standby, Calibrate, Play, Difficulty
+  Standby, Calibrate, Play, Difficulty, Test
 } ApplicationState_t;
 
 inline void initialiseAll(void);
@@ -31,5 +31,6 @@ ApplicationState_t stateStandBy(void);
 ApplicationState_t statePlay(void);
 ApplicationState_t stateCalibrate(void);
 ApplicationState_t stateSelectDifficulty(void);
+ApplicationState_t stateTestMode(void);
 
 #endif /* APPLICATION_H_ */
