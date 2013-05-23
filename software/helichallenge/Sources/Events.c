@@ -26,24 +26,6 @@
 
 /*
 ** ===================================================================
-**     Event       :  Cpu_OnNMIINT (module Events)
-**
-**     Component   :  Cpu [MKL25Z128LK4]
-**     Description :
-**         This event is called when the Non maskable interrupt had
-**         occurred. This event is automatically enabled when the <NMI
-**         interrrupt> property is set to 'Enabled'.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void Cpu_OnNMIINT(void)
-{
-  /* Write your code here ... */
-}
-
-/*
-** ===================================================================
 **     Event       :  FRTOS1_vApplicationStackOverflowHook (module Events)
 **
 **     Component   :  FRTOS1 [FreeRTOS]

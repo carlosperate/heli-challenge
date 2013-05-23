@@ -55,22 +55,6 @@
 #include "TSS1.h"
 #include "PE_LDD.h"
 
-void Cpu_OnNMIINT(void);
-/*
-** ===================================================================
-**     Event       :  Cpu_OnNMIINT (module Events)
-**
-**     Component   :  Cpu [MKL25Z128LK4]
-**     Description :
-**         This event is called when the Non maskable interrupt had
-**         occurred. This event is automatically enabled when the <NMI
-**         interrrupt> property is set to 'Enabled'.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-
-
 void FRTOS1_vApplicationStackOverflowHook(xTaskHandle *pxTask, signed portCHAR *pcTaskName);
 /*
 ** ===================================================================
