@@ -7,9 +7,9 @@
 #include "application.h"
 #include "portmacro.h"
 #include "FRTOS1.h"
+#ifdef DEBUGFLAG
 #include "accelerometer.h"
-#include "joystick_button.h"
-#include "Button_LED_Test.h"
+#endif
 
 
 

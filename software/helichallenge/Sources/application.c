@@ -8,14 +8,18 @@
 #include "application.h"
 #include "displaycontrol.h"
 #include "timecontrol.h"
+#include "joystick.h"
 #include "joystickservo.h"
-#include "calibrate.h"
 #include "Button_LED_Test.h"
-#include "Debug.h"
 #include "TSS1.h"
+
 
 /* Module globals */
 static ApplicationState_t state = Standby;
+
+
+/* Local functions */
+void debugJoystickServo(void);
 
 
 /**
@@ -24,8 +28,6 @@ static ApplicationState_t state = Standby;
  * This function is only called once before the scheduler kicks in.
  *************************************************************************** */
 inline void initialiseAll(void) {
-  //PWM1_Disable();
-  //PWM2_Disable();
   time_Init();
   GI2C1_Init();
   display_Init();
@@ -96,14 +98,18 @@ inline void schedule1HzAbsolute(void) {
  *************************************************************************** */
 ApplicationState_t stateStandBy(void) {
   #ifdef DEBUGFLAG
-    //uart_SendStringLn("Standby.");
-    DebugJoystickADC();
-    DebugJoystickButtons();
+    uart_SendStringLn("Standby.");
+    debugJoystickServo();
   #endif 
   
-  // Here we check for button states and change state accordingly
+  if(joystick_isButtonPressed(Button_Centre) == TRUE) {
+    return Calibrate;
+  } else if(joystick_isButtonPressed(Button_Trigger) == TRUE) {
+    return Play; 
+  } else {
+    return Standby; 
+  }
 
-  js_Move();
   return Standby;
 }
 
@@ -112,13 +118,15 @@ ApplicationState_t stateStandBy(void) {
  * Description
  *************************************************************************** */
 ApplicationState_t statePlay(void) {
-  #ifdef DEBUGFLAG
-    uart_SendStringLn("Play.");
-    DebugJoystickADC();
-    DebugJoystickButtons();
-  #endif
-  js_Move();
-  return Play;
+  while(joystick_isButtonPressed(Button_Trigger) == TRUE) {
+    js_Move();
+    #ifdef DEBUGFLAG
+      uart_SendStringLn("Play.");
+      debugJoystickServo();
+    #endif
+    FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
+  }
+  return Standby;
 }
 
 
@@ -133,8 +141,8 @@ ApplicationState_t stateCalibrate(void) {
   uint16 ADCtemp = 0;
   
   /** Start by setting X centre position. */
-  while(!Get_Value(0)) {
-    ADCtemp = js_CalibrateXCentre();
+  while(!joystick_isButtonPressed(Button_Centre)) {
+    ADCtemp = joystick_CalibrateXCentre();
   }
   #ifdef DEBUGFLAG
     uart_SendString("X Centre: ");
@@ -143,8 +151,8 @@ ApplicationState_t stateCalibrate(void) {
   FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
   
   /** Then minimum X position (right). */
-  while(!Get_Value(0)) {
-    ADCtemp = js_CalibrateXMin();
+  while(!joystick_isButtonPressed(Button_Centre)) {
+    ADCtemp = joystick_CalibrateXMin();
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nX Min: ");
@@ -153,8 +161,8 @@ ApplicationState_t stateCalibrate(void) {
   FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
   
   /** Then maximum X (left). */
-  while(!Get_Value(0)) {
-    ADCtemp = js_CalibrateXMax();
+  while(!joystick_isButtonPressed(Button_Centre)) {
+    ADCtemp = joystick_CalibrateXMax();
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nX Max: ");
@@ -163,8 +171,8 @@ ApplicationState_t stateCalibrate(void) {
   FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
   
   /** Followed by Y centre. */
-  while(!Get_Value(0)) {
-    ADCtemp = js_CalibrateYCentre();
+  while(!joystick_isButtonPressed(Button_Centre)) {
+    ADCtemp = joystick_CalibrateYCentre();
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nY Centre: ");
@@ -173,8 +181,8 @@ ApplicationState_t stateCalibrate(void) {
   FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
   
   /** Then minimum Y (down). */
-  while(!Get_Value(0)) {
-    ADCtemp = js_CalibrateYMin();
+  while(!joystick_isButtonPressed(Button_Centre)) {
+    ADCtemp = joystick_CalibrateYMin();
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nY Min: ");
@@ -183,16 +191,16 @@ ApplicationState_t stateCalibrate(void) {
   FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
   
   /** And finally maximum Y (up). */
-  while(!Get_Value(0)) {
-    ADCtemp = js_CalibrateYMax();
+  while(!joystick_isButtonPressed(Button_Centre)) {
+    ADCtemp = joystick_CalibrateYMax();
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nY Max: ");
     uart_SendUInt16(ADCtemp);
   #endif
-  FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
+  FRTOS1_vTaskDelay(2000/portTICK_RATE_MS);
   
-  return Calibrate;
+  return Standby;
 }
 
 
@@ -224,3 +232,14 @@ ApplicationState_t stateTestMode(void) {
     
   return Test;
 }
+
+
+/**
+ * Description
+ *************************************************************************** */
+void debugJoystickServo(void) {
+  joystick_DebugADCXYServo();
+  joystick_DebugButtons();
+  uart_SendString("\r\n");
+}
+

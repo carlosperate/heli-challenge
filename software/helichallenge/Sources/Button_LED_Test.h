@@ -8,7 +8,7 @@
 #ifndef BUTTON_LED_TEST_H_
 #define BUTTON_LED_TEST_H_
 #include "common.h"
-#include "joystick_button.h"
+#include "joystick.h"
 void TestLEDs(void);
 
 

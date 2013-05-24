@@ -9,7 +9,7 @@
 #define CALIBRATE_H_
 #include "common.h"
 #include "joystickservo.h"
-#include "joystick_button.h"
+#include "joystick.h"
 
 #endif /* CALIBRATE_H_ */
 
