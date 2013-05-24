@@ -62,6 +62,9 @@ inline void schedule20HzRelative(void) {
   case Difficulty:
     state = stateSelectDifficulty();
     break;
+  case Test:
+    state = stateTestMode();
+    break;
   default:
     #ifdef DEBUGFLAG
       uart_SendStringLn("Default state");
@@ -103,7 +106,7 @@ ApplicationState_t stateStandBy(void) {
   #endif 
   
   if(joystick_isButtonPressed(Button_Centre) == TRUE) {
-    return Calibrate;
+    return Test;
   } else if(joystick_isButtonPressed(Button_Trigger) == TRUE) {
     return Play; 
   } else {
@@ -220,16 +223,44 @@ ApplicationState_t stateSelectDifficulty(void) {
 /**
  * Test mode to check the hardware and software is working correctly.
  *************************************************************************** */
+uint8 test=0;
 ApplicationState_t stateTestMode(void) {
   #ifdef DEBUGFLAG
-    uart_SendStringLn("Test Mode.");
+    //uart_SendStringLn("Test Mode.");
   #endif
     
   // Test the LEDs
-  TestLEDs();
+  //lb_TestAllLightsIntervaMs(1000);
   // Test the servos
   // Test the joystick
-    
+  FRTOS1_vTaskDelay(1000/portTICK_RATE_MS);
+  
+  if(joystick_isButtonPressed(Button_Centre)) {
+    test++;
+  }
+  if(test == 0 ) {
+    uart_SendStringLn("Test Mode");
+  } else if(test == 1) {
+    uart_SendStringLn("North");
+    lb_NorthLightOn(TRUE);  
+  } else if(test == 2) {
+    uart_SendStringLn("South");
+    lb_NorthLightOn(FALSE);
+    lb_SouthLightOn(TRUE);
+  } else if(test == 3) {
+    uart_SendStringLn("East");
+    lb_SouthLightOn(FALSE);
+    lb_WestLightOn(TRUE);
+  } else if(test == 4) {
+    uart_SendStringLn("West");
+    lb_WestLightOn(FALSE);
+    lb_EastLightOn(TRUE);
+  } else {
+    lb_EastLightOn(FALSE);
+    test = 0;
+    return Standby;
+  }
+
   return Test;
 }
 
