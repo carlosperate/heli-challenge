@@ -1,6 +1,6 @@
 /**
  * @file application.c
- * @date 07/05/2013
+ * @date 23/05/2013
  * @author: Carlos Pereira Atencio
  * 
  * Description goes here.
@@ -9,9 +9,9 @@
 #include "displaycontrol.h"
 #include "timecontrol.h"
 #include "joystickservo.h"
-//#include "calibrate.h"
+#include "calibrate.h"
 #include "Button_LED_Test.h"
-//#include "Debug.h"
+#include "Debug.h"
 #include "TSS1.h"
 
 /* Module globals */
@@ -24,15 +24,19 @@ static ApplicationState_t state = Standby;
  * This function is only called once before the scheduler kicks in.
  *************************************************************************** */
 inline void initialiseAll(void) {
+  //PWM1_Disable();
+  //PWM2_Disable();
   time_Init();
   GI2C1_Init();
   display_Init();
-//  InitialRead();
+  //InitialRead();
   TSS1_Configure();
   #ifdef DEBUGFLAG
     uart_Init();
     //accelerometer_Init();
   #endif
+  PWM1_Enable();
+  PWM2_Enable();
 }
 
 
@@ -62,7 +66,7 @@ inline void schedule20HzRelative(void) {
     #endif
     break;
   }
-  LED_G_Neg();
+  
   TSS_Task();
 }
 
@@ -71,10 +75,8 @@ inline void schedule20HzRelative(void) {
  * Scheduled to run at a frequency of 50Hz with an absolute time measurement.
  *************************************************************************** */
 inline void schedule250HzAbsolute(void) {
-//  ContinuousRead();
   display_FlashAllDigits();
-  TestLEDs();
-  LED_R_Neg();
+  LED_G_Neg();
 }
 
 
@@ -85,12 +87,6 @@ inline void schedule1HzAbsolute(void) {
   time_Tick1Sec();
   display_SetByteRight(time_GetSecondsPortion());
   display_SetByteLeft(time_GetMinutesPortion());
-//  uart_SendString("Y microseconds: ");
-//  uart_SendInt16(js_Move());
-//  uart_SendStringLn("\n"); 
-  
-
-
   LED_R_Neg();
 }
 
@@ -101,11 +97,13 @@ inline void schedule1HzAbsolute(void) {
 ApplicationState_t stateStandBy(void) {
   #ifdef DEBUGFLAG
     //uart_SendStringLn("Standby.");
+    DebugJoystickADC();
+    DebugJoystickButtons();
   #endif 
   
   // Here we check for button states and change state accordingly
-  DebugJoystickADC();
-  DebugJoystickButtons();
+
+  js_Move();
   return Standby;
 }
 
@@ -116,8 +114,10 @@ ApplicationState_t stateStandBy(void) {
 ApplicationState_t statePlay(void) {
   #ifdef DEBUGFLAG
     uart_SendStringLn("Play.");
+    DebugJoystickADC();
+    DebugJoystickButtons();
   #endif
-  
+  js_Move();
   return Play;
 }
 
@@ -129,8 +129,68 @@ ApplicationState_t stateCalibrate(void) {
   #ifdef DEBUGFLAG
     uart_SendStringLn("Calibration.");
   #endif 
-    
-    
+  FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
+  uint16 ADCtemp = 0;
+  
+  /** Start by setting X centre position. */
+  while(!Get_Value(0)) {
+    ADCtemp = js_CalibrateXCentre();
+  }
+  #ifdef DEBUGFLAG
+    uart_SendString("X Centre: ");
+    uart_SendUInt16(ADCtemp);
+  #endif
+  FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
+  
+  /** Then minimum X position (right). */
+  while(!Get_Value(0)) {
+    ADCtemp = js_CalibrateXMin();
+  }
+  #ifdef DEBUGFLAG
+    uart_SendString("\r\nX Min: ");
+    uart_SendUInt16(ADCtemp);
+  #endif
+  FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
+  
+  /** Then maximum X (left). */
+  while(!Get_Value(0)) {
+    ADCtemp = js_CalibrateXMax();
+  }
+  #ifdef DEBUGFLAG
+    uart_SendString("\r\nX Max: ");
+    uart_SendUInt16(ADCtemp);
+  #endif
+  FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
+  
+  /** Followed by Y centre. */
+  while(!Get_Value(0)) {
+    ADCtemp = js_CalibrateYCentre();
+  }
+  #ifdef DEBUGFLAG
+    uart_SendString("\r\nY Centre: ");
+    uart_SendUInt16(ADCtemp);
+  #endif
+  FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
+  
+  /** Then minimum Y (down). */
+  while(!Get_Value(0)) {
+    ADCtemp = js_CalibrateYMin();
+  }
+  #ifdef DEBUGFLAG
+    uart_SendString("\r\nY Min: ");
+    uart_SendUInt16(ADCtemp);
+  #endif
+  FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
+  
+  /** And finally maximum Y (up). */
+  while(!Get_Value(0)) {
+    ADCtemp = js_CalibrateYMax();
+  }
+  #ifdef DEBUGFLAG
+    uart_SendString("\r\nY Max: ");
+    uart_SendUInt16(ADCtemp);
+  #endif
+  FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
   
   return Calibrate;
 }

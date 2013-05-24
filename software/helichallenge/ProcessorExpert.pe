@@ -3,8 +3,8 @@
   <Header>
     <Name>ProcessorExpert</Name>
     <SavedBy>Carlos</SavedBy>
-    <ModificationStamp>100</ModificationStamp>
-    <Date>2013-05-23</Date>
+    <ModificationStamp>104</ModificationStamp>
+    <Date>2013-05-24</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
   </Header>
@@ -27,7 +27,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>179</ProjectCompNumb>
+    <ProjectCompNumb>182</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>false</AssignInitComponentNameToPrph>
@@ -185,8 +185,8 @@
         <ItemSymbol>SystemOSCGrp</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>false</Value>
-        <Expanded>false</Expanded>
+        <Value>true</Value>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>SystemOSCSrc</ItemSymbol>
@@ -272,8 +272,8 @@
         <ItemSymbol>IRCLKENCLKMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Index>0</Index>
-        <Value>true</Value>
+        <Index>1</Index>
+        <Value>false</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>IREFSTENCLKMode0</ItemSymbol>
@@ -298,7 +298,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>IRCLKClkCLKMode0</ItemSymbol>
-        <Value>0.032768</Value>
+        <Value>0</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ERCLKGrp0</ItemSymbol>
@@ -310,8 +310,8 @@
         <ItemSymbol>SystemOSCERCLKENCLKMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Index>0</Index>
-        <Value>true</Value>
+        <Index>1</Index>
+        <Value>false</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>SystemOSCEREFSTENCLKMode0</ItemSymbol>
@@ -328,12 +328,12 @@
         <ItemSymbol>ERCLK32KSelectCLKMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Index>0</Index>
-        <EnumSymbVal>-1</EnumSymbVal>
+        <Index>1</Index>
+        <EnumSymbVal>0</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>ERCLK32KClkCLKMode0</ItemSymbol>
-        <Value>0.001</Value>
+        <Value>0</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCGGrp0</ItemSymbol>
@@ -345,12 +345,12 @@
         <ItemSymbol>MCGModeSelCLKMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Index>0</Index>
+        <Index>4</Index>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCGOUTSelectCLKMode0</ItemSymbol>
-        <Index>0</Index>
-        <EnumSymbVal>FLLOUT</EnumSymbVal>
+        <Index>1</Index>
+        <EnumSymbVal>PLLOUT</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCGModeCLKMode0</ItemSymbol>
@@ -364,7 +364,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>MCG_ERCLKClkCLKMode0</ItemSymbol>
-        <Value>0</Value>
+        <Value>8</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCGCMECLKMode0</ItemSymbol>
@@ -383,8 +383,8 @@
         <ItemSymbol>FLLEnblCLKMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Index>0</Index>
-        <Value>true</Value>
+        <Index>1</Index>
+        <Value>false</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>FLLOutputCLKMode0</ItemSymbol>
@@ -394,13 +394,13 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>FLLFixedClkCLKMode0</ItemSymbol>
-        <Value>16.384</Value>
+        <Value>15.625</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>FLL_RefClkSrcCLKMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Index>0</Index>
+        <Index>1</Index>
         <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
@@ -412,7 +412,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>FLLRefClkCLKMode0</ItemSymbol>
-        <Value>32.768</Value>
+        <Value>31.25</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCG_FLL_MFactor_CLKMode0</ItemSymbol>
@@ -431,8 +431,8 @@
         <ItemSymbol>PLLEnblCLKMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Index>1</Index>
-        <Value>false</Value>
+        <Index>0</Index>
+        <Value>true</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>PLLSTENCLKMode0</ItemSymbol>
@@ -445,7 +445,7 @@
         <ItemSymbol>PLLOutputCLKMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>100</Value>
+        <Value>96</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCG_PRDIV_CLKMode0</ItemSymbol>
@@ -456,7 +456,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>PLLRefClkCLKMode0</ItemSymbol>
-        <Value>1</Value>
+        <Value>4</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCG_VDIV_CLKMode0</ItemSymbol>
@@ -2680,19 +2680,19 @@
         <ItemSymbol>ERCLK32KSelSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LPO_1kHzSrc</Value>
+        <Value>SYSTEM_OSC</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCG_FLL_RCLKSelSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>IRC_32kHz</Value>
+        <Value>MCG_FRDIV</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCG_FRDIVSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>Auto select</Value>
+        <Value>256</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCG_FLL_MFactorSpeedMode0</ItemSymbol>
@@ -2704,19 +2704,19 @@
         <ItemSymbol>MCG_PRDIVSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>Auto select</Value>
+        <Value>2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCG_VDIVSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>Auto select</Value>
+        <Value>24</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCGOUTSelSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>MCGFLLCLK</Value>
+        <Value>MCGPLLCLK</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>VLPRSpeedMode0</ItemSymbol>
@@ -2748,16 +2748,16 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>MCGModeSelSpeedMode0</ItemSymbol>
-        <Index>0</Index>
-        <EnumSymbVal>0</EnumSymbVal>
+        <Index>4</Index>
+        <EnumSymbVal>4</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>MCGOutputSpeedMode0</ItemSymbol>
-        <Value>20.97152</Value>
+        <Value>96</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>IRCLKClkSpeedMode0</ItemSymbol>
-        <Value>0.032768</Value>
+        <Value>0</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ERCLKClkSpeedMode0</ItemSymbol>
@@ -2765,11 +2765,11 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>ERCLK32KClkSpeedMode0</ItemSymbol>
-        <Value>0.001</Value>
+        <Value>0</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>FLLFixedClkSpeedMode0</ItemSymbol>
-        <Value>16.384</Value>
+        <Value>15.625</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>SystemClocksGrp0</ItemSymbol>
@@ -2781,13 +2781,13 @@
         <ItemSymbol>OUTDIV1PrescSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>1</Value>
+        <Value>2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OUTDIV1Presc_SpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>Auto select</Value>
+        <Value>2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>CoreClockSpeedMode0</ItemSymbol>
@@ -2799,13 +2799,13 @@
         <ItemSymbol>OUTDIV4PrescSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>1</Value>
+        <Value>2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OUTDIV4Presc_SpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>Auto select</Value>
+        <Value>2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>BusClockSpeedMode0</ItemSymbol>
@@ -2830,11 +2830,11 @@
         <ItemSymbol>PLLFLLSelSpeedMode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>MCGFLLCLK</Value>
+        <Value>MCGPLLCLKDIV2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>PLLFLLClockSpeedMode0</ItemSymbol>
-        <Value>20.97152</Value>
+        <Value>48</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>TPMClkSelSpeedMode0</ItemSymbol>
@@ -2851,7 +2851,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>TPMClockSpeedMode0</ItemSymbol>
-        <Value>20.97152</Value>
+        <Value>48</Value>
       </ItemState>
     </Properties>
     <Methods>
@@ -13635,7 +13635,7 @@
         <ItemSymbol>InternalFreq</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>20.97152 MHz</Value>
+        <Value>24 MHz</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -13661,7 +13661,7 @@
         <ReqSrcClkPrescSpeedMode5>-1</ReqSrcClkPrescSpeedMode5>
         <ReqSrcClkPrescSpeedMode6>-1</ReqSrcClkPrescSpeedMode6>
         <ReqSrcClkPrescSpeedMode7>-1</ReqSrcClkPrescSpeedMode7>
-        <InitValue>20.97152 MHz</InitValue>
+        <InitValue>24 MHz</InitValue>
         <Precision>5.0</Precision>
         <PrecInProc>true</PrecInProc>
         <LowLimit />
@@ -13675,36 +13675,36 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <TypeSpecNameState>typeHCS08ShiftTap</TypeSpecNameState>
-        <Index>1</Index>
-        <EnumSymbVal>1</EnumSymbVal>
+        <Index>2</Index>
+        <EnumSymbVal>2</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>PrescShift</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <TypeSpecNameState>typeHCS08ShiftTap</TypeSpecNameState>
-        <Index>3</Index>
-        <EnumSymbVal>3</EnumSymbVal>
+        <Index>2</Index>
+        <EnumSymbVal>2</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>SCLfreq</ItemSymbol>
-        <Value>218.453 kHz</Value>
+        <Value>375 kHz</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>SclOutputFrequency</ItemSymbol>
-        <Value>0.218453</Value>
+        <Value>0.375</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>SDAhold</ItemSymbol>
-        <Value>0.429 us</Value>
+        <Value>0.542 us</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>SCLStartHold</ItemSymbol>
-        <Value>2.193 us</Value>
+        <Value>1.083 us</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>SCLStopHold</ItemSymbol>
-        <Value>2.337 us</Value>
+        <Value>1.375 us</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>SMBusGrp</ItemSymbol>
@@ -13940,7 +13940,7 @@
         <ItemSymbol>_SpeedGrp</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>true</Expanded>
+        <Expanded>false</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>SpeedMode0</ItemSymbol>
@@ -14982,23 +14982,23 @@
             </ItemState>
             <ItemState>
               <ItemSymbol>ADCClock</ItemSymbol>
-              <Value>1.31 MHz (762.939 ns)</Value>
+              <Value>1.299 MHz (769.231 ns)</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>SingleConversionTimeSE</ItemSymbol>
-              <Value>23.126 us</Value>
+              <Value>28.285 us</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>SingleConversionTimeDiff</ItemSymbol>
-              <Value>29.993 us</Value>
+              <Value>35.208 us</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>AdditionalConversionTimeSE</ItemSymbol>
-              <Value>19.073 us</Value>
+              <Value>19.23 us</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>AdditionalConversionTimeDiff</ItemSymbol>
-              <Value>25.939 us</Value>
+              <Value>26.153 us</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>StandbyFeatureGroup</ItemSymbol>

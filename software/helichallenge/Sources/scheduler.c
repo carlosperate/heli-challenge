@@ -38,12 +38,13 @@ static portTASK_FUNCTION(task20HzRelative, pvParameters) {
 static portTASK_FUNCTION(task250HzAbsolute, pvParameters) {
   (void)pvParameters; /* parameter not used */
   /* Set up the parameters for vTaskDelayUntil */
-  portTickType xLastWakeTime = xTaskGetTickCount();
-  const portTickType xFrequency = 4/portTICK_RATE_MS;
+  //portTickType xLastWakeTime = xTaskGetTickCount();
+  //const portTickType xFrequency = 4/portTICK_RATE_MS;
   for(;;) {
     /* Wait for the next cycle */
-    vTaskDelayUntil(&xLastWakeTime, xFrequency);
-    schedule250HzAbsolute(); 
+    //vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    schedule250HzAbsolute();
+    FRTOS1_vTaskDelay(3/portTICK_RATE_MS);
   }
 } 
 

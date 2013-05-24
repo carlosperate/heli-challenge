@@ -5,6 +5,11 @@
  **************************************************************************** */
 #include "displaycontrol.h"
 
+/* For some reason the I2C functions block all tasks, so until we have time
+ * to investigate this is done to bypass it */
+#define DISPLAY_CONNECTED
+
+
 
 /* Constants I2C IO extender for the display subsystem */
 const static uint8 DISPLAY_ADDRESS_WRITE  = 0x20;
@@ -219,24 +224,28 @@ void display_AllDigitsOff(void) {
 /**
  * Flashes the four digits sequentially and then turns all 7segments off.
  *************************************************************************** */
-void display_FlashAllDigits(void) {
-  turn++;
-  switch(turn) {
-    case 1:
+void display_FlashAllDigits(void) { 
+  //turn++;
+  //switch(turn) {
+  //  case 1:
       display_DisplayDigitl();
-      break;
-    case 2:
+  //    display_AllDigitsOff(); 
+  //    break;
+  //  case 2:
       display_DisplayDigit2();
-      break;
-    case 3:
+  //    display_AllDigitsOff(); 
+  //    break;
+  //  case 3:
       display_DisplayDigit3();
-      break;
-    case 4:
+  //    display_AllDigitsOff(); 
+  //    break;
+  //  case 4:
       display_DisplayDigit4();
+  //    display_AllDigitsOff(); 
       // no break to reset turn
-    default:
-      turn=0;
-      break;
-  }
-  //display_AllDigitsOff();
+  //  default:
+  //    turn=0;
+  //    break;
+  //}
+  display_AllDigitsOff(); 
 }

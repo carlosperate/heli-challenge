@@ -9,9 +9,9 @@
 void DebugJoystickADC(){
   AdcRead();
   uart_SendString("X-> ADC: "); uart_SendUInt16(ADC_READOUT[0]);
-  uart_SendString("; Srv: ");uart_SendUInt16(js_AdcToUs(ADC_READOUT[0]));
+  uart_SendString("; Srv: ");uart_SendUInt16(js_AdcToUsX(ADC_READOUT[0]));
   uart_SendString("\r\nY-> ADC: ");uart_SendUInt16(ADC_READOUT[1]);
-  uart_SendString("; Srv: ");uart_SendUInt16(js_AdcToUs(ADC_READOUT[1]));
+  uart_SendString("; Srv: ");uart_SendUInt16(js_AdcToUsY(ADC_READOUT[1]));
   uart_SendStringLn("\n"); 
 }
 void DebugJoystickButtons(){
