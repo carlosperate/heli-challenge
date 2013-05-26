@@ -13,6 +13,7 @@
 #include "Button_LED_Test.h"
 #include "TSS1.h"
 #include "debug.h"
+#include "ledblocks.h"
 
 
 /* Module globals */
@@ -32,7 +33,6 @@ inline void initialiseAll(void) {
   time_Init();
   GI2C1_Init();
   display_Init();
-  //InitialRead();
   TSS1_Configure();
   #ifdef DEBUGFLAG
     uart_Init();
@@ -106,12 +106,19 @@ ApplicationState_t stateStandBy(void) {
     debug_JoystickServo();
   #endif 
   
-  if(joystick_isButtonPressed(Button_Centre) == TRUE) {
-    return Test;
-  } else if(joystick_isButtonPressed(Button_Trigger) == TRUE) {
-    return Play; 
-  } else {
-    return Standby; 
+  /* We first check for box button for special modes */
+  if(joystick_isButtonPressed(Button_Box) == TRUE) {
+    if(joystick_isButtonPressed(Button_Centre) == TRUE) {
+      return Calibrate;
+    } else if(joystick_isButtonPressed(Button_Trigger) == TRUE) {
+      return Play; 
+    } else if(joystick_isButtonPressed(Button_Left) == TRUE) {
+      return Test;
+    } else if(joystick_isButtonPressed(Button_Trigger) == TRUE) {
+      return Difficulty; 
+    } else {
+      return Standby; 
+    }
   }
 
   return Standby;
@@ -143,10 +150,13 @@ ApplicationState_t stateCalibrate(void) {
   #endif 
   FRTOS1_vTaskDelay(750/portTICK_RATE_MS);
   uint16 ADCtemp = 0;
+  lb_AllLedsOn(); /* All four means centre */
   
   /** Start by setting X centre position. */
   while(!joystick_isButtonPressed(Button_Centre)) {
     ADCtemp = joystick_CalibrateXCentre();
+    lb_AllLedsOff();
+    lb_EastLightOn(TRUE);
   }
   #ifdef DEBUGFLAG
     uart_SendString("X Centre: ");
@@ -157,6 +167,8 @@ ApplicationState_t stateCalibrate(void) {
   /** Then minimum X position (right). */
   while(!joystick_isButtonPressed(Button_Centre)) {
     ADCtemp = joystick_CalibrateXMin();
+    lb_EastLightOn(FALSE);
+    lb_WestLightOn(TRUE);
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nX Min: ");
@@ -167,6 +179,7 @@ ApplicationState_t stateCalibrate(void) {
   /** Then maximum X (left). */
   while(!joystick_isButtonPressed(Button_Centre)) {
     ADCtemp = joystick_CalibrateXMax();
+    lb_AllLedsOn();
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nX Max: ");
@@ -177,6 +190,8 @@ ApplicationState_t stateCalibrate(void) {
   /** Followed by Y centre. */
   while(!joystick_isButtonPressed(Button_Centre)) {
     ADCtemp = joystick_CalibrateYCentre();
+    lb_AllLedsOff();
+    lb_SouthLightOn(TRUE);
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nY Centre: ");
@@ -187,6 +202,8 @@ ApplicationState_t stateCalibrate(void) {
   /** Then minimum Y (down). */
   while(!joystick_isButtonPressed(Button_Centre)) {
     ADCtemp = joystick_CalibrateYMin();
+    lb_SouthLightOn(FALSE);
+    lb_NorthLightOn(TRUE);
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nY Min: ");
@@ -197,12 +214,13 @@ ApplicationState_t stateCalibrate(void) {
   /** And finally maximum Y (up). */
   while(!joystick_isButtonPressed(Button_Centre)) {
     ADCtemp = joystick_CalibrateYMax();
+    lb_AllLedsOff();
   }
   #ifdef DEBUGFLAG
     uart_SendString("\r\nY Max: ");
     uart_SendUInt16(ADCtemp);
   #endif
-  FRTOS1_vTaskDelay(2000/portTICK_RATE_MS);
+  FRTOS1_vTaskDelay(1500/portTICK_RATE_MS);
   
   return Standby;
 }

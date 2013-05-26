@@ -13,14 +13,16 @@
 
 #include "common.h" 
 
-void lb_NorthLightOn(bool newstate);
-void lb_SouthLightOn(bool newstate);
-void lb_WestLightOn(bool newstate);
-void lb_EastLightOn(bool newstate);
+inline void lb_NorthLightOn(bool newstate);
+inline void lb_SouthLightOn(bool newstate);
+inline void lb_WestLightOn(bool newstate);
+inline void lb_EastLightOn(bool newstate);
+inline void lb_AllLedsOn(void);
+inline void lb_AllLedsOff(void);
 void lb_NorthLightToggle(void);
 void lb_SouthLightToggle(void);
 void lb_WestLightToggle(void);
 void lb_EastLightToggle(void);
-void lb_TestAllLightsIntervaMs(uint16 delay);
+void lb_TestAllLightsIntervalMs(uint16 delay);
 
 #endif /* LEDBLOCKS_H_ */

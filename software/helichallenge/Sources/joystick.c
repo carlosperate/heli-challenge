@@ -152,9 +152,21 @@ return ADC;
  *************************************************************************** */
 uint16 joystick_GetX() {
   AdcRead();
-  float full16BitRange = 
-      (float)(ADC_READOUT[0]-xMin) / (float)(xMax-xMin) * 65535.0f;
-  return ((uint16) full16BitRange);
+  float scaleFull16BitRange = 0;
+  
+  if(ADC_READOUT[0] <= xMin) {
+    scaleFull16BitRange = xMin;
+  } else if(ADC_READOUT[0] <= xCentre) { 
+    scaleFull16BitRange =
+      ( (float)(ADC_READOUT[0]-xMin) / (float)(xCentre-xMin) ) * 32767.0f;
+  } else if(ADC_READOUT[0] >= xMax) {
+    scaleFull16BitRange = xMax;
+  } else {
+    scaleFull16BitRange =
+          ( (float)(ADC_READOUT[0]-(xMin+xCentre)) / (float)(xMax-xCentre) ) * 32768.0f;
+  }
+    
+  return ((uint16) scaleFull16BitRange);
 }
 
 
@@ -163,7 +175,19 @@ uint16 joystick_GetX() {
  *************************************************************************** */
 uint16 joystick_GetY() {
   AdcRead();
-  float full16BitRange =
-      (float)(ADC_READOUT[1]-yMin) / (float)(yMax-yMin) * 65535.0f;
-  return ((uint16) full16BitRange);
+  float scaleFull16BitRange = 0;
+  
+  if(ADC_READOUT[0] <= yMin) {
+    scaleFull16BitRange = yMin;
+  } else if(ADC_READOUT[0] <= yCentre) { 
+    scaleFull16BitRange =
+      ( (float)(ADC_READOUT[0]-yMin) / (float)(yCentre-yMin) ) * 32767.0f;
+  } else if(ADC_READOUT[0] >= yMax) {
+    scaleFull16BitRange = yMax;
+  } else {
+    scaleFull16BitRange =
+          ( (float)(ADC_READOUT[0]-(yMin+yCentre)) / (float)(yMax-yCentre) ) * 32768.0f;
+  }
+  
+  return ((uint16) scaleFull16BitRange);
 }
