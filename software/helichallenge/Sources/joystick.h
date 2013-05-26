@@ -14,7 +14,7 @@
 
 /* Typedef to easily identify the buttons in the joystick */
 typedef enum {
-  Button_Trigger, Button_Centre, Button_Left, Button_Right
+  Button_Trigger, Button_Centre, Button_Left, Button_Right, Button_Box
 } Joystick_Button_t;
 
 /* Global array containing ADC readouts (2 members)*/
@@ -22,8 +22,7 @@ uint16 ADC_READOUT[AD1_CHANNEL_COUNT];
 
 /* Function definitions */
 bool joystick_isButtonPressed(uint8 SignalName);
-void joystick_DebugADCXYServo();
-void joystick_DebugButtons();
+uint16 AdcRead(void);
 uint16 joystick_CalibrateXMin(void);
 uint16 joystick_CalibrateXCentre(void);
 uint16 joystick_CalibrateXMax(void);

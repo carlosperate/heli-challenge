@@ -18,12 +18,6 @@ static uint16 yCentre = 49152;
 static uint16 yMax = 65535;
 
 
-/* Local functions */
-static uint16 AdcRead(void);
-void DebugJoystickADC();
-void DebugJoystickButtons();
-
-
 /**
  * Description
  *************************************************************************** */
@@ -39,6 +33,8 @@ bool joystick_isButtonPressed(Joystick_Button_t button) {
     value = Joystick2_GetVal(NULL);
   } else if(button == Button_Right) {
     value = Joystick3_GetVal(NULL);
+  } else if(button == Button_Box) {
+    value = Boxbutton_GetVal(NULL);
   }
   
   /* Due to a pull up resistor and the button pulling down to ground, reverse */
@@ -55,7 +51,7 @@ bool joystick_isButtonPressed(Joystick_Button_t button) {
 /**
  * Description
  *************************************************************************** */
-static uint16 AdcRead(void) {
+uint16 AdcRead(void) {
   uint16 err=AD1_Measure(1);
   AD1_GetValue16(ADC_READOUT);
   return err;
@@ -170,42 +166,4 @@ uint16 joystick_GetY() {
   float full16BitRange =
       (float)(ADC_READOUT[1]-yMin) / (float)(yMax-yMin) * 65535.0f;
   return ((uint16) full16BitRange);
-}
-
-
-/**
- * Description
- *************************************************************************** */
-void joystick_DebugADCXYServo() {
-  //TODO: reading servo here, refactor to reduce cohersion
-  AdcRead();
-  uart_SendString("X-> ADC: ");
-  uart_SendUInt16(ADC_READOUT[0]);
-  uart_SendString(", ");
-  uart_SendUInt16(joystick_GetX());
-  uart_SendString("; Srv: "); 
-  uart_SendUInt16(js_GetXUs());
-  uart_SendString("\r\nY-> ADC: ");
-  uart_SendUInt16(ADC_READOUT[1]);
-  uart_SendString(", ");
-  uart_SendUInt16(joystick_GetY());
-  uart_SendString("; Srv: ");
-  uart_SendUInt16(js_GetYUs());
-  uart_SendString("\r\n"); 
-}
-
-
-/**
- * Description
- *************************************************************************** */
-void joystick_DebugButtons() { 
-  uart_SendString("Buttons:");
-  uart_SendByte(joystick_isButtonPressed(Button_Trigger));
-  uart_SendString("; "); 
-  uart_SendByte(joystick_isButtonPressed(Button_Centre));
-  uart_SendString("; "); 
-  uart_SendByte(joystick_isButtonPressed(Button_Left));
-  uart_SendString("; ");
-  uart_SendByte(joystick_isButtonPressed(Button_Right));
-  uart_SendString("\r\n");
 }
