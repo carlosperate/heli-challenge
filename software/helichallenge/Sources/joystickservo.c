@@ -7,6 +7,7 @@
 #include "joystickservo.h"
 #include "joystick.h"
 
+
 /* Defines for the servo limits */
 static const uint16 JOYSTICKSERVO_US_MIN = 1000;
 static const uint16 JOYSTICKSERVO_US_MAX =  2000;
@@ -83,6 +84,6 @@ inline uint16 js_GetYUs() {
  * Description
  *************************************************************************** */
 void js_Move(void) {
-  js_SetServoDutyUsY(js_GetXUs());
-  js_SetServoDutyUsX(js_GetYUs());
+  js_SetServoDutyUsY(js_GetYUs());
+  js_SetServoDutyUsX(js_GetXUs());
 }

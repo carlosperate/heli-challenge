@@ -30,9 +30,9 @@ bool joystick_isButtonPressed(Joystick_Button_t button) {
   } else if(button == Button_Centre) {
     value = Joystick1_GetVal(NULL);
   } else if(button == Button_Left) {
-    value = Joystick2_GetVal(NULL);
+    value = TRUE;//Joystick2_GetVal(NULL);
   } else if(button == Button_Right) {
-    value = Joystick3_GetVal(NULL);
+    value = TRUE;//Joystick3_GetVal(NULL);
   } else if(button == Button_Box) {
     value = Boxbutton_GetVal(NULL);
   }
@@ -153,20 +153,23 @@ return ADC;
 uint16 joystick_GetX() {
   AdcRead();
   float scaleFull16BitRange = 0;
+  uint16 returnvalue = 0;
   
   if(ADC_READOUT[0] <= xMin) {
-    scaleFull16BitRange = xMin;
+    returnvalue = 0;
+  } else if(ADC_READOUT[0] >= xMax) {
+    returnvalue = 65535;
   } else if(ADC_READOUT[0] <= xCentre) { 
     scaleFull16BitRange =
       ( (float)(ADC_READOUT[0]-xMin) / (float)(xCentre-xMin) ) * 32767.0f;
-  } else if(ADC_READOUT[0] >= xMax) {
-    scaleFull16BitRange = xMax;
+    returnvalue = (uint16)scaleFull16BitRange;
   } else {
     scaleFull16BitRange =
-          ( (float)(ADC_READOUT[0]-(xMin+xCentre)) / (float)(xMax-xCentre) ) * 32768.0f;
+          ( (float)(ADC_READOUT[0]-xCentre) / (float)(xMax-xCentre) ) * 32768.0f;
+    returnvalue = 32767 + (uint16)scaleFull16BitRange;
   }
-    
-  return ((uint16) scaleFull16BitRange);
+  
+  return returnvalue;
 }
 
 
@@ -176,18 +179,21 @@ uint16 joystick_GetX() {
 uint16 joystick_GetY() {
   AdcRead();
   float scaleFull16BitRange = 0;
+  uint16 returnvalue = 0;
   
-  if(ADC_READOUT[0] <= yMin) {
-    scaleFull16BitRange = yMin;
-  } else if(ADC_READOUT[0] <= yCentre) { 
+  if(ADC_READOUT[1] <= yMin) {
+    returnvalue = 0;
+  } else if(ADC_READOUT[1] >= yMax) {
+    returnvalue = 65535;
+  } else if(ADC_READOUT[1] <= yCentre) { 
     scaleFull16BitRange =
-      ( (float)(ADC_READOUT[0]-yMin) / (float)(yCentre-yMin) ) * 32767.0f;
-  } else if(ADC_READOUT[0] >= yMax) {
-    scaleFull16BitRange = yMax;
+      ( (float)(ADC_READOUT[1]-yMin) / (float)(yCentre-yMin) ) * 32767.0f;
+    returnvalue = (uint16)scaleFull16BitRange;
   } else {
     scaleFull16BitRange =
-          ( (float)(ADC_READOUT[0]-(yMin+yCentre)) / (float)(yMax-yCentre) ) * 32768.0f;
+          ( (float)(ADC_READOUT[1]-yCentre) / (float)(yMax-yCentre) ) * 32768.0f;
+    returnvalue = 32767 + (uint16)scaleFull16BitRange;
   }
   
-  return ((uint16) scaleFull16BitRange);
+  return returnvalue;
 }

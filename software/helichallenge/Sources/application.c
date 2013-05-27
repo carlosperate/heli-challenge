@@ -119,6 +119,8 @@ ApplicationState_t stateStandBy(void) {
     } else {
       return Standby; 
     }
+  } else if(joystick_isButtonPressed(Button_Trigger) == TRUE) {
+    return Play; 
   }
 
   return Standby;
@@ -132,7 +134,7 @@ ApplicationState_t statePlay(void) {
   while(joystick_isButtonPressed(Button_Trigger) == TRUE) {
     js_Move();
     #ifdef DEBUGFLAG
-      uart_SendStringLn("Play.");
+      uart_SendStringLn("\r\nPlay.");
       debug_AdcXYServo();
     #endif
     FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
