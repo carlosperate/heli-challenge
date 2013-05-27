@@ -7127,19 +7127,19 @@ DIN A5, landscape with doc field</description>
 <part name="R9" library="adafruit" deviceset="R-US_" device="0204/7"/>
 <part name="R10" library="adafruit" deviceset="R-US_" device="0204/7"/>
 <part name="T1" library="adafruit" deviceset="2N2222" device=""/>
-<part name="R11" library="adafruit" deviceset="R-US_" device="0204/7"/>
+<part name="R11" library="adafruit" deviceset="R-US_" device="0204/7" value="150"/>
 <part name="JP1" library="pinhead" deviceset="PINHD-1X2" device=""/>
 <part name="T2" library="adafruit" deviceset="2N2222" device=""/>
-<part name="R12" library="adafruit" deviceset="R-US_" device="0204/7"/>
+<part name="R12" library="adafruit" deviceset="R-US_" device="0204/7" value="150"/>
 <part name="IC1" library="adafruit" deviceset="78*" device="T" technology="05"/>
 <part name="C1" library="adafruit" deviceset="C-US" device="025-050X050" value="0.33 uF"/>
 <part name="C2" library="adafruit" deviceset="C-US" device="025-050X050" value="0.1 uF"/>
 <part name="CN1" library="adafruit" deviceset="1X4" device="-BIG"/>
 <part name="JP2" library="pinhead" deviceset="PINHD-1X2" device=""/>
 <part name="T3" library="adafruit" deviceset="2N2222" device=""/>
-<part name="R13" library="adafruit" deviceset="R-US_" device="0204/7"/>
+<part name="R13" library="adafruit" deviceset="R-US_" device="0204/7" value="150"/>
 <part name="T4" library="adafruit" deviceset="2N2222" device=""/>
-<part name="R14" library="adafruit" deviceset="R-US_" device="0204/7"/>
+<part name="R14" library="adafruit" deviceset="R-US_" device="0204/7" value="150"/>
 <part name="X1" library="adafruit" deviceset="F15" device="H"/>
 <part name="LED11" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="R1" library="adafruit" deviceset="R-US_" device="0204/7"/>

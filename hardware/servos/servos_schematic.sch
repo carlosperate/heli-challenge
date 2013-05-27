@@ -6854,8 +6854,8 @@ DIN A5, landscape with doc field</description>
 <part name="C1" library="adafruit" deviceset="C-US" device="025-050X050" value="0.33 uF"/>
 <part name="C2" library="adafruit" deviceset="C-US" device="025-050X050" value="0.1 uF"/>
 <part name="X1" library="adafruit" deviceset="F15" device="H"/>
-<part name="R3" library="resistor" deviceset="R-US_" device="0204/5"/>
-<part name="R4" library="resistor" deviceset="R-US_" device="0204/5"/>
+<part name="R3" library="resistor" deviceset="R-US_" device="0204/5" value="120"/>
+<part name="R4" library="resistor" deviceset="R-US_" device="0204/5" value="120"/>
 <part name="FRAME2" library="frames" deviceset="DINA5_L" device=""/>
 </parts>
 <sheets>
@@ -6899,7 +6899,7 @@ DIN A5, landscape with doc field</description>
 <segment>
 <pinref part="JP1" gate="A" pin="1"/>
 <wire x1="12.7" y1="63.5" x2="20.32" y2="63.5" width="0.1524" layer="91"/>
-<label x="17.78" y="71.12" size="1.778" layer="95"/>
+<label x="12.7" y="68.58" size="1.778" layer="95"/>
 <wire x1="20.32" y1="63.5" x2="20.32" y2="76.2" width="0.1524" layer="91"/>
 <pinref part="R3" gate="G$1" pin="2"/>
 <wire x1="22.86" y1="76.2" x2="20.32" y2="76.2" width="0.1524" layer="91"/>
@@ -7005,11 +7005,12 @@ DIN A5, landscape with doc field</description>
 <pinref part="R4" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="N$3" class="0">
+<net name="PWM2" class="0">
 <segment>
 <pinref part="R4" gate="G$1" pin="2"/>
 <pinref part="JP1" gate="A" pin="3"/>
 <wire x1="25.4" y1="58.42" x2="12.7" y2="58.42" width="0.1524" layer="91"/>
+<label x="12.7" y="53.34" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
