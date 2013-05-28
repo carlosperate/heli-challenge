@@ -30,7 +30,7 @@ void time_Init(void) {
  * time in total seconds and a "minutes and seconds" format.
  *************************************************************************** */
 void time_Tick1Sec(void) {
-//  if(isRunning) {
+  if(isRunning) {
     timeSecondsPart++;
     
     /* Convert current seconds to minutes+seconds */
@@ -43,7 +43,16 @@ void time_Tick1Sec(void) {
         time_End();
       }
     }
-//  }
+  }
+}
+
+
+/** 
+ * Indicates the start of the counting
+ * time_Tick1Sec function to count time.
+ *************************************************************************** */
+void time_Start(void) {
+  isRunning = TRUE;
 }
 
 
@@ -51,10 +60,11 @@ void time_Tick1Sec(void) {
  * Resets all settings and indicates the start of the game and allows the
  * time_Tick1Sec function to count time.
  *************************************************************************** */
-void time_Start(void) {
+void time_Restart(void) {
   time_Reset();
   isRunning = TRUE;
 }
+
 
 
 /** 

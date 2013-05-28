@@ -18,6 +18,7 @@
 void time_Init(void);
 void time_Tick1Sec(void);
 void time_Start(void);
+void time_Restart(void);
 void time_Pause(void);
 void time_End(void);
 void time_Reset(void);

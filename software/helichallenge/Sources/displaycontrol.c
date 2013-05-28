@@ -10,19 +10,18 @@
 #define DISPLAY_CONNECTED
 
 
-
 /* Constants I2C IO extender for the display subsystem */
-const static uint8 DISPLAY_ADDRESS_WRITE  = 0x20;
-const static uint8 DISPLAY_ADDRESS_READ   = 0x20;
+const static uint8 DISPLAY_ADDRESS  = 0x20;
 const static uint8 DISPLAY_REGISTER_START = 0x00;
 const static uint8 DISPLAY_REGISTER_OPSET = 0x09;
+
 
 /* Globals local to this file to store the individual digits to display */
 static uint8 digit1 = 1;
 static uint8 digit2 = 2;
 static uint8 digit3 = 3;
 static uint8 digit4 = 4;
-static uint8 turn = 0;
+//static uint8 turn = 0;
 
 
 /* Local functions */
@@ -34,6 +33,7 @@ void display_SendI2CByte(uint8 byteToSend);
  *************************************************************************** */
 void display_Init(void) {
   #ifdef DISPLAY_CONNECTED
+    //GI2C1_Init();
     uint8 registerPointer = DISPLAY_REGISTER_START;
     uint8 registerConf[6] = {
         0x00,     /** IODIR:  All outputs. */
@@ -43,10 +43,12 @@ void display_Init(void) {
         0x00,     /** INTCON: Int. compare against previous value (not used). */
         0x2A};    /** IOCON: Disable sequential operation */
     
-    if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
-        1, registerConf, 6) != ERR_OK) {
+    GI2C1_SelectSlave(DISPLAY_ADDRESS);
+    GI2C1_WriteAddress(DISPLAY_ADDRESS, &registerPointer, 1, registerConf, 6);
+    //if ( GI2C1_WriteAddress(DISPLAY_ADDRESS, &registerPointer,
+    //    1, registerConf, 6) != ERR_OK) {
       //Do something for error checking 
-    }
+    //}
   #endif
 }
 
@@ -59,10 +61,11 @@ void display_Init(void) {
 void display_SendI2CByte(uint8 byteToSend) {
   #ifdef DISPLAY_CONNECTED
     uint8 registerPointer = DISPLAY_REGISTER_OPSET;
-    if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
-        1, &byteToSend, 1) != ERR_OK ) {
+    GI2C1_WriteAddress(DISPLAY_ADDRESS, &registerPointer, 1, &byteToSend, 1);
+    //if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
+    //    1, &byteToSend, 1) != ERR_OK ) {
       //Do something for error checking 
-    }
+    //}
   #endif
 }
 
@@ -224,28 +227,38 @@ void display_AllDigitsOff(void) {
 /**
  * Flashes the four digits sequentially and then turns all 7segments off.
  *************************************************************************** */
-void display_FlashAllDigits(void) { 
-  //turn++;
-  //switch(turn) {
-  //  case 1:
-      display_DisplayDigitl();
-  //    display_AllDigitsOff(); 
-  //    break;
-  //  case 2:
-      display_DisplayDigit2();
-  //    display_AllDigitsOff(); 
-  //    break;
-  //  case 3:
-      display_DisplayDigit3();
-  //    display_AllDigitsOff(); 
-  //    break;
-  //  case 4:
-      display_DisplayDigit4();
-  //    display_AllDigitsOff(); 
-      // no break to reset turn
-  //  default:
-  //    turn=0;
-  //    break;
-  //}
+void display_FlashAllDigits(void) {
+  display_DisplayDigitl();
+  display_DisplayDigit2();
+  display_DisplayDigit3();
+  display_DisplayDigit4();
   display_AllDigitsOff(); 
+
+  
+//  turn++;
+//  switch(turn) {
+//    case 1:
+//      display_DisplayDigitl();
+//      display_AllDigitsOff(); 
+//      FRTOS1_vTaskDelay(0.1);
+//      break;
+//    case 2:
+//      display_DisplayDigit2();
+//      display_AllDigitsOff(); 
+//      FRTOS1_vTaskDelay(0.1);
+//      break;
+//    case 3:
+//     display_DisplayDigit3();
+//      display_AllDigitsOff(); 
+//      FRTOS1_vTaskDelay(0.1);
+//      break;
+//    case 4:
+//      display_DisplayDigit4();
+//      display_AllDigitsOff();
+//      FRTOS1_vTaskDelay(0.1);
+//      //no break to reset turn
+//    default:
+//      turn=0;
+//      break;
+//  }
 }

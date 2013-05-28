@@ -15,6 +15,9 @@
 
 #include "common.h"
 
+/* Global to keep timer track*/
+bool displayTimerFlag;
+
 void display_Init(void);
 void display_SetUint16(uint16 value);
 void display_SetByteLeft(uint8 value);
