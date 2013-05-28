@@ -21,7 +21,6 @@
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "uartcontrol.h"
-#include "displaycontrol.h"
 #define DEBUGFLAG
 
 
