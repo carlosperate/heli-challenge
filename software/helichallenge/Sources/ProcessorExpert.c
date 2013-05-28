@@ -50,6 +50,7 @@
 #include "LED_West.h"
 #include "GPIO_B.h"
 #include "GPIO_A.h"
+#include "TMOUT1.h"
 #include "TSS1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
