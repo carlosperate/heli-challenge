@@ -24,5 +24,7 @@ void js_SetServoDutyUsY(uint16 us);
 inline uint16 js_GetXUs();
 inline uint16 js_GetYUs();
 void js_Move(void);
+uint16 js_DifficultyAddOffsetX(uint16 joystickXOp);
+uint16 js_DifficultyAddOffsetY(uint16 joystickYOp);
 
 #endif /* JOYSTICKSERVO_H_ */

@@ -6,12 +6,23 @@
  **************************************************************************** */
 #include "joystickservo.h"
 #include "joystick.h"
+#include "timecontrol.h"
+#include "ledblocks.h"
+
+/* */
+//typedef enum {
+//  Button_Trigger, Button_Centre, Button_Left, Button_Right, Button_Box
+//} Difficulty_Level_t;
 
 
 /* Defines for the servo limits */
 static const uint16 JOYSTICKSERVO_US_MIN = 1000;
 static const uint16 JOYSTICKSERVO_US_MAX =  2000;
 static const uint16 JOYSTICKSERVO_US_CENTRE = 1500;
+
+
+/* */
+static const uint8 difficultyTimeSplit = 30;
 
 
 /** 
@@ -84,6 +95,88 @@ inline uint16 js_GetYUs() {
  * Description
  *************************************************************************** */
 void js_Move(void) {
-  js_SetServoDutyUsY(js_GetYUs());
-  js_SetServoDutyUsX(js_GetXUs());
+  js_SetServoDutyUsY( js_DifficultyAddOffsetY(js_GetYUs()) );
+  js_SetServoDutyUsX( js_DifficultyAddOffsetX(js_GetXUs()) );
+}
+
+
+
+/**
+ * Description
+ * @param joystickOp
+ * @return
+ *************************************************************************** */
+uint16 js_DifficultyAddOffsetX(uint16 joystickXOp) {
+  uint8 difficultyLevel = time_GetTimeInSeconds() / difficultyTimeSplit;
+  
+  switch(difficultyLevel) {
+    case 0:
+      // Nothing happens here
+      break;
+    case 1:
+      // North wind only affects Y
+      break;
+    case 2:
+      // East wind
+      lb_AllLedsOff();
+      lb_EastLightOn(TRUE);
+      joystickXOp += 5000;
+      if(joystickXOp<5000) {
+        joystickXOp = 65535;
+      }
+      break;
+    case 3:
+      // South wind only affects Y
+      break;
+    default:
+      // West wind
+      lb_AllLedsOff();
+      lb_WestLightOn(TRUE);
+      joystickXOp -= 5000;
+      if(joystickXOp>60535) {
+        joystickXOp = 0;
+      }
+      break;
+  }
+  return joystickXOp;
+}
+
+/**
+ * Description
+ * @param joystickOp
+ * @return
+ *************************************************************************** */
+uint16 js_DifficultyAddOffsetY(uint16 joystickYOp) {
+  uint8 difficultyLevel = time_GetTimeInSeconds() / difficultyTimeSplit;
+  
+  switch(difficultyLevel) {
+    case 0:
+      // Nothing happens here
+      break;
+    case 1:
+      // North wind
+      lb_AllLedsOff();
+      lb_NorthLightOn(TRUE);
+      joystickYOp -= 5000;
+      if(joystickYOp>60535) {
+        joystickYOp = 0;
+      }
+      break;
+    case 2:
+      // East wind only affects X
+      break;
+    case 3:
+      // South wind
+      lb_AllLedsOff();
+      lb_SouthLightOn(TRUE);
+      joystickYOp += 5000;
+      if(joystickYOp<5000) {
+        joystickYOp = 65535;
+      }
+      break;
+    default:
+      // West wind only affects X
+      break;
+  }
+  return joystickYOp;
 }
