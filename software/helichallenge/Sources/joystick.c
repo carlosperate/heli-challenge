@@ -116,40 +116,6 @@ uint16 joystick_CalibrateYMax(void) {
 /**
  * Description
  *************************************************************************** */
-//uint16 ConditionADCx(uint16 ADC_X){
-//  if ((ADC_X>CalibrationDeadLeft)&&(ADC_X<CalibrationDeadRight)){
-//    ADC_X=CalibrationCentreX;
-//  }
-//  if (ADC>CalibrationDeadRight){
-//    ADC=(uint16)(CalibrationCentreX+(CalibrationRight-CalibrationCentreX)*(ADC/65535));
-//  }
-//  if (ADC<CalibrationDeadLeft){
-//    ADC=CalibrationLeft+
-//  }
-//  return ADC_X;
-//}
-uint16 ConditionADCx(uint16 ADC_Y){
-  //if ((ADC_Y>CalibrationDeadLeft)&&(ADC_Y<CalibrationDeadRight)){
-  //  ADC_Y=CalibrationCentreY;
-  //}
-  //
-  //return ADC_Y;
-}
-
-
-/**
- * Description
- *************************************************************************** */
-uint16 ConditionADCy(uint16 ADC){
-  
-return ADC;
-}
-
-
-
-/**
- * Description
- *************************************************************************** */
 uint16 joystick_GetX() {
   AdcRead();
   float scaleFull16BitRange = 0;
