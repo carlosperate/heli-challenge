@@ -6,14 +6,14 @@
 #include "timecontrol.h"
 
 /* Constants */
-const static uint8 maxMinutes = 10;
+const static uint8 maxMinutes = 5;
 
 
 /* Local globals */
 static uint16 timeInSeconds = 0;
 static uint8 timeSecondsPart = 0;
 static uint8 timeMinutesPart = 0;
-static bool isRunning = FALSE;
+static bool isTimeRunning = FALSE;
 
 
 /** 
@@ -30,7 +30,8 @@ void time_Init(void) {
  * time in total seconds and a "minutes and seconds" format.
  *************************************************************************** */
 void time_Tick1Sec(void) {
-  if(isRunning) {
+  if(isTimeRunning == TRUE) {
+    timeInSeconds++;
     timeSecondsPart++;
     
     /* Convert current seconds to minutes+seconds */
@@ -52,7 +53,7 @@ void time_Tick1Sec(void) {
  * time_Tick1Sec function to count time.
  *************************************************************************** */
 void time_Start(void) {
-  isRunning = TRUE;
+  isTimeRunning = TRUE;
 }
 
 
@@ -62,7 +63,7 @@ void time_Start(void) {
  *************************************************************************** */
 void time_Restart(void) {
   time_Reset();
-  isRunning = TRUE;
+  isTimeRunning = TRUE;
 }
 
 
@@ -71,7 +72,7 @@ void time_Restart(void) {
  * Pauses the current game time counter.
  *************************************************************************** */
 void time_Pause(void) {
-  isRunning = FALSE;
+  isTimeRunning = FALSE;
 }
 
 
@@ -79,7 +80,7 @@ void time_Pause(void) {
  * Ends the game counter.
  *************************************************************************** */
 void time_End(void) {
-  isRunning = FALSE;
+  isTimeRunning = FALSE;
 }
 
 
@@ -90,7 +91,7 @@ void time_Reset(void) {
   timeInSeconds = 0;
   timeSecondsPart = 0;
   timeMinutesPart = 0;
-  isRunning = FALSE;
+  isTimeRunning = FALSE;
 }
 
 
