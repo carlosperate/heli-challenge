@@ -21,7 +21,7 @@ static uint8 digit1 = 1;
 static uint8 digit2 = 2;
 static uint8 digit3 = 3;
 static uint8 digit4 = 4;
-//static uint8 turn = 0;
+static uint8 turn = 0;
 
 
 /* Local functions */
@@ -43,8 +43,9 @@ void display_Init(void) {
         0x00,     /** INTCON: Int. compare against previous value (not used). */
         0x2A};    /** IOCON: Disable sequential operation */
     
-    GI2C1_SelectSlave(DISPLAY_ADDRESS);
+    //GI2C1_SelectSlave(DISPLAY_ADDRESS);
     GI2C1_WriteAddress(DISPLAY_ADDRESS, &registerPointer, 1, registerConf, 6);
+    //GI2C1_Deinit();
     //if ( GI2C1_WriteAddress(DISPLAY_ADDRESS, &registerPointer,
     //    1, registerConf, 6) != ERR_OK) {
       //Do something for error checking 
@@ -62,6 +63,7 @@ void display_SendI2CByte(uint8 byteToSend) {
   #ifdef DISPLAY_CONNECTED
     uint8 registerPointer = DISPLAY_REGISTER_OPSET;
     GI2C1_WriteAddress(DISPLAY_ADDRESS, &registerPointer, 1, &byteToSend, 1);
+    
     //if ( GI2C1_WriteAddress(DISPLAY_ADDRESS_READ, &registerPointer,
     //    1, &byteToSend, 1) != ERR_OK ) {
       //Do something for error checking 
@@ -228,37 +230,30 @@ void display_AllDigitsOff(void) {
  * Flashes the four digits sequentially and then turns all 7segments off.
  *************************************************************************** */
 void display_FlashAllDigits(void) {
-  display_DisplayDigitl();
-  display_DisplayDigit2();
-  display_DisplayDigit3();
-  display_DisplayDigit4();
-  display_AllDigitsOff(); 
-
-  
-//  turn++;
-//  switch(turn) {
-//    case 1:
-//      display_DisplayDigitl();
-//      display_AllDigitsOff(); 
-//      FRTOS1_vTaskDelay(0.1);
-//      break;
-//    case 2:
-//      display_DisplayDigit2();
-//      display_AllDigitsOff(); 
-//      FRTOS1_vTaskDelay(0.1);
-//      break;
-//    case 3:
-//     display_DisplayDigit3();
-//      display_AllDigitsOff(); 
-//      FRTOS1_vTaskDelay(0.1);
-//      break;
-//    case 4:
-//      display_DisplayDigit4();
-//      display_AllDigitsOff();
-//      FRTOS1_vTaskDelay(0.1);
-//      //no break to reset turn
-//    default:
-//      turn=0;
-//      break;
-//  }
+  turn++;
+  switch(turn) {
+    case 1:
+      display_DisplayDigitl();
+      //display_AllDigitsOff(); 
+      //FRTOS1_vTaskDelay(0.1);
+      break;
+    case 2:
+      display_DisplayDigit2();
+      //display_AllDigitsOff(); 
+      //FRTOS1_vTaskDelay(0.1);
+      break;
+    case 3:
+      display_DisplayDigit3();
+      //display_AllDigitsOff(); 
+      //FRTOS1_vTaskDelay(0.1);
+      break;
+    case 4:
+      display_DisplayDigit4();
+      //display_AllDigitsOff();
+      //FRTOS1_vTaskDelay(0.1);
+      //no break to reset turn
+    default:
+      turn=0;
+      break;
+  }
 }

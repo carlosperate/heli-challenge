@@ -41,6 +41,16 @@ void debug_AdcXYServo(void) {
 /**
  * Description
  *************************************************************************** */
+void debug_PlayData(void) { 
+  uart_SendString("\r\nPlay Difficulty: ");
+  uart_SendByte(js_GetDifficultyLevel());
+  uart_SendString("\r\n"); 
+  debug_AdcXYServo();
+}
+
+/**
+ * Description
+ *************************************************************************** */
 void debug_Buttons(void) { 
 #ifdef DEBUGFLAG
   uart_SendString("Buttons:");

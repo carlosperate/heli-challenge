@@ -21,10 +21,15 @@
 uint16 js_JoystickToUs(uint16 joystick16BitRange);
 void js_SetServoDutyUsX(uint16 us);
 void js_SetServoDutyUsY(uint16 us);
-inline uint16 js_GetXUs();
-inline uint16 js_GetYUs();
+inline uint16 js_GetXUs(void);
+inline uint16 js_GetYUs(void);
 void js_Move(void);
+void js_ServoStart(void);
+void js_ServoStop(void);
+void js_ServoCentre(void);
+void js_ServoInit(void);
 uint16 js_DifficultyAddOffsetX(uint16 joystickXOp);
 uint16 js_DifficultyAddOffsetY(uint16 joystickYOp);
+uint8 js_GetDifficultyLevel(void);
 
 #endif /* JOYSTICKSERVO_H_ */

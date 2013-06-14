@@ -9,21 +9,19 @@
 #include "timecontrol.h"
 #include "ledblocks.h"
 
-/* */
-//typedef enum {
-//  Button_Trigger, Button_Centre, Button_Left, Button_Right, Button_Box
-//} Difficulty_Level_t;
-
 
 /* Defines for the servo limits */
-static const uint16 JOYSTICKSERVO_US_MIN = 1000;
+static const uint16 JOYSTICKSERVO_US_MIN = 825;
 static const uint16 JOYSTICKSERVO_US_MAX =  2000;
 static const uint16 JOYSTICKSERVO_US_CENTRE = 1500;
 
 
-/* */
+/* Local globals */
 static const uint8 difficultyTimeSplit = 30;
+static uint8 difficultyLevel;
 
+
+void js_CalculateDifficultyLevel(void);
 
 /** 
  * Converts the 16bit ADC value from the joystick pots to a value between the
@@ -33,7 +31,6 @@ static const uint8 difficultyTimeSplit = 30;
  * with a range from the minimum and maximum defined in the header file.
  *************************************************************************** */
 uint16 js_JoystickToUs(uint16 joystick16BitRange) {
-  //uint16 us=(1000+(uint16)(ADC/65.535));
   float usFloat = (float)(JOYSTICKSERVO_US_MAX - JOYSTICKSERVO_US_MIN) *
       (float)joystick16BitRange / 65535.0f;
   uint16 us = (uint16)JOYSTICKSERVO_US_MIN + (uint16)usFloat;
@@ -52,8 +49,8 @@ void js_SetServoDutyUsX(uint16 us) {
   } else if(us>JOYSTICKSERVO_US_MAX) {
     us=JOYSTICKSERVO_US_MAX;
   }
-  //us=(word)us;
-  PWM1_SetDutyUS(us);
+
+  PWM2_SetDutyUS(us);
 }
 
 
@@ -68,8 +65,10 @@ void js_SetServoDutyUsY(uint16 us) {
   } else if(us>JOYSTICKSERVO_US_MAX) {
     us=JOYSTICKSERVO_US_MAX;
   }
-  //us=(word)us;
-  PWM2_SetDutyUS(us);
+
+  /* Inverting the Y axis*/
+  us = JOYSTICKSERVO_US_MAX - us  + JOYSTICKSERVO_US_MIN;
+  PWM1_SetDutyUS(us);
 }
 
 
@@ -77,7 +76,7 @@ void js_SetServoDutyUsY(uint16 us) {
  * Description
  * @return
  *************************************************************************** */
-inline uint16 js_GetXUs() {
+inline uint16 js_GetXUs(void) {
   return js_JoystickToUs(joystick_GetX());
 }
 
@@ -86,7 +85,7 @@ inline uint16 js_GetXUs() {
  * Description
  * @return
  *************************************************************************** */
-inline uint16 js_GetYUs() {
+inline uint16 js_GetYUs(void) {
   return js_JoystickToUs(joystick_GetY());
 }
 
@@ -95,10 +94,48 @@ inline uint16 js_GetYUs() {
  * Description
  *************************************************************************** */
 void js_Move(void) {
+  js_CalculateDifficultyLevel();
   js_SetServoDutyUsY( js_DifficultyAddOffsetY(js_GetYUs()) );
   js_SetServoDutyUsX( js_DifficultyAddOffsetX(js_GetXUs()) );
 }
 
+
+/**
+ * Description
+ *************************************************************************** */
+void js_ServoStart(void) {
+  PWM1_Enable();
+  PWM2_Enable();
+}
+
+
+/**
+ * Description
+ *************************************************************************** */
+void js_ServoStop(void) {
+  PWM1_Disable();
+  PWM2_Disable();
+}
+
+
+/**
+ * Description
+ *************************************************************************** */
+void js_ServoCentre(void) {
+  PWM1_SetDutyUS(JOYSTICKSERVO_US_CENTRE);
+  PWM2_SetDutyUS(JOYSTICKSERVO_US_CENTRE);
+}
+
+
+/**
+ * Description
+ *************************************************************************** */
+void js_ServoInit(void) {
+  js_ServoStart();
+  js_ServoCentre();
+  //FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
+  //js_ServoStop();
+}
 
 
 /**
@@ -107,7 +144,6 @@ void js_Move(void) {
  * @return
  *************************************************************************** */
 uint16 js_DifficultyAddOffsetX(uint16 joystickXOp) {
-  uint8 difficultyLevel = time_GetTimeInSeconds() / difficultyTimeSplit;
   
   switch(difficultyLevel) {
     case 0:
@@ -120,10 +156,10 @@ uint16 js_DifficultyAddOffsetX(uint16 joystickXOp) {
       // East wind
       lb_AllLedsOff();
       lb_EastLightOn(TRUE);
-      joystickXOp += 5000;
-      if(joystickXOp<5000) {
-        joystickXOp = 65535;
-      }
+      joystickXOp += 200;
+      //if(joystickXOp<5000) {
+      //  joystickXOp = 65535;
+      //}
       break;
     case 3:
       // South wind only affects Y
@@ -132,10 +168,10 @@ uint16 js_DifficultyAddOffsetX(uint16 joystickXOp) {
       // West wind
       lb_AllLedsOff();
       lb_WestLightOn(TRUE);
-      joystickXOp -= 5000;
-      if(joystickXOp>60535) {
-        joystickXOp = 0;
-      }
+      joystickXOp -= 200;
+      //if(joystickXOp>60535) {
+      //  joystickXOp = 0;
+      //}
       break;
   }
   return joystickXOp;
@@ -147,8 +183,7 @@ uint16 js_DifficultyAddOffsetX(uint16 joystickXOp) {
  * @return
  *************************************************************************** */
 uint16 js_DifficultyAddOffsetY(uint16 joystickYOp) {
-  uint8 difficultyLevel = time_GetTimeInSeconds() / difficultyTimeSplit;
-  
+
   switch(difficultyLevel) {
     case 0:
       // Nothing happens here
@@ -157,10 +192,10 @@ uint16 js_DifficultyAddOffsetY(uint16 joystickYOp) {
       // North wind
       lb_AllLedsOff();
       lb_NorthLightOn(TRUE);
-      joystickYOp -= 5000;
-      if(joystickYOp>60535) {
-        joystickYOp = 0;
-      }
+      joystickYOp -= 200;
+      //if(joystickYOp>60535) {
+      //  joystickYOp = 0;
+      //}
       break;
     case 2:
       // East wind only affects X
@@ -169,14 +204,32 @@ uint16 js_DifficultyAddOffsetY(uint16 joystickYOp) {
       // South wind
       lb_AllLedsOff();
       lb_SouthLightOn(TRUE);
-      joystickYOp += 5000;
-      if(joystickYOp<5000) {
-        joystickYOp = 65535;
-      }
+      joystickYOp += 200;
+      //if(joystickYOp<5000) {
+      //  joystickYOp = 65535;
+      //}
       break;
     default:
       // West wind only affects X
       break;
   }
   return joystickYOp;
+}
+
+
+/**
+ * Description
+ * @return
+ *************************************************************************** */
+void js_CalculateDifficultyLevel(void) {
+  difficultyLevel = (uint8)(time_GetTimeInSeconds() / difficultyTimeSplit);
+}
+
+
+/**
+ * Description
+ * @return
+ *************************************************************************** */
+uint8 js_GetDifficultyLevel(void) {
+  return difficultyLevel;
 }

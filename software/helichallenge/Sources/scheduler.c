@@ -12,23 +12,6 @@
 #endif
 
 
-
-/**
- * portTASK_FUNCTION for task20HzRelative
- * This is the main function of the application where the state machine and
- * all operational code will be executed.
- * @param task20HzRelative Name of the task
- *        pvParameters Parameter to pass, not used
- *************************************************************************** */
-static portTASK_FUNCTION(task20HzRelative, pvParameters) {
-  (void)pvParameters; /* parameter not used */
-  for(;;) {
-    schedule20HzRelative();
-	FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
-  }
-}
-
-
 /**
  * portTASK_FUNCTION for task50HzAbsolute
  * This one is meant to flash the 7 segment display at 50hz
@@ -43,9 +26,25 @@ static portTASK_FUNCTION(task500HzAbsolute, pvParameters) {
   for(;;) {
     /* Wait for the next cycle */
     vTaskDelayUntil(&xLastWakeTime, xFrequency);
-    schedule250HzAbsolute();
+    schedule500HzAbsolute();
   }
 } 
+
+
+/**
+ * portTASK_FUNCTION for task20HzRelative
+ * This is the main function of the application where the state machine and
+ * all operational code will be executed.
+ * @param task20HzRelative Name of the task
+ *        pvParameters Parameter to pass, not used
+ *************************************************************************** */
+static portTASK_FUNCTION(task40HzRelative, pvParameters) {
+  (void)pvParameters; /* parameter not used */
+  for(;;) {
+    schedule40HzRelative();
+	FRTOS1_vTaskDelay(25/portTICK_RATE_MS);
+  }
+}
 
 
 /**
@@ -72,8 +71,8 @@ static portTASK_FUNCTION(task1HzAbsolute, pvParameters) {
  *************************************************************************** */
 void createTasks() {
   if (FRTOS1_xTaskCreate(
-      task20HzRelative,           /* pointer to the task */
-      (signed portCHAR *)"task20HzRelative", /* task name */
+      task40HzRelative,           /* pointer to the task */
+      (signed portCHAR *)"task40HzRelative", /* task name */
       configMINIMAL_STACK_SIZE,   /* task stack size */
       (void*)NULL,                /* optional task startup argument */
       tskIDLE_PRIORITY,           /* initial priority */

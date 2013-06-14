@@ -24,8 +24,8 @@ typedef enum {
 } ApplicationState_t;
 
 inline void initialiseAll(void);
-inline void schedule250HzAbsolute(void);
-inline void schedule20HzRelative(void);
+inline void schedule500HzAbsolute(void);
+inline void schedule40HzRelative(void);
 inline void schedule1HzAbsolute(void);
 ApplicationState_t stateStandBy(void);
 ApplicationState_t statePlay(void);

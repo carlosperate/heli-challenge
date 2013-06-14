@@ -10,6 +10,7 @@
 #include "common.h"
 
 void debug_AdcXYServo(void);
+void debug_PlayData(void);
 void debug_Buttons(void);
 void debug_JoystickServo(void);
 bool debug_Leds(void);

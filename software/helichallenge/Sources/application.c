@@ -14,6 +14,7 @@
 #include "TSS1.h"
 #include "debug.h"
 #include "ledblocks.h"
+//#include "FreeMASTER/freemaster.h"
 
 
 /* Module globals */
@@ -33,12 +34,23 @@ inline void initialiseAll(void) {
   time_Init();
   display_Init();
   TSS1_Configure();
-  PWM1_Enable();
-  PWM2_Enable();
+  //FMSTR_Init();
+  js_ServoStart();
+  //js_ServoStop();
   #ifdef DEBUGFLAG
     uart_Init();
     //accelerometer_Init();
+    uart_SendStringLn("Booted");
   #endif
+}
+
+
+/**
+ * Scheduled to run at a frequency of 50Hz with an absolute time measurement.
+ *************************************************************************** */
+inline void schedule500HzAbsolute(void) {
+  display_FlashAllDigits();
+  LED_G_Neg();
 }
 
 
@@ -46,7 +58,7 @@ inline void initialiseAll(void) {
  * Scheduled to run every 50ms without taking in consideration function 
  * runtime. So if runtime takes 10ms, this function will run every 60ms.
  *************************************************************************** */
-inline void schedule20HzRelative(void) { 
+inline void schedule40HzRelative(void) { 
   /* Very simple machine state */
   /* TODO: Refactor into table driven approach */
   switch(state) {
@@ -71,17 +83,9 @@ inline void schedule20HzRelative(void) {
       #endif
       break;
   }
-  
+  //FMSTR_Recorder();
+  //FMSTR_Poll();
   TSS_Task();
-}
-
-
-/**
- * Scheduled to run at a frequency of 50Hz with an absolute time measurement.
- *************************************************************************** */
-inline void schedule250HzAbsolute(void) {
-  display_FlashAllDigits();
-  LED_G_Neg();
 }
 
 
@@ -89,6 +93,9 @@ inline void schedule250HzAbsolute(void) {
  * Scheduled to run once a second.
  *************************************************************************** */
 inline void schedule1HzAbsolute(void) {
+  #ifdef DEBUGFLAG
+    //uart_SendStringLn("Tick");
+  #endif 
   time_Tick1Sec();
   display_SetByteRight(time_GetSecondsPortion());
   display_SetByteLeft(time_GetMinutesPortion());
@@ -101,8 +108,8 @@ inline void schedule1HzAbsolute(void) {
  *************************************************************************** */
 ApplicationState_t stateStandBy(void) {
   #ifdef DEBUGFLAG
-    uart_SendStringLn("Standby.");
-    debug_JoystickServo();
+    //uart_SendStringLn("Standby.");
+    //debug_JoystickServo();
   #endif 
   
   /* We first check for box button for special modes */
@@ -117,7 +124,6 @@ ApplicationState_t stateStandBy(void) {
       return Standby; 
     }
   } else if(joystick_isButtonPressed(Button_Trigger) == TRUE) {
-    time_Restart();
     return Play; 
   }
 
@@ -129,15 +135,29 @@ ApplicationState_t stateStandBy(void) {
  * Description
  *************************************************************************** */
 ApplicationState_t statePlay(void) {
-  while(joystick_isButtonPressed(Button_Trigger) == TRUE) {
+  /* Restart the PWM peripherals (servos) and time module */
+  js_ServoStart();
+  time_Restart();
+  
+  /* Game last for as long as the trigger or box button is pressed 
+   * or until the capacitive sensor detects the ball touching the edge */
+  while( (joystick_isButtonPressed(Button_Trigger) == TRUE)
+      && (joystick_isButtonPressed(Button_Box) == FALSE) ) {
+    
     js_Move();
     #ifdef DEBUGFLAG
-      uart_SendStringLn("\r\nPlay.");
-      debug_AdcXYServo();
+      debug_PlayData();
     #endif
     FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
   }
+  
+  /* Out of the loop means game over, so deactivate PWM and time module*/
   time_End();
+  FRTOS1_vTaskDelay(5000/portTICK_RATE_MS);
+  js_ServoCentre();
+  FRTOS1_vTaskDelay(210/portTICK_RATE_MS);
+  js_ServoStop();
+  
   return Standby;
 }
 
@@ -264,7 +284,4 @@ ApplicationState_t stateTestMode(void) {
   
   return Test;
 }
-
-
-
 
