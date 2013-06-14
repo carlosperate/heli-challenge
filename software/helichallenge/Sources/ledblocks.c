@@ -34,7 +34,7 @@ inline void lb_WestLightOn(bool newstate) {
 /**
  * Description
  *************************************************************************** */
-inline lb_EastLightOn(bool newstate) {
+inline void lb_EastLightOn(bool newstate) {
   LED_East_PutVal(NULL, newstate);
 }
 

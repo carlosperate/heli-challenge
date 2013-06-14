@@ -7,7 +7,7 @@
 #include "calibrate.h"
 
 
-InitialRead(void){
+void InitialRead(void){
   AdcRead();
   CalibrationCentreX=ADC_READOUT[0];
   CalibrationCentreY=ADC_READOUT[1];  
@@ -24,7 +24,7 @@ InitialRead(void){
   uart_SendInt16(CalibrationUp);uart_SendStringLn("\n");
   uart_SendInt16(CalibrationDown);uart_SendStringLn("\n");
 }
-ContinuousRead(void){
+void ContinuousRead(void){
   //for(;;){
   AdcRead();
   //Get maxima and minima for ADC values over a period of time
@@ -35,7 +35,7 @@ ContinuousRead(void){
   //if (Get_Value(1)==0){CalibrationState++;break;};
   //} 
 }
-StaticRead(void){
+void StaticRead(void){
   AdcRead();
   CalibrationCentreX=((ADC_READOUT[0]+CalibrationCentreX)/2);
   CalibrationCentreY=((ADC_READOUT[1]+CalibrationCentreY)/2);
@@ -45,17 +45,19 @@ StaticRead(void){
   if (ADC_READOUT[1]>CalibrationDeadUp){CalibrationDeadUp=ADC_READOUT[1];}
 
 }
-calibration (void){
+void calibration (void){
   LED_North_PutVal(NULL,1);
   InitialRead();
   LED_East_PutVal(NULL,1);
   for(;;){
   ContinuousRead();
-  if (Get_Value(1)==0){break;};}
+  //if (Get_Value(1)==0){break;};
+  }
   LED_South_PutVal(NULL,1);
   for(;;){
   StaticRead();
-  if (Get_Value(1)==0){break;};}
+  //if (Get_Value(1)==0){break;};
+  }
   LED_North_PutVal(NULL,0);
   LED_East_PutVal(NULL,0);
   LED_South_PutVal(NULL,0);
