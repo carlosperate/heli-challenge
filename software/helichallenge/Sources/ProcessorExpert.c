@@ -49,6 +49,7 @@
 #include "LED_East.h"
 #include "LED_West.h"
 #include "GPIO_B.h"
+#include "GPIO_C.h"
 #include "GPIO_A.h"
 #include "TSS1.h"
 /* Including shared modules, which are used for whole project */

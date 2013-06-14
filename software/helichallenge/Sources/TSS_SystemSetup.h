@@ -32,7 +32,7 @@
 
 #define TSS_USE_AUTO_SENS_CALIBRATION          1      /* Automatic Sensitivity Calibration support */
 
-#define TSS_USE_AUTO_SENS_CALIB_INIT_DURATION  100    /* Automatic Sensitivity Calibration initialization duration */
+#define TSS_USE_AUTO_SENS_CALIB_INIT_DURATION  125    /* Automatic Sensitivity Calibration initialization duration */
 
 #define TSS_USE_BASELINE_INIT_DURATION         15     /* Baseline initialization duration */
 
@@ -90,7 +90,7 @@
 
 /* Configuration of Electrode Measurement Method */
 
-#define TSS_E0_TYPE                 TSI0_CH9          /* Electrode measurement method specification */
+#define TSS_E0_TYPE                 TSI0_CH15         /* Electrode measurement method specification */
 
 /************************** Controls Configuration ***************************/
 
@@ -105,7 +105,7 @@
 
 /* TSI Specific Parameters */
 
-#define TSS_TSI_RESOLUTION               16           /* Required Bit resolution of the TSI */
+#define TSS_TSI_RESOLUTION               11           /* Required Bit resolution of the TSI */
 
 /* Scan Settings */
 

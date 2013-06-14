@@ -255,6 +255,8 @@ void TSS1_fOnInit(void)
 
 }
 
+
+
 /*
 ** ===================================================================
 **     Event       :  TSS1_fCallBack0 (module Events)
@@ -279,16 +281,13 @@ void TSS1_fOnInit(void)
 void TSS1_fCallBack0(TSS_CONTROL_ID u8ControlId)
 {
   UINT8 u8Event; /* 8 bits local variable used to store the event information */
-  
+
   while (!TSS_KEYPAD_BUFFER_EMPTY(TSS1_cKey0))  /* While unread events are in the buffer */
   {
     TSS_KEYPAD_BUFFER_READ(u8Event,TSS1_cKey0); /* Read the buffer and store the event in the u8Event variable */
 
     /* Write your code here ... */
-    //#ifdef DEBUGFLAG
-      uart_SendStringLn("touch");
-    //#endif
-
+    uart_SendStringLn("touch");
     (void) u8Event;
   }
 
