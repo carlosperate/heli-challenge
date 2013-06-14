@@ -66,7 +66,7 @@
 
 #define TSS_USE_TRIGGER_FUNCTION               1      /* Trigger Function support */
 
-#define TSS_USE_STUCK_KEY                      1      /* Stuck-key function support */
+#define TSS_USE_STUCK_KEY                      0      /* Stuck-key function support */
 
 #define TSS_USE_NEGATIVE_BASELINE_DROP         1      /* Negative Baseline Drop support */
 
@@ -90,7 +90,7 @@
 
 /* Configuration of Electrode Measurement Method */
 
-#define TSS_E0_TYPE                 TSI0_CH15         /* Electrode measurement method specification */
+#define TSS_E0_TYPE                 TSI0_CH9          /* Electrode measurement method specification */
 
 /************************** Controls Configuration ***************************/
 
@@ -105,7 +105,7 @@
 
 /* TSI Specific Parameters */
 
-#define TSS_TSI_RESOLUTION               11           /* Required Bit resolution of the TSI */
+#define TSS_TSI_RESOLUTION               16           /* Required Bit resolution of the TSI */
 
 /* Scan Settings */
 

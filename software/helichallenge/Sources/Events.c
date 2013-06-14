@@ -21,7 +21,6 @@
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "uartcontrol.h"
-#define DEBUGFLAG
 
 
 /*
@@ -155,6 +154,7 @@ void AS1_OnBlockSent(LDD_TUserData *UserDataPtr)
 void I2C2_OnError(LDD_TUserData *UserDataPtr)
 {
   /* Write your code here ... */
+  //uart_SendStringLn("I2C Error!");
 }
 
 /*
@@ -285,9 +285,9 @@ void TSS1_fCallBack0(TSS_CONTROL_ID u8ControlId)
     TSS_KEYPAD_BUFFER_READ(u8Event,TSS1_cKey0); /* Read the buffer and store the event in the u8Event variable */
 
     /* Write your code here ... */
-    #ifdef DEBUGFLAG
+    //#ifdef DEBUGFLAG
       uart_SendStringLn("touch");
-    #endif
+    //#endif
 
     (void) u8Event;
   }
