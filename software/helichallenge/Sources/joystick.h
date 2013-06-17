@@ -11,6 +11,7 @@
 #define JOYSTICK_H_
 
 #include "common.h"
+#include "AD1.h"
 
 /* Typedef to easily identify the buttons in the joystick */
 typedef enum {

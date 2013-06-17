@@ -64,6 +64,7 @@ uint16 AdcRead(void) {
 uint16 joystick_CalibrateXMin(void) {
   AdcRead();
   xMin = ADC_READOUT[0];
+  xMin = (uint16)(xMin + (xMin/10));
   return xMin;
 }
 
@@ -82,6 +83,7 @@ uint16 joystick_CalibrateXCentre(void) {
 uint16 joystick_CalibrateXMax(void) {
   AdcRead();
   xMax = ADC_READOUT[0];
+  xMax = (uint16)(xMax - (xMax/10));
   return xMax;
 }
 
@@ -91,6 +93,7 @@ uint16 joystick_CalibrateXMax(void) {
 uint16 joystick_CalibrateYMin(void) {
   AdcRead();
   yMin = ADC_READOUT[1];
+  yMin = (uint16)(yMin + (yMin/10));
   return yMin;
 }
 
@@ -109,6 +112,7 @@ uint16 joystick_CalibrateYCentre(void) {
 uint16 joystick_CalibrateYMax(void) {
   AdcRead();
   yMax = ADC_READOUT[1];
+  yMax = (uint16)(yMax - (yMax/10));
   return yMax;
 }
 

@@ -14,11 +14,13 @@
  * PE_Types.h: bool, int8, uint8, byte, int16, ,uint16, int32, uint32; */
 #include "PE_Types.h"
 
+#include "FRTOS1.h"
+
 /* The following is used to add UART(USB) messages for debugging */
-#ifndef DEBUGFLAG
-  #define DEBUGFLAG
-  #include "uartcontrol.h"
-  #include "accelerometer.h"
-#endif
+//#ifndef DEBUGFLAG
+//  #define DEBUGFLAG
+//  #include "uartcontrol.h"
+//  #include "accelerometer.h"
+//#endif
 
 #endif /* COMMON_H_ */

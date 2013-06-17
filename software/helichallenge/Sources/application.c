@@ -6,11 +6,11 @@
  * Description goes here.
  **************************************************************************** */
 #include "application.h"
+#include "common.h"
 #include "displaycontrol.h"
 #include "timecontrol.h"
 #include "joystick.h"
 #include "joystickservo.h"
-#include "Button_LED_Test.h"
 #include "TSS1.h"
 #include "debug.h"
 #include "ledblocks.h"
@@ -143,7 +143,6 @@ ApplicationState_t statePlay(void) {
    * or until the capacitive sensor detects the ball touching the edge */
   while( (joystick_isButtonPressed(Button_Trigger) == TRUE)
       && (joystick_isButtonPressed(Button_Box) == FALSE) ) {
-    
     js_Move();
     #ifdef DEBUGFLAG
       debug_PlayData();
@@ -153,9 +152,10 @@ ApplicationState_t statePlay(void) {
   
   /* Out of the loop means game over, so deactivate PWM and time module*/
   time_End();
-  FRTOS1_vTaskDelay(5000/portTICK_RATE_MS);
+  FRTOS1_vTaskDelay(3500/portTICK_RATE_MS);
   js_ServoCentre();
-  FRTOS1_vTaskDelay(210/portTICK_RATE_MS);
+  lb_AllLedsOff();
+  FRTOS1_vTaskDelay(310/portTICK_RATE_MS);
   js_ServoStop();
   
   return Standby;
@@ -266,7 +266,6 @@ ApplicationState_t stateSelectDifficulty(void) {
 }
 
 
-
 /**
  * Test mode to check the hardware and software is working correctly.
  *************************************************************************** */
@@ -280,7 +279,7 @@ ApplicationState_t stateTestMode(void) {
   // Test the servos
   // Test the joystick
   
-  while(debug_Leds());
+  debug_Leds();
   
   return Test;
 }

@@ -11,8 +11,8 @@
 
 
 /* Defines for the servo limits */
-static const uint16 JOYSTICKSERVO_US_MIN = 825;
-static const uint16 JOYSTICKSERVO_US_MAX =  2000;
+static const uint16 JOYSTICKSERVO_US_MIN = 850;
+static const uint16 JOYSTICKSERVO_US_MAX =  1850;
 static const uint16 JOYSTICKSERVO_US_CENTRE = 1500;
 
 
@@ -156,22 +156,31 @@ uint16 js_DifficultyAddOffsetX(uint16 joystickXOp) {
       // East wind
       lb_AllLedsOff();
       lb_EastLightOn(TRUE);
-      joystickXOp += 200;
-      //if(joystickXOp<5000) {
-      //  joystickXOp = 65535;
-      //}
+      joystickXOp += 275;
       break;
     case 3:
       // South wind only affects Y
       break;
-    default:
+    case 4:
       // West wind
       lb_AllLedsOff();
       lb_WestLightOn(TRUE);
-      joystickXOp -= 200;
-      //if(joystickXOp>60535) {
-      //  joystickXOp = 0;
-      //}
+      joystickXOp -= 225;
+      break;
+    case 5:
+       // North & East
+      lb_EastLightOn(TRUE);
+      lb_WestLightOn(FALSE);
+      joystickXOp += 275;
+      break;
+    case 6: 
+      // South & West
+      lb_EastLightOn(FALSE);
+      lb_WestLightOn(TRUE);
+      joystickXOp -= 225;
+      break;
+    default:
+      lb_AllLedsOff();
       break;
   }
   return joystickXOp;
@@ -192,10 +201,7 @@ uint16 js_DifficultyAddOffsetY(uint16 joystickYOp) {
       // North wind
       lb_AllLedsOff();
       lb_NorthLightOn(TRUE);
-      joystickYOp -= 200;
-      //if(joystickYOp>60535) {
-      //  joystickYOp = 0;
-      //}
+      joystickYOp -= 275;
       break;
     case 2:
       // East wind only affects X
@@ -204,12 +210,25 @@ uint16 js_DifficultyAddOffsetY(uint16 joystickYOp) {
       // South wind
       lb_AllLedsOff();
       lb_SouthLightOn(TRUE);
-      joystickYOp += 200;
-      //if(joystickYOp<5000) {
-      //  joystickYOp = 65535;
-      //}
+      joystickYOp += 225;
+      break;
+    case 4:
+      // Wesr wind only affects X
+      break;
+    case 5:
+       // North & East
+      lb_SouthLightOn(FALSE);
+      lb_NorthLightOn(TRUE);
+      joystickYOp -= 275;
+      break;
+    case 6: 
+      // South & West
+      lb_SouthLightOn(TRUE);
+      lb_NorthLightOn(FALSE);
+      joystickYOp += 225;
       break;
     default:
+      //lb_AllLedsOff();
       // West wind only affects X
       break;
   }
