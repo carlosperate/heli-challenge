@@ -105,7 +105,7 @@
 
 /* TSI Specific Parameters */
 
-#define TSS_TSI_RESOLUTION               11           /* Required Bit resolution of the TSI */
+#define TSS_TSI_RESOLUTION               3            /* Required Bit resolution of the TSI */
 
 /* Scan Settings */
 

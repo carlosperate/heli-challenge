@@ -287,7 +287,7 @@ void TSS1_fCallBack0(TSS_CONTROL_ID u8ControlId)
     TSS_KEYPAD_BUFFER_READ(u8Event,TSS1_cKey0); /* Read the buffer and store the event in the u8Event variable */
 
     /* Write your code here ... */
-    uart_SendStringLn("touch");
+    //uart_SendStringLn("touch");
     (void) u8Event;
   }
 

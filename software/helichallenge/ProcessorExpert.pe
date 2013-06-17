@@ -3,7 +3,7 @@
   <Header>
     <Name>ProcessorExpert</Name>
     <SavedBy>Carlos</SavedBy>
-    <ModificationStamp>237</ModificationStamp>
+    <ModificationStamp>241</ModificationStamp>
     <Date>2013-06-14</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
@@ -36176,7 +36176,7 @@
         <ItemSymbol>TSIResolution</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>11</Value>
+        <Value>3</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>
@@ -36379,7 +36379,7 @@
         <ItemSymbol>NumberofSamples</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>8</Value>
+        <Value>10</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>
@@ -36393,7 +36393,7 @@
         <ItemSymbol>ResponseTime</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>4</Value>
+        <Value>2</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>
