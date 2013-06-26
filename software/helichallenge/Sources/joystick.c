@@ -6,7 +6,7 @@
  *          
  *************************************************************************** */
 #include "joystick.h"
-#include "joystickservo.h"
+#include "gameplay.h"
 
 
 /* A few local globals to define limits and calibration */
@@ -68,6 +68,7 @@ uint16 joystick_CalibrateXMin(void) {
   return xMin;
 }
 
+
 /**
  * Description
  *************************************************************************** */
@@ -76,6 +77,7 @@ uint16 joystick_CalibrateXCentre(void) {
   xCentre = ADC_READOUT[0];
   return xCentre;
 }
+
 
 /**
  * Description
@@ -87,6 +89,7 @@ uint16 joystick_CalibrateXMax(void) {
   return xMax;
 }
 
+
 /**
  * Description
  *************************************************************************** */
@@ -97,6 +100,7 @@ uint16 joystick_CalibrateYMin(void) {
   return yMin;
 }
 
+
 /**
  * Description
  *************************************************************************** */
@@ -105,6 +109,7 @@ uint16 joystick_CalibrateYCentre(void) {
   yCentre = ADC_READOUT[1];
   return yCentre;
 }
+
 
 /**
  * Description

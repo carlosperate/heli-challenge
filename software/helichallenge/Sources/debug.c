@@ -7,7 +7,7 @@
 
 #include "debug.h"
 #include "joystick.h"
-#include "joystickservo.h"
+#include "gameplay.h"
 #include "ledblocks.h"
 #include "uartcontrol.h"
 

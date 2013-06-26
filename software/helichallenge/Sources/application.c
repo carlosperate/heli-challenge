@@ -6,11 +6,11 @@
  * Description goes here.
  **************************************************************************** */
 #include "application.h"
-#include "common.h"
 #include "displaycontrol.h"
 #include "timecontrol.h"
 #include "joystick.h"
-#include "joystickservo.h"
+#include "servocontrol.h"
+#include "gameplay.h"
 #include "TSS1.h"
 #include "debug.h"
 #include "ledblocks.h"
@@ -35,7 +35,7 @@ inline void initialiseAll(void) {
   display_Init();
   TSS1_Configure();
   //FMSTR_Init();
-  js_ServoStart();
+  servo_Start();
   //js_ServoStop();
   #ifdef DEBUGFLAG
     uart_Init();
@@ -136,14 +136,15 @@ ApplicationState_t stateStandBy(void) {
  *************************************************************************** */
 ApplicationState_t statePlay(void) {
   /* Restart the PWM peripherals (servos) and time module */
-  js_ServoStart();
+  servo_Start();
   time_Restart();
   
   /* Game last for as long as the trigger or box button is pressed 
    * or until the capacitive sensor detects the ball touching the edge */
   while( (joystick_isButtonPressed(Button_Trigger) == TRUE)
-      && (joystick_isButtonPressed(Button_Box) == FALSE) ) {
-    js_Move();
+      && (joystick_isButtonPressed(Button_Box) == FALSE)
+      /*&& (js_GetDifficultyLevel <=6)*/) {
+    gp_Play();
     #ifdef DEBUGFLAG
       debug_PlayData();
     #endif
@@ -153,10 +154,10 @@ ApplicationState_t statePlay(void) {
   /* Out of the loop means game over, so deactivate PWM and time module*/
   time_End();
   FRTOS1_vTaskDelay(3500/portTICK_RATE_MS);
-  js_ServoCentre();
+  servo_Centre();
   lb_AllLedsOff();
   FRTOS1_vTaskDelay(310/portTICK_RATE_MS);
-  js_ServoStop();
+  servo_Stop();
   
   return Standby;
 }
