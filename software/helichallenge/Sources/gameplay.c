@@ -13,10 +13,14 @@
 static uint8 difficultyLevel = 0;
 static int16 xOffset = 0;
 static int16 yOffset = 0;
+static const int16 SMALLOFFSET = 12000;
+static const int16 LARGEOFFSET = 15000;
+
 static int8 xSine = 0;
 static bool isXCrescendo = TRUE;
 static int8 yCosine = 64;
 static bool isYCrescendo = TRUE;
+static const int8 WAVEMULTIPLIER = 150;
 
 
 /* Private functions*/
@@ -36,16 +40,17 @@ void gp_Play(void) {
   
   /* Getting joystick input converted to a number between 0 and 2^16, and adding
    * the offset due to difficulty levels */
-  int32 y16BitRangeIn32BitVar = servo_16BitsToUs(joystick_GetY()) + yOffset;
-  int32 x16BitRangeIn32BitVar = servo_16BitsToUs(joystick_GetX()) + xOffset;
+  int32 y16BitRangeIn32BitVar = joystick_GetY() + yOffset;
+  int32 x16BitRangeIn32BitVar = joystick_GetX() + xOffset;
   
   /* Adding an additional rotating continuous movement */
-//  if(difficultyLevel>0) {
-//    yUs += yCosine;
-//    xUs += xSine;
-//  }
+  //if(difficultyLevel>0) {
+    gp_CalculateWaveOffsets();
+    y16BitRangeIn32BitVar += (yCosine);
+    x16BitRangeIn32BitVar += (xSine);
+  //}
   
-  /* Sanitising data for out of range values */
+  /* Sanitising data for out-of-range values */
   uint16 y16BitRange;
   uint16 x16BitRange;
   if(y16BitRangeIn32BitVar<0) {
@@ -86,45 +91,45 @@ void gp_CalculateDifficultyOffsets(void) {
     //case7:
       lb_AllLedsOff();
       lb_NorthLightOn(TRUE);
-      yOffset = -275;
+      yOffset = -LARGEOFFSET;
       xOffset = 0;
       break;
     case 2:  // East wind, affects X
     //case 8:
       lb_AllLedsOff();
       lb_EastLightOn(TRUE);
-      xOffset += 275;
       yOffset = 0;
+      xOffset = LARGEOFFSET;
       break;
     case 3:  // South wind, affects Y
     //case 9:
       lb_AllLedsOff();
       lb_SouthLightOn(TRUE);
-      yOffset = 225;
+      yOffset = SMALLOFFSET;
       xOffset = 0;
       break;
     case 4:  // West wind, affects X
     //case 10:
       lb_AllLedsOff();
       lb_WestLightOn(TRUE);
-      xOffset = -225;
       yOffset = 0;
+      xOffset = -SMALLOFFSET;
       break;
     case 5:  // North & East, affects X & Y
     //case 11:
       lb_AllLedsOff();
       lb_EastLightOn(TRUE);
       lb_NorthLightOn(TRUE);
-      xOffset = 275;
-      yOffset = 275;
+      yOffset = -LARGEOFFSET;
+      xOffset = LARGEOFFSET;
       break;
     case 6:  // South & West, affects X & Y
     //case 12:
       lb_AllLedsOff();
       lb_WestLightOn(TRUE);
       lb_SouthLightOn(TRUE);
-      yOffset = 225;
-      xOffset = -225;
+      yOffset = SMALLOFFSET;
+      xOffset = -SMALLOFFSET;
       break;
     default:
       lb_AllLedsOff();
@@ -165,11 +170,11 @@ void gp_CalculateWaveOffsets(void) {
  * dependent of the algorithm used to determine the difficulty level and it 
  * needs to be visible to readability.
  *************************************************************************** */
-static const uint8 DIFFICULTY_TIME_SPLIT = 20;
+static const uint8 DIFFICULTY_TIME_SPLIT = 10;
 void gp_CalculateDifficultyLevel(void) {
   /* Different approach based on user testing. First 30 seconds without any
    * additional wind. After that wind changes every 20 seconds. */
-  if(time_GetTimeInSeconds() < 30) {
+  if(time_GetTimeInSeconds() < 20) {
     difficultyLevel = 0;
   } else {
     difficultyLevel =

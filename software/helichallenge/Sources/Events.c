@@ -295,6 +295,31 @@ void TSS1_fCallBack0(TSS_CONTROL_ID u8ControlId)
   return;
 }
 
+/*
+** ===================================================================
+**     Event       :  AS1_OnTxComplete (module Events)
+**
+**     Component   :  AS1 [Serial_LDD]
+**     Description :
+**         This event indicates that the transmitter is finished
+**         transmitting all data, preamble, and break characters and is
+**         idle. It can be used to determine when it is safe to switch
+**         a line driver (e.g. in RS-485 applications).
+**         The event is available only when both <Interrupt
+**         service/event> and <Transmitter> properties are enabled.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. This pointer is passed
+**                           as the parameter of Init method.
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnTxComplete(LDD_TUserData *UserDataPtr)
+{
+  /* Write your code here ... */
+}
+
 /* END Events */
 
 /*

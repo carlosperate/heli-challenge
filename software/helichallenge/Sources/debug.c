@@ -8,6 +8,7 @@
 #include "debug.h"
 #include "joystick.h"
 #include "gameplay.h"
+#include "servocontrol.h"
 #include "ledblocks.h"
 #include "uartcontrol.h"
 
@@ -21,18 +22,24 @@ void debug_AdcXYServo(void) {
 #ifdef DEBUGFLAG
   //TODO: reading servo here, refactor to reduce cohersion
   AdcRead();
+  uint16 xData = ADC_READOUT[0];
+  uint16 yData = ADC_READOUT[1];
+  //uart_SendChar(27); //ESC command
+  //uart_SendString("[H"); //Return to begging of line
   uart_SendString("X-> ADC: ");
-  uart_SendUInt16(ADC_READOUT[0]);
+  uart_SendUInt16(xData);
   uart_SendString(", ");
-  uart_SendUInt16(joystick_GetX());
+  xData = joystick_GetX();
+  uart_SendUInt16(xData);
   uart_SendString("; Srv: "); 
-  uart_SendUInt16(js_GetXUs());
+  uart_SendUInt16(servo_16BitsToUs(xData));
   uart_SendString("\r\nY-> ADC: ");
-  uart_SendUInt16(ADC_READOUT[1]);
+  uart_SendUInt16(yData);
   uart_SendString(", ");
-  uart_SendUInt16(joystick_GetY());
+  yData = joystick_GetY();
+  uart_SendUInt16(yData);
   uart_SendString("; Srv: ");
-  uart_SendUInt16(js_GetYUs());
+  uart_SendUInt16(servo_16BitsToUs(yData));
   uart_SendString("\r\n"); 
 #endif
 }
@@ -43,7 +50,7 @@ void debug_AdcXYServo(void) {
  *************************************************************************** */
 void debug_PlayData(void) { 
   uart_SendString("\r\nPlay Difficulty: ");
-  uart_SendByte(js_GetDifficultyLevel());
+  uart_SendByte(gp_GetDifficultyLevel());
   uart_SendString("\r\n"); 
   debug_AdcXYServo();
 }
